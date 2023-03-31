@@ -1,26 +1,72 @@
 <?php
 
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Owner\OwnerController;
+use App\Http\Controllers\Owner\CategoryController;
+use App\Http\Controllers\Owner\MenuController;
+use App\Http\Controllers\Owner\ReservationController;
+use App\Http\Controllers\Owner\TableController;
+
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminMenuController;
+use App\Http\Controllers\Admin\AdminReservationController;
+use App\Http\Controllers\Admin\AdminTableController;
+
+use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryController;
+use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
+use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
+use App\Http\Controllers\Frontend\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/test', function(){
-    return view('test');
+// Route::middleware(['auth', 'customer'])->name('customer.')->prefix('customer')->group(function () {
+Route::middleware(['auth', 'customer'])->group(function () {
+    Route::get('/home', [WelcomeController::class, 'index']);
+    Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
+    Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');
+    Route::get('/reservation/step-one', [FrontendReservationController::class, 'stepOne'])->name('reservations.step.one');
+    Route::post('/reservation/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
+    Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
+    Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+    Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 });
+
+Route::get('/testing', [WelcomeController::class, 'test']);
+// });
+
+
+
+Route::middleware(['auth', 'Customer'])->group(function () {
+    // Route::get('/home', [WelcomeController::class, 'index']);
+    Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
+});
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(function () {
+    Route::get('/', [OwnerController::class, 'index'])->name('index');
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/menus', MenuController::class);
+    Route::resource('/tables', TableController::class);
+    Route::resource('/reservations', ReservationController::class);
+});
+
+Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/menus', AdminMenuController::class);
+    Route::resource('/tables', AdminTableController::class);
+    Route::resource('/reservations', AdminReservationController::class);
+});
+
+require __DIR__ . '/auth.php';
