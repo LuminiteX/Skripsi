@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,15 +35,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect()->intended(RouteServiceProvider::HOME);
-
-        if(auth()->user()->is_special_user == 0){
+        if (auth()->user()->is_special_user == 0) {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
-        if(auth()->user()->is_special_user == 1){
+        if (auth()->user()->is_special_user == 1) {
             return redirect()->intended(RouteServiceProvider::HOMEOwner);
         }
-        if(auth()->user()->is_special_user == 2){
+        if (auth()->user()->is_special_user == 2) {
             return redirect()->intended(RouteServiceProvider::HOMEAdmin);
         }
     }

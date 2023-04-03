@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('restaurant_id');
             $table->string('name');
             $table->text('description');
             $table->string('image');
             $table->decimal('price', 10, 2);
             $table->integer('chef_recommendation')->nullable();
             $table->timestamps();
+
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
         });
     }
 

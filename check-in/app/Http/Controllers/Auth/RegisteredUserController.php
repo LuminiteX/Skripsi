@@ -9,6 +9,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -37,29 +39,47 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', 'unique:users'],
+            'address' => ['required', 'string', 'min:20'],
+            'image' => ['required', 'mimes:jpeg,png,jpg,gif,svg'],
+            'is_special_user' => ['required']
+
         ]);
+
+        // $image = $request->file('image')->store('public/menus');
+        $image = $request->file('image');
+
+        $dateTime = now()->format('Ymd_His');
+
+        $filename = $dateTime . '_' . $image->getClientOriginalName();
+
+        $newPath = $request->file('image')->storeAs('public/picture', $filename);
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+            'image' => $newPath,
+            'is_special_user' => $request->is_special_user,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
 
-        // if(auth()->user()->is_special_user == 0){
-        //     return redirect(RouteServiceProvider::HOME);
-        // }
-        // if(auth()->user()->is_special_user == 1){
-        //     return redirect(RouteServiceProvider::HOMEOwner);
-        // }
-        // if(auth()->user()->is_special_user == 2){
-        //     return redirect(RouteServiceProvider::HOMEAdmin);
-        // }
-
+        if (auth()->user()->is_special_user == 0) {
+            return redirect(RouteServiceProvider::HOME);
+        }
+        if (auth()->user()->is_special_user == 1) {
+            return redirect(RouteServiceProvider::HOMEOwner);
+        }
+        if (auth()->user()->is_special_user == 2) {
+            return redirect(RouteServiceProvider::HOMEAdmin);
+        }
     }
 }

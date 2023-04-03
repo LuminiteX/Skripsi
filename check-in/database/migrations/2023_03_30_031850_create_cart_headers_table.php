@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('cart_headers', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('reservation_id');
+            $table->decimal('total', 10, 2);
+            $table->integer('cart_status')->default(0);
             $table->timestamps();
+
+            $table->foreign('reservation_id')->references('id')->on('reservations');
         });
     }
 

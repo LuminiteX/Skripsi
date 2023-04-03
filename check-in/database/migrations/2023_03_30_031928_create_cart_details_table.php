@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('cart_details', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('cart_header_id');
+            $table->unsignedBigInteger('menu_id');
+            $table->integer('quantity');
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
+
+            $table->foreign('cart_header_id')->references('id')->on('cart_headers')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
 

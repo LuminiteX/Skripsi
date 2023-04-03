@@ -23,12 +23,13 @@ return new class extends Migration
             $table->time('closing_time');
             $table->string('address');
             $table->string('picture');
-            $table->decimal('rating', 3, 2)->default(0.00);
+            $table->decimal('rating', 3, 1)->default(0.0);
             $table->unsignedBigInteger('view')->default(0);
-            $table->boolean('restaurant_status')->default(false);
+            $table->integer('restaurant_status')->default(0);
+            $table->integer('restaurant_opening_status')->default(0);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('reservation_id');
+            $table->unsignedBigInteger('restaurant_id');
+            $table->unsignedBigInteger('user_id');
+            $table->decimal('rating', 3, 1);
+            $table->string('comment');
             $table->timestamps();
         });
     }

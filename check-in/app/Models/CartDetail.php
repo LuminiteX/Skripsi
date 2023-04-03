@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class CartDetail extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'cart_header_id',
+        'menu_id',
+        'quantity',
+        'subtotal',
+    ];
+
+    public function cartHeader()
+    {
+        return $this->belongsTo(CartHeader::class);
+    }
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }

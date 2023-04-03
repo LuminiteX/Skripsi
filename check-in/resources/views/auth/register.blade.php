@@ -9,40 +9,82 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
+                    autofocus />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    required />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                    autocomplete="new-password" />
             </div>
 
             <!-- Confirm Password -->
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                    name="password_confirmation" required />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="phone_number" :value="__('Phone Number')" />
+                <p class="text-gray-500 text-xs">
+                    please input the phone number like the example +6281234567890
+                </p>
+                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" required />
+            </div>
+
+            <div class="mt-4">
+
+                <x-label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    :value="__('Address')" />
+                <textarea id="address" rows="4" name="address"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Write Address..."></textarea>
+
+            </div>
+            <div class="mt-1">
+                <x-label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    :value="__('User Profile Picture')" />
+                <input type="file" id="image" name="image"
+                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+            </div>
+            <div class="mt-4">
+                <x-label for="is_special_user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    :value="__('Please Choose Role')" />
+                <div class="flex items-center md:flex-row">
+                    @foreach (['0', '1'] as $key => $value)
+                        <input type="radio" name="is_special_user" id="is_special_user_{{ strtolower($value) }}"
+                            value="{{ $value }}" @if ($key === 0) class="ml-40" @endif
+                            @if ($key === 1) class="ml-12" @endif>
+                        <label for="is_special_user_{{ strtolower($value) }}">
+                            @if ($value == 0)
+                                {{ __('Customer') }}
+                            @endif
+                            @if ($value == 1)
+                                {{ __('Restaurant Owner') }}
+                            @endif
+                        </label>
+                    @endforeach
+                </div>
             </div>
 
             <div class="flex items-center justify-center mt-4">

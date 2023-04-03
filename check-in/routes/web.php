@@ -7,6 +7,7 @@ use App\Http\Controllers\Owner\CategoryController;
 use App\Http\Controllers\Owner\MenuController;
 use App\Http\Controllers\Owner\ReservationController;
 use App\Http\Controllers\Owner\TableController;
+use App\Http\Controllers\Owner\RestaurantController;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCategoryController;
@@ -39,22 +40,18 @@ Route::middleware(['auth', 'customer'])->group(function () {
 });
 
 Route::get('/testing', [WelcomeController::class, 'test']);
-// });
 
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth', 'Customer'])->group(function () {
-    // Route::get('/home', [WelcomeController::class, 'index']);
-    Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
-});
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// part ini tolong jangan di ganti thanks
 
 Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(function () {
     Route::get('/', [OwnerController::class, 'index'])->name('index');
+    Route::get('/restaurant/create', [RestaurantController::class, 'index'])->name('restaurant.index');
+    Route::post('/restaurant/create', [RestaurantController::class, 'create'])->name('restaurant.create');
     Route::resource('/categories', CategoryController::class);
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);

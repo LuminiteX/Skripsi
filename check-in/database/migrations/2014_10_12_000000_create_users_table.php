@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number');
             $table->string('address');
-            $table->boolean('is_special_user')->default(false);
+            $table->integer('is_special_user')->default(0);
+            $table->integer('has_restaurant')->default(0);
+            $table->string('image');
             $table->rememberToken();
             $table->timestamps();
         });

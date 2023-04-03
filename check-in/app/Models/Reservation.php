@@ -12,13 +12,15 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'restaurant_id',
+        'user_id',
+        'table_id',
         'first_name',
         'last_name',
-        'tel_number',
         'email',
-        'table_id',
+        'tel_number',
         'res_date',
-        'guest_number'
+        'guest_number',
     ];
 
     protected $dates = [
@@ -26,6 +28,16 @@ class Reservation extends Model
     ];
 
 
+
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function table()
     {
