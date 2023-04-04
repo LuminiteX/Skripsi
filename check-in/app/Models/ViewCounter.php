@@ -11,7 +11,6 @@ class ViewCounter extends Model
 
     protected $fillable = [
         'restaurant_id',
-        'count'
     ];
 
     public function restaurant()
