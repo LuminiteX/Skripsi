@@ -35,6 +35,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -44,6 +45,8 @@ class RegisteredUserController extends Controller
             'image' => ['required', 'mimes:jpeg,png,jpg,gif,svg'],
             'is_special_user' => ['required']
 
+        ],  [
+            'is_special_user.required' => 'Please pick one of the role',
         ]);
 
         // $image = $request->file('image')->store('public/menus');
@@ -65,6 +68,8 @@ class RegisteredUserController extends Controller
             'image' => $newPath,
             'is_special_user' => $request->is_special_user,
         ]);
+
+
 
         event(new Registered($user));
 

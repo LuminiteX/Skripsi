@@ -47,9 +47,10 @@
             <div class="mt-4">
                 <x-label for="phone_number" :value="__('Phone Number')" />
                 <p class="text-gray-500 text-xs">
-                    please input the phone number like the example +6281234567890
+                    please input the phone format like the example +6281234567890
                 </p>
-                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" required />
+                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number"
+                    :value="old('phone_number')" required />
             </div>
 
             <div class="mt-4">
@@ -58,7 +59,7 @@
                     :value="__('Address')" />
                 <textarea id="address" rows="4" name="address"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Write Address..."></textarea>
+                    placeholder="Write Address...">{{ old('address') }}</textarea>
 
             </div>
             <div class="mt-1">
@@ -71,10 +72,10 @@
                 <x-label for="is_special_user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     :value="__('Please Choose Role')" />
                 <div class="flex items-center md:flex-row">
-                    @foreach (['0', '1'] as $key => $value)
+                    {{-- @foreach (['0', '1'] as $key => $value)
                         <input type="radio" name="is_special_user" id="is_special_user_{{ strtolower($value) }}"
                             value="{{ $value }}" @if ($key === 0) class="ml-40" @endif
-                            @if ($key === 1) class="ml-12" @endif>
+                            @if ($key === 1) class="ml-24" @endif>
                         <label for="is_special_user_{{ strtolower($value) }}">
                             @if ($value == 0)
                                 {{ __('Customer') }}
@@ -83,13 +84,19 @@
                                 {{ __('Restaurant Owner') }}
                             @endif
                         </label>
-                    @endforeach
+                    @endforeach --}}
+                    <select name="is_special_user" id="is_special_user"
+                        class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline focus:outline-none">
+                        @foreach (['0' => 'Customer', '1' => 'Restaurant Owner'] as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
             <div class="flex items-center justify-center mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Already registered? Login Now') }}
                 </a>
 
 

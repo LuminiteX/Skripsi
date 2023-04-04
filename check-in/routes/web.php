@@ -52,6 +52,8 @@ Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(fun
     Route::get('/', [OwnerController::class, 'index'])->name('index');
     Route::get('/restaurant/create', [RestaurantController::class, 'index'])->name('restaurant.index');
     Route::post('/restaurant/create', [RestaurantController::class, 'create'])->name('restaurant.create');
+    Route::get('/restaurant/profile', [RestaurantController::class, 'profile'])->name('restaurant.profile');
+    // Route::get('/restaurant/profile/activate',)
     Route::resource('/categories', CategoryController::class);
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);

@@ -13,10 +13,10 @@
 
     <!-- Styles -->
     {{-- after finish run npm run dev and delete this line of code one and two bellow --}}
-    {{-- <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/forms@0.4.0/dist/forms.min.css"> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/forms@0.4.0/dist/forms.min.css">
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -40,7 +40,7 @@
             class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-slate-100 md:w-64 dark:text-gray-200 dark:bg-gray-800"
             x-data="{ open: false }">
             <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
-                <a href="#"
+                <a href="/owner"
                     class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Check-In
                     Owner</a>
                 <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
@@ -58,20 +58,20 @@
                 class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
                 @if (auth()->user()->has_restaurant == 0)
                     {{-- need to change the route this is just temporary --}}
-                    <x-owner-nav-link :href="route('owner.restaurant.index')" :active="request()->routeIs('owner.restaurant.create')">
+                    <x-owner-nav-link :href="route('owner.restaurant.index')" :active="request()->routeIs('owner.restaurant.index')">
                         {{ __('Register a Restaurant') }}
                     </x-owner-nav-link>
                 @endif
 
                 @if (auth()->user()->has_restaurant == 1)
                     {{-- need to change the route this is just temporary --}}
-                    <x-owner-nav-link :href="route('owner.categories.index')" :active="request()->routeIs('owner.categories.index')">
+                    <x-owner-nav-link :href="route('owner.restaurant.profile')" :active="request()->routeIs('owner.restaurant.profile')">
                         {{ __('Restaurant Profile') }}
                     </x-owner-nav-link>
 
                     {{-- need to change the route this is just temporary --}}
                     <x-owner-nav-link :href="route('owner.categories.index')" :active="request()->routeIs('owner.categories.index')">
-                        {{ __('Store Owner Profile') }}
+                        {{ __('Owner Profile') }}
                     </x-owner-nav-link>
 
                     <x-owner-nav-link :href="route('owner.categories.index')" :active="request()->routeIs('owner.categories.index')">
