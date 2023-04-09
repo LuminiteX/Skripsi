@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function Ramsey\Uuid\v1;
 
@@ -18,7 +19,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        $tables = Table::all();
+        $restaurant = Auth::user()->restaurant;
+        $tables = Table::where('restaurant_id', $restaurant->id)->get();
         return view('owner.tables.index', compact('tables'));
     }
 
@@ -29,7 +31,10 @@ class TableController extends Controller
      */
     public function create()
     {
-        return view('owner.tables.create');
+        $restaurant = Auth::user()->restaurant;
+        $restaurant_id = $restaurant->id;
+
+        return view('owner.tables.create', compact('restaurant_id'));
     }
 
     /**
@@ -42,6 +47,7 @@ class TableController extends Controller
     {
         Table::create([
             'name' => $request->name,
+            'restaurant_id' => $request->restaurant_id,
             'guest_number' => $request->guest_number,
             'status' => $request->status,
             'location' => $request->location,

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
@@ -18,7 +19,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
+        $restaurant = Auth::user()->restaurant;
+        $menus = Menu::where('restaurant_id', $restaurant->id)->get();
+
         return view('owner.menus.index', compact('menus'));
     }
 
@@ -29,8 +32,10 @@ class MenuController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('owner.menus.create', compact('categories'));
+        $restaurant = Auth::user()->restaurant;
+        $restaurant_id = $restaurant->id;
+        $categories = Category::where('restaurant_id', $restaurant->id)->get();
+        return view('owner.menus.create', compact('categories','restaurant_id'));
     }
 
     /**
@@ -46,6 +51,7 @@ class MenuController extends Controller
 
         $menu = Menu::create([
             'name' => $request->name,
+            'restaurant_id' => $request->restaurant_id,
             'description' => $request->description,
             'image' => $image,
             'price' => $request->price,
@@ -68,7 +74,9 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        $categories = Category::all();
+        $restaurant = Auth::user()->restaurant;
+        $restaurant_id = $restaurant->id;
+        $categories = Category::where('restaurant_id', $restaurant->id)->get();
         // dd($categories);
         return view('owner.menus.edit', compact('menu', 'categories'));
     }
@@ -97,7 +105,8 @@ class MenuController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image,
-            'price' => $request->price
+            'price' => $request->price,
+            'chef_recommendation' => $request->chefRecommendation
         ]);
 
         if ($request->has('categories')) {

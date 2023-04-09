@@ -15,19 +15,20 @@ class Reservation extends Model
         'restaurant_id',
         'user_id',
         'table_id',
-        'first_name',
-        'last_name',
-        'email',
-        'tel_number',
-        'res_date',
         'guest_number',
+        'reservation_date',
+        'reservation_status',
     ];
 
     protected $dates = [
-        'res_date'
+        'reservation_date'
     ];
 
 
+    public function cart_header()
+    {
+        return $this->hasOne(CartHeader::class);
+    }
 
     public function restaurant()
     {

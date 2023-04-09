@@ -22,7 +22,7 @@ return new class extends Migration
             $table->time('opening_time');
             $table->time('closing_time');
             $table->string('address');
-            $table->string('picture');
+            $table->string('image');
             $table->decimal('rating', 3, 1)->default(0.0);
             $table->unsignedBigInteger('view')->default(0);
             $table->integer('restaurant_status')->default(0);

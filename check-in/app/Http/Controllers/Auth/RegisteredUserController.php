@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', 'unique:users'],
-            'address' => ['required', 'string', 'min:20'],
+            'address' => ['required', 'string', 'min:20', 'max:255'],
             'image' => ['required', 'mimes:jpeg,png,jpg,gif,svg'],
             'is_special_user' => ['required']
 

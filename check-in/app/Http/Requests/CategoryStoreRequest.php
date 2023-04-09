@@ -29,4 +29,13 @@ class CategoryStoreRequest extends FormRequest
             'description' => ['required'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'The category name is required.',
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image must be a valid image file.',
+            'description.required' => 'The description field is required.',
+        ];
+    }
 }

@@ -16,7 +16,7 @@ class Restaurant extends Model
         'opening_time',
         'closing_time',
         'address',
-        'picture',
+        'image',
         'rating',
         'view',
         'restaurant_status',

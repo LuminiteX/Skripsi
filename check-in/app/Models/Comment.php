@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    // protected $table = 'comment';
+
     protected $fillable = [
         'restaurant_id',
         'user_id',
@@ -24,5 +26,10 @@ class Comment extends Model
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
+    }
+
+    public function child()
+    {
+        return $this->hasMany(Comment::class, 'parent');
     }
 }

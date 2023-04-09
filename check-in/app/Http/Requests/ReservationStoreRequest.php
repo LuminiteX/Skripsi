@@ -27,11 +27,10 @@ class ReservationStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
+            'name' => ['required'],
             'email' => ['required', 'email'],
-            'res_date' => ['required', 'date', new DateBetween, new TimeBetween],
-            'tel_number' => ['required'],
+            'phone_number' => ['required'],
+            'reservation_date' => ['required', 'date', new DateBetween, new TimeBetween],
             'table_id' => ['required'],
             'guest_number' => ['required'],
         ];

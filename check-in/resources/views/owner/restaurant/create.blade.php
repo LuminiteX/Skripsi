@@ -7,7 +7,7 @@
 
     @if (auth()->user()->has_restaurant == 0)
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
                 <div class="m-2 p-2 bg-slate-100 rounded">
                     <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 mx-52">
                         <h1 class="text-center font-bold text-2xl">Register Restaurant</h1>
@@ -88,7 +88,7 @@
                                 </label>
                                 <div class="mt-1">
                                     <textarea id="address" name="address" rows="4" cols="50"
-                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description') }}</textarea>
+                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('address') }}</textarea>
                                 </div>
                                 @error('address')
                                     <div class="text-sm text-red-400">{{ $message }}</div>

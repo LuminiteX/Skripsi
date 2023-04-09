@@ -15,4 +15,8 @@ class CartHeader extends Model
     {
         return $this->belongsTo(Reservation::class);
     }
+    public function cart_detail()
+    {
+        return $this->hasMany(CartDetail::class);
+    }
 }

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('view_counters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('restaurant_id');
-            $table->timestamp('timestamp')->useCurrent();
+            $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
         });

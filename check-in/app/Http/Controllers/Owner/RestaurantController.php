@@ -5,16 +5,24 @@ namespace App\Http\Controllers\Owner;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
-use App\Models\ViewCounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class RestaurantController extends Controller
 {
     public function index()
     {
+
         return view('owner.restaurant.create');
+    }
+
+    public function edit()
+    {
+        $restaurant = Restaurant::where('user_id', auth()->user()->id)->first();
+        // return view('owner.restaurant.edit');
+        return view('owner.restaurant.edit')->with('restaurant', $restaurant);
     }
 
     public function create(Request $request)
@@ -25,10 +33,13 @@ class RestaurantController extends Controller
             'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', 'unique:restaurants'],
             'opening_time' => ['required', 'date_format:H:i', 'before_or_equal:closing_time'],
             'closing_time' => ['required', 'date_format:H:i'],
-            'address' => ['required', 'min:20', 'max:255'],
+            'address' => ['required', 'min:15', 'max:255'],
             'image' => ['required', 'mimes:jpeg,png,jpg,gif,svg'],
         ], [
             'opening_time.before_or_equal' => 'The opening time must be before or equal to the closing time.',
+            'description.min' => 'Please put more detailed information about the restaurant description',
+            'phone_number.regex'=> 'Please follow the format of the phone number',
+            'address.min' => 'Please put more detailed information about the restaurant location',
             'image.mimes' => 'The uploaded file must be in an image format'
         ]);
 
@@ -38,9 +49,11 @@ class RestaurantController extends Controller
 
         $filename = $dateTime . '_' . $image->getClientOriginalName();
 
-        $newPath = $request->file('image')->storeAs('public/restaurant_picture', $filename);
+        $newPath = $request->file('image')->storeAs('public/restaurant_image', $filename);
 
         $user_id = Auth::id();
+
+        // dd($newPath);
 
         $restaurant = Restaurant::create([
             'user_id' => $user_id,
@@ -50,33 +63,40 @@ class RestaurantController extends Controller
             'opening_time' => $request->opening_time,
             'closing_time' => $request->closing_time,
             'address' => $request->address,
-            'picture' => $newPath,
+            'image' => $newPath,
         ]);
 
         // same as bellow just another way to create it
-        // $id = auth()->id();
+        $id = auth()->id();
 
-        // User::where('id', $id)
-        //     ->update([
-        //         'has_restaurant' => 1,
-        //     ]);
+        User::where('id', $id)
+            ->update([
+                'has_restaurant' => 1,
+            ]);
 
-        if (auth()->check()) {
-            $user = auth()->user();
-            $user->has_restaurant = 1;
-            $user->save();
-        }
+        // if (auth()->check()) {
+        //     $user = auth()->user();
+        //     $user->has_restaurant = 1;
+        //     $user->save();
+        // }
 
         // dd($user_id);
 
-        return view('owner.index');
+        return redirect()->route('owner.index');
     }
 
     public function profile()
     {
         $restaurant = Restaurant::where('user_id', auth()->user()->id)->first();
+        $carbonDate = \Carbon\Carbon::createFromFormat('H:i:s', $restaurant->opening_time);
+        $formattedTimeOpening = $carbonDate->format('H:i');
 
-        return view('owner.restaurant.profile')->with('restaurant', $restaurant);
+        $carbonDate = \Carbon\Carbon::createFromFormat('H:i:s', $restaurant->closing_time);
+        $formattedTimeClosing = $carbonDate->format('H:i');
+
+        $restaurant = Restaurant::where('user_id', auth()->user()->id)->first();
+
+        return view('owner.restaurant.profile')->with('restaurant', $restaurant)->with('formattedTimeOpening', $formattedTimeOpening)->with( 'formattedTimeClosing', $formattedTimeClosing);
     }
 
     public function activate(){
@@ -88,7 +108,7 @@ class RestaurantController extends Controller
             'restaurant_opening_status' => 1,
         ]);
 
-        return view('owner.restaurant.profile')->with('restaurant', $restaurant);
+        return redirect()->route('owner.restaurant.profile')->with('restaurant', $restaurant);
     }
 
     public function deactivate(){
@@ -97,7 +117,58 @@ class RestaurantController extends Controller
         ->update([
             'restaurant_opening_status' => 0,
         ]);
-        return view('owner.restaurant.profile')->with('restaurant', $restaurant);
+        return redirect()->route('owner.restaurant.profile')->with('restaurant', $restaurant);
+    }
+
+    public function editSave(Request $request, Restaurant $restaurant)
+    {
+        $request->validate([
+            'restaurant_name' => ['required', 'max:255'],
+            'description' => ['required', 'min:20', 'max:255'],
+            'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', Rule::unique('restaurants')->ignore($restaurant->id)],
+            'opening_time' => ['required', 'date_format:H:i', 'before_or_equal:closing_time'],
+            'closing_time' => ['required', 'date_format:H:i'],
+            'address' => ['required', 'min:15', 'max:255'],
+            'image' => ['mimes:jpeg,png,jpg,gif,svg'],
+        ], [
+            'opening_time.before_or_equal' => 'The opening time must be before or equal to the closing time.',
+            'description.min' => 'Please put more detailed information about the restaurant description at least 20 words',
+            'phone_number.regex'=> 'Please follow the format of the phone number',
+            'address.min' => 'Please put more detailed information about the restaurant location at least 20 words',
+            'image.mimes' => 'The uploaded file must be in an image format'
+        ]);
+
+        // dd($restaurant);
+
+
+        $image = $restaurant->image;
+
+        if ($request->hasFile('image')) {
+
+            $imageNew = $request->file('image');
+
+            $dateTime = now()->format('Ymd_His');
+
+            $filename = $dateTime . '_' . $imageNew->getClientOriginalName();
+
+            Storage::delete($restaurant->image);
+            $image = $request->file('image')->storeAs('public/restaurant_image', $filename);
+        }
+
+
+        $restaurant = Restaurant::where('user_id', auth()->user()->id)->first();
+        Restaurant::where('id', $restaurant->id)
+        ->update([
+            'name'=> $request->restaurant_name,
+            'description'=> $request->description,
+            'phone_number'=> $request->phone_number,
+            'opening_time'=> $request->opening_time,
+            'closing_time'=> $request->closing_time,
+            'address'=> $request->address,
+            'image'=> $image,
+        ]);
+        // return view('owner.restaurant.edit');
+        return redirect('owner/restaurant/profile')->with('restaurant', $restaurant);
     }
 
 }

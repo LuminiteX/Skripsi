@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('user_id');
             $table->decimal('rating', 3, 1);
-            $table->string('comment');
+            $table->text('comment');
             $table->timestamps();
         });
     }

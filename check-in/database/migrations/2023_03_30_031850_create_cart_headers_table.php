@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reservation_id');
             $table->decimal('total', 10, 2);
+            $table->string('image')->nullable();
             $table->integer('cart_status')->default(0);
             $table->timestamps();
 

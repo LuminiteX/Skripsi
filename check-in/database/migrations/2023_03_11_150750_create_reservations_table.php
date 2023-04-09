@@ -18,18 +18,15 @@ return new class extends Migration
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('table_id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('tel_number');
-            $table->dateTime('res_date');
             $table->integer('guest_number');
+            $table->dateTime('reservation_date');
+            $table->integer('reservation_status');
             $table->timestamps();
-
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
+
         });
     }
 

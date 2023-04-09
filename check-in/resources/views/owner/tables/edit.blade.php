@@ -12,7 +12,8 @@
                     class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Table Index</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
-                <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
+                <div class="space-y-8 divide-y divide-gray-200 w-full mt-10">
+                    <div class="text-center font-bold text-xl">Create Table</div>
                     <form method="POST" action="{{ route('owner.tables.update', $table->id) }}">
                         @csrf
                         @method('PUT')
@@ -26,7 +27,7 @@
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="sm:col-span-6">
+                        <div class="sm:col-span-6 pt-5">
                             <label for="guest_number" class="block text-sm font-medium text-gray-700"> Guest Number
                             </label>
                             <div class="mt-1">
@@ -66,7 +67,7 @@
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mt-6 p-4">
+                        <div class="flex mt-6 p-4 justify-center items-center">
                             <button type="submit"
                                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Store</button>
                         </div>

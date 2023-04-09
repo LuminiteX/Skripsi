@@ -12,10 +12,10 @@
                     <div class="space-y-8 divide-y divide-gray-200 mt-10 mx-1">
                         <div class="container mx-auto lg:flex lg:flex-row">
                             <div class="w-full lg:w-1/2 flex items-center justify-center mb-10">
-                                @if ($restaurant->picture)
+                                @if ($restaurant->image)
                                     <div class="w-full h-64 px-4">
                                         <img class="object-cover w-full h-full"
-                                            src="{{ Storage::url($restaurant->picture) }}" alt="Restaurant image">
+                                            src="{{ Storage::url($restaurant->image) }}" alt="Restaurant image">
                                     </div>
                                 @else
                                     <img class="max-h-64" src="{{ asset('storage/default/default-image.jpg') }}"
@@ -51,13 +51,14 @@
                                     Restaurant Opening Time
                                 </h2>
                                 <p class="text-gray-600 mb-2">
-                                    Opening Time:{{ $restaurant->opening_time }}
+                                    Opening Time:
+                                    {{ $formattedTimeOpening }}
                                 </p>
                                 <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
                                     Restaurant Closing Time
                                 </h2>
                                 <p class="text-gray-600 mb-2">
-                                    Closing Time: {{ $restaurant->closing_time }}
+                                    Closing Time: {{ $formattedTimeClosing }}
                                 </p>
                                 <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
                                     Restaurant Status
@@ -83,11 +84,11 @@
                                 </p>
                                 <div class="flex sm:justify-center md:justify-start mt-8 space-x-10">
                                     {{-- example {{ route('restaurants.edit', $restaurant->id) }} --}}
-                                    <a href="#"
+                                    <a href="{{ route('owner.restaurant.profile.activate') }}"
                                         class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded s">Open</a>
-                                    <a href="#"
+                                    <a href="{{ route('owner.restaurant.profile.deactivate') }}"
                                         class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Close</a>
-                                    <a href="#"
+                                    <a href="{{ route('owner.restaurant.profile.edit.show') }}"
                                         class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">Edit</a>
                                 </div>
                             </div>

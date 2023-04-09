@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+
+        $restaurant = Auth::user()->restaurant;
+        $categories = Category::where('restaurant_id', $restaurant->id)->get();
         return view('owner.categories.index', compact('categories'));
     }
 
@@ -28,7 +31,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('owner.categories.create');
+        $restaurant = Auth::user()->restaurant;
+        $restaurant_id = $restaurant->id;
+        return view('owner.categories.create', compact('restaurant_id'));
     }
 
     /**
@@ -43,6 +48,7 @@ class CategoryController extends Controller
 
         Category::create([
             'name' => $request->name,
+            'restaurant_id'=> $request->restaurant_id,
             'description' => $request->description,
             'image' => $image
         ]);
@@ -69,6 +75,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        // $restaurant = Auth::user()->restaurant;
+        // $restaurant_id = $restaurant->id;
+        // dd($category);
+
         return view('owner.categories.edit', compact('category'));
     }
 

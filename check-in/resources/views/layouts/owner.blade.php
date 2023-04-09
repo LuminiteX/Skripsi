@@ -13,25 +13,24 @@
 
     <!-- Styles -->
     {{-- after finish run npm run dev and delete this line of code one and two bellow --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/forms@0.4.0/dist/forms.min.css">
 
-    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('css/star.css') }}">
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+
+    {{-- <link rel="stylesheet" href="https://unpkg.com/@tailwindcss/forms@0.4.0/dist/forms.min.css"> --}}
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    {{-- flatpicker jangan di hapus --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <link rel="icon" type="image/png" href="{{ asset('storage/logo/logo.png') }}">
-    {{-- <style>
-        @media screen and (-webkit-min-device-pixel-ratio:0) {
-            #favicon {
-                width: 500px;
-                height: 500px;
-            }
-        }
-    </style> --}}
 
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -70,7 +69,7 @@
                     </x-owner-nav-link>
 
                     {{-- need to change the route this is just temporary --}}
-                    <x-owner-nav-link :href="route('owner.categories.index')" :active="request()->routeIs('owner.categories.index')">
+                    <x-owner-nav-link :href="route('owner.profile')" :active="request()->routeIs('owner.profile')">
                         {{ __('Owner Profile') }}
                     </x-owner-nav-link>
 
@@ -87,7 +86,7 @@
                     </x-owner-nav-link>
 
                     {{-- route needed to be changed --}}
-                    <x-owner-nav-link :href="route('owner.tables.index')" :active="request()->routeIs('owner.tables.index')">
+                    <x-owner-nav-link :href="route('owner.table_layouts.index')" :active="request()->routeIs('owner.table_layouts.index')">
                         {{ __('Table Layout') }}
                     </x-owner-nav-link>
 
@@ -96,17 +95,17 @@
                     </x-owner-nav-link>
 
                     {{-- route needed to be changed --}}
-                    <x-owner-nav-link :href="route('owner.tables.index')" :active="request()->routeIs('owner.tables.index')">
+                    <x-owner-nav-link :href="route('owner.comments.index')" :active="request()->routeIs('owner.comments.index')">
                         {{ __('Manage Comment') }}
                     </x-owner-nav-link>
 
                     {{-- route needed to be changed --}}
-                    <x-owner-nav-link :href="route('owner.tables.index')" :active="request()->routeIs('owner.tables.index')">
+                    <x-owner-nav-link :href="route('owner.feedback')" :active="request()->routeIs('owner.feedback')">
                         {{ __('Feedback') }}
                     </x-owner-nav-link>
 
                     {{-- route needed to be changed --}}
-                    <x-owner-nav-link :href="route('owner.tables.index')" :active="request()->routeIs('owner.tables.index')">
+                    <x-owner-nav-link :href="route('owner.charts.index')" :active="request()->routeIs('owner.charts.index')">
                         {{ __('Charts') }}
                     </x-owner-nav-link>
                 @endif

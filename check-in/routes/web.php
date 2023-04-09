@@ -6,20 +6,28 @@ use App\Http\Controllers\Owner\OwnerController;
 use App\Http\Controllers\Owner\CategoryController;
 use App\Http\Controllers\Owner\MenuController;
 use App\Http\Controllers\Owner\ReservationController;
+use App\Http\Controllers\Owner\ReservationController2;
 use App\Http\Controllers\Owner\TableController;
 use App\Http\Controllers\Owner\RestaurantController;
+use App\Http\Controllers\Owner\TableLayoutController;
+use App\Http\Controllers\Owner\CommentController;
+use App\Http\Controllers\Owner\FeedbackOwnerController;
+use App\Http\Controllers\Owner\ChartController;
+
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminCategoryController;
-use App\Http\Controllers\Admin\AdminMenuController;
-use App\Http\Controllers\Admin\AdminReservationController;
-use App\Http\Controllers\Admin\AdminTableController;
+use App\Http\Controllers\Admin\AdminManageUserController;
+use App\Http\Controllers\Admin\AdminManageRestaurantEligibility;
+
+
 
 use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryController;
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController as FrontendReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 Route::get('/', function () {
@@ -50,22 +58,51 @@ Route::get('/testing', [WelcomeController::class, 'test']);
 
 Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(function () {
     Route::get('/', [OwnerController::class, 'index'])->name('index');
+    Route::get('/chart',[ChartController::class, 'index'])->name('charts.index');
+    Route::get('/profile',[OwnerController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit',[OwnerController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/edit',[OwnerController::class, 'editSave'])->name('profile.edit.save');
     Route::get('/restaurant/create', [RestaurantController::class, 'index'])->name('restaurant.index');
     Route::post('/restaurant/create', [RestaurantController::class, 'create'])->name('restaurant.create');
     Route::get('/restaurant/profile', [RestaurantController::class, 'profile'])->name('restaurant.profile');
-    // Route::get('/restaurant/profile/activate',)
+    Route::get('/restaurant/profile/activate',[RestaurantController::class, 'activate'])->name('restaurant.profile.activate');
+    Route::get('/restaurant/profile/deactivate',[RestaurantController::class, 'deactivate'])->name('restaurant.profile.deactivate');
+    Route::get('/restaurant/profile/edit',[RestaurantController::class, 'edit'])->name('restaurant.profile.edit.show');
+    Route::put('/restaurant/profile/edit/{restaurant}', [RestaurantController::class, 'editSave'])->name('restaurant.profile.edit.save');
+    Route::get('/feedback', [FeedbackOwnerController::class, 'index'])->name('feedback');
+    Route::get('/feedback/rate/asc', [FeedbackOwnerController::class, 'rateAsc'])->name('feedback.rate.asc');
+    Route::get('/feedback/rate/desc', [FeedbackOwnerController::class, 'rateDesc'])->name('feedback.rate.desc');
+    Route::get('/feedback/date/asc', [FeedbackOwnerController::class, 'dateAsc'])->name('feedback.date.asc');
+    Route::get('/feedback/date/desc', [FeedbackOwnerController::class, 'dateDesc'])->name('feedback.date.desc');
+    Route::get('/comment',[CommentController::class, 'index'])->name('comments.index');
+    Route::post('/comment/send/{restaurant}', [CommentController::class,'send'])->name('comments.send');
+    Route::delete('/comments/destroy/{comments}', [CommentController::class,'destroy'])->name('comments.destroy');
+    Route::get('/comment/reply/show/{comments}',[CommentController::class, 'reply'])->name('comments.reply.show');
+    Route::post('/comment/reply/send/{restaurant}',[CommentController::class, 'sendReply'])->name('comments.reply.send');
+    Route::get('/reservation/reject/{reservation}',[ReservationController2::class, 'reject'])->name('reservations.reject');
+    Route::get('/reservation/sort_by_status',[ReservationController2::class, 'sortByStatus'])->name('reservations.sort_by_status');
+    Route::get('/reservation/sort_by_date_now',[ReservationController2::class, 'sortByDateNowUntilFuture'])->name('reservations.sort_by_date_now');
+    Route::get('/reservation/sort_by_guest_number',[ReservationController2::class, 'sortByGuestNumber'])->name('reservations.sort_by_guest_number');
+    Route::get('/reservation/not_eligible/{reservation}',[ReservationController2::class, 'notEligible'])->name('reservations.not_eligible');
+    Route::get('/reservation/finish/{reservation}',[ReservationController2::class, 'finish'])->name('reservations.finish');
+    // Route::get('/reservation/view/{reservation}',[ReservationController2::class, 'reservationView'])->name('reservation.view');
     Route::resource('/categories', CategoryController::class);
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);
+    Route::resource('/table_layouts', TableLayoutController::class);
     Route::resource('/reservations', ReservationController::class);
 });
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/menus', AdminMenuController::class);
-    Route::resource('/tables', AdminTableController::class);
-    Route::resource('/reservations', AdminReservationController::class);
+    Route::get('/manage/user', [AdminManageUserController::class, 'index'])->name('manage.user');
+    Route::delete('/manage/user/delete/{user}', [AdminManageUserController::class, 'deleteUser'])->name('manage.user.delete');
+    Route::get('/manage/restaurant', [AdminManageRestaurantEligibility::class,'index'])->name('manage.restaurant');
+    Route::put('/manage/restaurant/eligible/{restaurant}', [AdminManageRestaurantEligibility::class,'Eligible'])->name('manage.restaurant.eligible');
+    Route::put('/manage/restaurant/not_eligible/{restaurant}', [AdminManageRestaurantEligibility::class,'notEligible'])->name('manage.restaurant.not_eligible');
+
+
+
 });
 
 require __DIR__ . '/auth.php';
