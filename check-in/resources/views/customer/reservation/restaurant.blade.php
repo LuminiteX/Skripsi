@@ -12,7 +12,9 @@
                     <h2 class="fw-bold mb-0">{{ $restaurants->name }}</h2>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end align-items-center">
-                    <button class="btn btn-primary me-3">Reserve Now</button>
+                    <a href="{{ route('reservations.step.one', $restaurants->id) }}"
+                        class="btn btn-primary me-3">Reserve
+                        Now</a>
                     <div class="rating-section">
                         <p class="card-text">
                             Rating:

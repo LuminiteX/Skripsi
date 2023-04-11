@@ -47,8 +47,8 @@ class Restaurant extends Model
         return $this->hasMany(ViewCounter::class);
     }
 
-    public function ratingCounters()
+    public function tableLayout()
     {
-        return $this->hasMany(RatingCounter::class);
+        return $this->hasMany(TableLayout::class);
     }
 }

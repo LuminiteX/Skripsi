@@ -7,7 +7,7 @@
                 <p class="card-text mt-4 mb-4">Check-In is a web based application that aims to help you make
                     reservations in restaurants that you want! With Check-In, it's going to be easier to make
                     reservations!</p>
-                <a href="#" class="btn btn-primary">Make your reservation</a>
+                <a href="{{ route('restaurants.list') }}" class="btn btn-primary">Make your reservation</a>
             </div>
         </div>
         <div class="container bg-white text-body pt-5">

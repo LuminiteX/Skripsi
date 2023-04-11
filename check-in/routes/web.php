@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\AdminManageRestaurantEligibility;
 use App\Http\Controllers\Customer\CategoryController as CustomerCategoryController;
 use App\Http\Controllers\Customer\MenuController as CustomerMenuController;
 use App\Http\Controllers\Customer\ReservationController as CustomerReservationController;
+use App\Http\Controllers\Customer\RestaurantController as CustomerRestaurantController;
+use App\Http\Controllers\Customer\CommentController as CustomerCommentController;
 use App\Http\Controllers\Customer\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,12 +45,17 @@ Route::get('/', function () {
 // Route::middleware(['auth', 'customer'])->name('customer.')->prefix('customer')->group(function () {
 Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/home', [WelcomeController::class, 'index']);
-    Route::get('/restaurant_list', [CustomerReservationController::class, 'index'])->name('restaurants.list');
-    Route::get('/search', [CustomerReservationController::class, 'search'])->name('restaurants.search');
-    Route::get('/detail/{restaurants}', [CustomerReservationController::class, 'detail'])->name('restaurants.details');
-    Route::post('/comment/send/{restaurant}', [CustomerReservationController::class, 'send'])->name('customer.comments.send');
-    Route::post('/comment/reply/{restaurant}', [CustomerReservationController::class, 'reply'])->name('customer.comments.reply');
-    Route::delete('/comment/destroy/{comments}', [CustomerReservationController::class, 'destroy'])->name('customer.comments.reply.destroy');
+    Route::get('/restaurant_list', [CustomerRestaurantController::class, 'index'])->name('restaurants.list');
+    Route::get('/search', [CustomerRestaurantController::class, 'search'])->name('restaurants.search');
+    Route::get('/detail/{restaurants}', [CustomerRestaurantController::class, 'detail'])->name('restaurants.details');
+    Route::post('/comment/send/{restaurant}', [CustomerCommentController::class, 'send'])->name('customer.comments.send');
+    Route::post('/comment/reply/{restaurant}', [CustomerCommentController::class, 'reply'])->name('customer.comments.reply');
+    Route::delete('/comment/destroy/{comments}', [CustomerCommentController::class, 'destroy'])->name('customer.comments.reply.destroy');
+    Route::get('/reservation/step-one/{restaurant}', [CustomerReservationController::class, 'stepOne'])->name('reservations.step.one');
+    Route::post('/step-one/store', [CustomerReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
+    Route::get('/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('reservations.step.two');
+    Route::post('/reservation/step-two/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
     // Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');
