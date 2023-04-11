@@ -24,16 +24,20 @@ class ChartController extends Controller
 
 
         $startDate = Carbon::now()->subMonth(12);
-        $endDate = Carbon::now();
+        $endDate = Carbon::now()->addMonth(3);
 
-        $data = ViewCounter::where('restaurant_id', $restaurant->id)
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->orWhereBetween('updated_at', [$startDate, $endDate])
+
+        $data = ViewCounter::where(function($query) use ($restaurant, $startDate, $endDate) {
+            $query->where('restaurant_id', [$restaurant->id])
+                  ->whereBetween('created_at', [$startDate, $endDate]);
+        })
         ->get()
         ->groupBy(function ($viewCounter) {
             return $viewCounter->created_at->format('Y-m');
         })
         ->sortKeys();
+
+
 
         $chartData = [];
 
@@ -44,14 +48,15 @@ class ChartController extends Controller
         }
         // dd($chartData);
 
-        $data2 = Feedback::where('restaurant_id', $restaurant->id)
+        $data2 = Feedback::where('restaurant_id', [$restaurant->id])
         ->whereBetween('created_at', [$startDate, $endDate])
-        ->orWhereBetween('updated_at', [$startDate, $endDate])
         ->get()
         ->groupBy(function ($viewCounter) {
             return $viewCounter->created_at->format('Y-m');
         })
         ->sortKeys();
+
+        // dd($data2);
 
         $chartData2 = [];
 

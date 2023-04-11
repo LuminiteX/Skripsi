@@ -26,48 +26,51 @@
 
     <link rel="icon" type="image/png" href="{{ asset('storage/logo/logo.png') }}">
 
+    <script src="https://kit.fontawesome.com/b63c8b9802.js" crossorigin="anonymous"></script>
+
     <script src="{{ asset('js/moment.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     @stack('scripts')
 </head>
 <header>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="{{ asset('storage/logo/logo.png') }}" alt="" width="150" height="100">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item me-5">
-                    <a class="nav-link" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item ms-5 me-5">
-                    <a class="nav-link" href="#">Make Reservation</a>
-                </li>
-                <li class="nav-item ms-5 me-5">
-                    <a class="nav-link" href="#">Reservation List</a>
-                </li>
-                <li class="nav-item ms-5 me-5">
-                    <a class="nav-link" href="#">Manage Cart</a>
-                </li>
-                <li class="nav-item ms-5 me-5">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item ms-5">
-                    <a class="nav-link" href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Log Out
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                            </form>
-                </li>
-                {{-- <li class="nav-item dropdown ms-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('storage/logo/logo.png') }}" alt="" width="150" height="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item me-5">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item ms-5 me-5">
+                        <a class="nav-link" href="{{ route('restaurants.list') }}">Make Reservation</a>
+                    </li>
+                    <li class="nav-item ms-5 me-5">
+                        <a class="nav-link" href="#">Reservation List</a>
+                    </li>
+                    <li class="nav-item ms-5 me-5">
+                        <a class="nav-link" href="#">Manage Cart</a>
+                    </li>
+                    <li class="nav-item ms-5 me-5">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item ms-5">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Log Out
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                    {{-- <li class="nav-item dropdown ms-5">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Welcome!
                     </a>
@@ -78,7 +81,7 @@
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                   </li> --}}
-                {{-- <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Welcome {{ Auth::user()->name }} Welcome!
@@ -95,18 +98,21 @@
                         </li>
                     </ul>
                 </li> --}}
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 </header>
-<body style="background-color: #D3D3D3;">
+
+{{-- <body class="d-flex flex-column min-vh-100" style="background-color: #D3D3D3;"> --}}
+
+<body class="d-flex flex-column min-vh-100">
     {{-- <p class="text-center">Center aligned text on all viewport sizes.</p> --}}
-    <div>
-        {{ $slot }}
-    </div>
+    {{ $slot }}
 </body>
-<footer class="bg-light py-3">
+
+<footer class="bg-light py-3 w-full">
 
 </footer>
+
 </html>

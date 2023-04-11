@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
 
         $restaurant = Auth::user()->restaurant;
-        $categories = Category::where('restaurant_id', $restaurant->id)->get();
+        $categories = Category::where('restaurant_id', [$restaurant->id])->get();
         return view('owner.categories.index', compact('categories'));
     }
 

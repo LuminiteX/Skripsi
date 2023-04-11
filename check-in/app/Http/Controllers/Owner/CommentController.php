@@ -12,7 +12,7 @@ class CommentController extends Controller
 {
     public function index(){
         $restaurant = Auth::user()->restaurant;
-        $comments =  Comment::where('restaurant_id', $restaurant->id)->where('parent', 0)->orderBy('created_at', 'desc')->get();
+        $comments =  Comment::where('restaurant_id', [$restaurant->id])->where('parent', 0)->orderBy('created_at', 'desc')->get();
 
         //  dd($restaurant->id);
 
@@ -49,6 +49,7 @@ class CommentController extends Controller
     }
 
     public function sendReply(Request $request, Restaurant $restaurant){
+
         $request->validate([
             'comment' => 'required',
         ]);
@@ -65,6 +66,10 @@ class CommentController extends Controller
     }
 
     public function destroy(Comment $comments){
+
+        if($comments->parent == 0){
+            Comment::whereIn('parent',[$comments->id])->delete();
+        }
         $comments->delete();
 
         return redirect()->route('owner.comments.index');
