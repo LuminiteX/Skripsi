@@ -70,17 +70,21 @@
                                             style="max-height: 200px;">
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card-body">
+                                        <div class="card-body" style="height: 200px; overflow-y: auto;">
                                             <h5 class="card-title">{{ $menu->name }}</h5>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 @if ($menu->chef_recommendation)
                                                     <span class="badge bg-warning text-dark">Chef Recommendation</span>
                                                 @endif
                                             </div>
-                                            <p class="card-text">
-                                                {{ \Illuminate\Support\Str::limit($menu->description, 200, $end = '...') }}
+                                            <p class="card-text" style="overflow-wrap: break-word;">
+                                                {{ $menu->description }}
                                             </p>
-                                            <p class="card-text"><small class="text-muted">Price =
+                                        </div>
+                                        <div class="card-footer d-flex justify-content-start"
+                                            style="background-color: rgba(0,0,0,0) !important; border-top: none !important">
+                                            <p class="card-text">
+                                                <small class="text-muted">Price =
                                                     {{ 'Rp ' . number_format($menu->price, 0, ',', '.') }}</small>
                                             </p>
                                         </div>
