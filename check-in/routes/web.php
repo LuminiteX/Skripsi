@@ -27,6 +27,7 @@ use App\Http\Controllers\Customer\ReservationController as CustomerReservationCo
 use App\Http\Controllers\Customer\RestaurantController as CustomerRestaurantController;
 use App\Http\Controllers\Customer\CommentController as CustomerCommentController;
 use App\Http\Controllers\Customer\WelcomeController;
+use App\Http\Controllers\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -66,9 +67,12 @@ Route::middleware(['auth', 'customer'])->group(function () {
     // Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
     // Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
     // Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
+    Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.show.profile');
+    Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
+    Route::put('/profile/edit/save', [CustomerController::class, 'editSave'])->name('customer.profile.edit.save');
 });
 
-// Route::get('/testing', [WelcomeController::class, 'test']);
+Route::get('/testing', [WelcomeController::class, 'test']);
 
 
 // Route::get('/dashboard', function () {

@@ -17,7 +17,7 @@ class WelcomeController extends Controller
 
     public function test()
     {
-        return view('customer.home');
+        return view('customer.profile');
     }
 
     public function thankyou()

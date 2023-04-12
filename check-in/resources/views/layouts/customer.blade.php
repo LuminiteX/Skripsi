@@ -79,7 +79,7 @@
                         <a class="nav-link" href="#">Manage Cart</a>
                     </li>
                     <li class="nav-item ms-5 me-5">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="{{ route('customer.show.profile') }}">Profile</a>
                     </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="{{ route('logout') }}"
@@ -131,7 +131,7 @@
     {{ $slot }}
 </body>
 
-<footer class="bg-light py-3 w-full">
+<footer class="bg-light py-3 mt-auto">
 
 </footer>
 

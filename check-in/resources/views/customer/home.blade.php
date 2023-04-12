@@ -1,7 +1,7 @@
 <x-customer-layout>
-    <div class="container-fluid flex-grow-1">
+    <div class="container-fluid flex-grow-1 p-0">
         <div class="card text-white ">
-            <img src="storage/HomeImg/HomeBanner.jpg" alt="Top Picture" width="1600" height="300">
+            <img src="storage/HomeImg/HomeBanner.jpg" alt="Top Picture" class="img-fluid" style="max-height: 300px; object-fit: cover;">
             <div class="card-img-overlay text-center mt-5">
                 <h3 class="card-title mt-4">Welcome to Check-In!</h3>
                 <p class="card-text mt-4 mb-4">Check-In is a web based application that aims to help you make
@@ -22,13 +22,8 @@
                         mollitia quaerat est voluptas!</h5>
                 </div>
                 <div class="col mb-5">
-                    <img src="storage/HomeImg/Food.jpeg" alt="Food" width="600" height="500">
+                    <img src="storage/HomeImg/Food.jpeg" alt="Food" class="img-fluid" style="max-width: 500px;">
                 </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col"></div>
             </div>
         </div>
         <div class="container bg-secondary text-white">
@@ -41,33 +36,33 @@
                         minus eveniet, id nesciunt excepturi sit voluptate
                         repudiandae. Explicabo, incidunt quia. Repellendus
                         mollitia quaerat est voluptas!</h5>
-                    <div class="row">
-                        <div class="col-sm-1">
-                            <img src="storage/HomeImg/1.png" alt="1" width="50" height="50">
+                    <div class="row mt-4">
+                        <div class="col-sm-1 text-info">
+                            <h5>1.</h5>
                         </div>
                         <div class="col align-self-center">
-                            <h5> Reason 1</h5>
+                            <h5> Easy and Quick Reservation and Menu Ordering</h5>
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-sm-1">
-                            <img src="storage/HomeImg/2.png" alt="2" width="50" height="50">
+                        <div class="col-sm-1 text-info">
+                            <h5>2.</h5>
                         </div>
                         <div class="col align-self-center">
-                            <h5> Reason 2</h5>
+                            <h5> Multiple Restaurant Choices</h5>
                         </div>
                     </div>
                     <div class="row mt-4">
-                        <div class="col-sm-1">
-                            <img src="storage/HomeImg/3.png" alt="3" width="50" height="50">
+                        <div class="col-sm-1 text-info">
+                            <h5>3.</h5>
                         </div>
                         <div class="col align-self-center">
-                            <h5> Reason 3</h5>
+                            <h5> Minimal Physical Contact Needed</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col mt-5 mb-5">
-                    <img src="storage/HomeImg/choose.jpg" alt="choose" width="600" height="500">
+                    <img src="storage/HomeImg/choose.jpg" alt="choose" class="img-fluid">
                 </div>
             </div>
         </div>

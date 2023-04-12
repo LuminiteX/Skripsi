@@ -113,14 +113,15 @@
                                 <h2 class="card-title mb-4">Comment Section</h2>
                                 <div class="mb-5">
                                     @foreach ($comments as $comment)
-                                        <div class="w-96 mb-4">
-                                            <img src="{{ Storage::url($comment->user->image) }}" alt="User"
-                                                class="rounded-circle me-2 border" style="width: 50px; height: 50px;">
-                                            <div>
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <h5 class="mb-0 me-2">{{ $comment->user->name }}</h5>
-                                                    <small
-                                                        class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                            <div class="w-96 mb-4">
+                                                <div class="d-flex mb-2">
+                                                        <img src="{{ Storage::url($comment->user->image) }}" alt="User"
+                                                            class="rounded-circle me-2 border" style="width: 50px; height: 50px;">
+                                                    <div class="d-flex align-items-center mb-1">
+                                                            <h5 class="mb-0 me-2">{{ $comment->user->name }}</h5>
+                                                            <small
+                                                                class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+                                                    </div>
                                                 </div>
                                                 <p class="mb-0">{{ $comment->comment }}</p>
                                                 <div class="d-flex align-items-center mt-3">
