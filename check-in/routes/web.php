@@ -55,6 +55,8 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/step-one/store', [CustomerReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
     Route::get('/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('reservations.step.two');
     Route::post('/reservation/step-two/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
+    Route::post('/reservation/step-two/with-menu/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two.with.menu');
+    Route::get('/menu');
 
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');

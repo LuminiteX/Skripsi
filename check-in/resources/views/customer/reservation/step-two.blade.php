@@ -1,5 +1,7 @@
 <x-customer-layout>
-
+    @if (session('error'))
+        <div class="alert alert-danger mt-2 mb-2">{{ session('error') }}</div>
+    @endif
 
     @if ($restaurant->tableLayout)
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -8,9 +10,10 @@
                     <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
                         <img src="{{ Storage::url($item->floor_image) }}" class="d-block w-100 bg-dark"
                             style="height:600px;object-fit: contain;" alt="{{ $item->floor_name }}">
-                        <div class="carousel-caption d-none d-md-block">
+                        <div
+                            class="carousel-caption"style="background-color: rgba(0, 0, 0, 0.5); position: absolute; bottom: 0; left: 0; right: 0;">
                             <h5>Floor number {{ $item->floor_number }}</h5>
-                            <p>{{ $item->floor_description }}</p>
+                            <p>{{ $item->floor_name }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -26,13 +29,15 @@
         </div>
     @endif
 
+
+
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
                 <img class="object-cover" src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg"
-                    alt="img" style="width: 600px; height:350px'" />
+                    alt="img" />
             </div>
-            <div class="col-md-6" style>
+            <div class="col-md-6">
                 <div class="card shadow">
                     <div class="card-body">
                         <h3 class="card-title text-primary mb-4">Make Reservation</h3>
@@ -75,7 +80,8 @@
                                             class="btn btn-danger rounded-pill px-4 py-2">Previous</a>
                                         <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">Reserve
                                             Table Only</button>
-                                        <a href="#" class="btn btn-warning rounded-pill px-4 py-2">Reserve With
+                                        <a href="{{ route('reservations.store.step.two.with.menu', $restaurant->id) }}"
+                                            class="btn btn-warning rounded-pill px-4 py-2">Reserve With
                                             Menu</a>
                                     </div>
                                 </form>

@@ -38,6 +38,13 @@ class RestaurantController extends Controller
     }
 
     public function detail(Restaurant $restaurants){
+
+        $carbonDate = \Carbon\Carbon::createFromFormat('H:i:s', $restaurants->opening_time);
+        $formattedTimeOpening = $carbonDate->format('H:i');
+
+        $carbonDate = \Carbon\Carbon::createFromFormat('H:i:s', $restaurants->closing_time);
+        $formattedTimeClosing = $carbonDate->format('H:i');
+
         $restaurants->increment('view');
         ViewCounter::create([
             'restaurant_id'=> $restaurants->id,
@@ -69,7 +76,7 @@ class RestaurantController extends Controller
 
         // dd($restaurants);
 
-        return view('customer.reservation.restaurant', compact('restaurants','menus','chartData3','comments'));
+        return view('customer.reservation.restaurant', compact('restaurants','menus','chartData3','comments','formattedTimeOpening','formattedTimeClosing'));
     }
 
 }

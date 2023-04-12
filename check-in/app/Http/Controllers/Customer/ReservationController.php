@@ -124,9 +124,13 @@ class ReservationController extends Controller
         $carbonDate = \Carbon\Carbon::createFromFormat('H:i:s', $restaurant->closing_time);
         $formattedTimeClosing = $carbonDate->format('H:i');
 
+
         $reservation = $request->session()->get('reservation');
-        $min_date = Carbon::today();
-        $max_date = Carbon::now()->addMonth(3);
+        list($hourStart, $minuteStart) = explode(':', $formattedTimeOpening);
+        $min_date = Carbon::tomorrow()->setTime($hourStart, $minuteStart, 0);
+
+        list($hourEnd, $minuteEnd) = explode(':', $formattedTimeClosing);
+        $max_date = Carbon::now()->addMonth(3)->setTime($hourEnd, $minuteEnd, 0);
         return view('customer.reservation.step-one', compact('reservation', 'min_date', 'max_date','restaurant','formattedTimeOpening','formattedTimeClosing'));
     }
 
@@ -165,7 +169,7 @@ class ReservationController extends Controller
 
         $reservation = $request->session()->get('reservation');
         $restaurant = Restaurant::where('id', [$reservation->restaurant_id])->first();
-        
+
         // $res_table_ids = Reservation::orderBy('res_date')->get()->filter(function ($value) use ($reservation) {
         //     return $value->res_date->format('Y-m-d') == $reservation->res_date->format('Y-m-d');
         // })->pluck('table_id');
@@ -178,10 +182,10 @@ class ReservationController extends Controller
                 $end_time = $reservation->reservation_date->addHour(2);
 
                 return  $value->reservation_date->format('Y-m-d') == $reservation->reservation_date->format('Y-m-d') &&
-                    $value->reservations_date->between($start_time, $end_time);
+                    $value->reservation_date->between($start_time, $end_time);
             })->pluck('table_id');
 
-        // dd($res_table_ids);
+
 
         $tables = Table::where('status', TableStatus::Available)
             ->where('guest_number', '>=', $reservation->guest_number)
@@ -195,13 +199,67 @@ class ReservationController extends Controller
 
     public function storeStepTwo(Request $request, Restaurant $restaurant)
     {
+
+        $validated = $request->validate([
+            'table_id' => ['required']
+        ]);
+
+        $reservation = $request->session()->get('reservation');
+
+        $restaurant = Restaurant::where('id', [$restaurant->id])->first();
+
+
+        //testing newest validation this time it is between after 2 hour and before 2 hour of the reservation time in reservation table
+        $res_table_ids = Reservation::orderBy('reservation_date')
+            ->get()
+            ->filter(function ($value) use ($reservation) {
+                $start_time = $reservation->reservation_date->subHour(2);
+                $end_time = $reservation->reservation_date->addHour(2);
+                return  $value->reservation_date->format('Y-m-d') == $reservation->reservation_date->format('Y-m-d') &&
+                    $value->reservation_date->between($start_time, $end_time);
+            })->pluck('table_id');
+
+        if ($res_table_ids->contains($validated['table_id'])) {
+            return back()->with('error', 'The selected table has already been reserved by someone else. Please choose another one.');
+        }
+
+        $reservation->fill($validated);
+        $reservation['reservation_status'] = 2;
+        $reservation->save();
+
+        return to_route('thankyou');
+    }
+
+    public function storeStepTwoWithMenu(Request $request, Restaurant $restaurant)
+    {
+
         $validated = $request->validate([
             'table_id' => ['required']
         ]);
         $reservation = $request->session()->get('reservation');
+
+        $restaurant = Restaurant::where('id', [$restaurant->id])->first();
+
+        //testing newest validation this time it is between after 2 hour and before 2 hour of the reservation time in reservation table
+        $res_table_ids = Reservation::orderBy('reservation_date')
+            ->get()
+            ->filter(function ($value) use ($reservation) {
+                $start_time = $reservation->reservation_date->subHour(2);
+                $end_time = $reservation->reservation_date->addHour(2);
+                return  $value->reservation_date->format('Y-m-d') == $reservation->reservation_date->format('Y-m-d') &&
+                    $value->reservation_date->between($start_time, $end_time);
+            })->pluck('table_id');
+
+        if ($res_table_ids->contains($validated['table_id'])) {
+            return back()->with('error', 'The selected table has already been reserved by someone else. Please choose another one.');
+        }
+
         $reservation->fill($validated);
+        $reservation['reservation_status'] = 0;
         $reservation->save();
         $request->session()->forget('reservation');
+
+
 
         return to_route('thankyou');
     }

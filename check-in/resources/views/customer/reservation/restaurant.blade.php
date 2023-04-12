@@ -11,12 +11,12 @@
                 <div class="col-md-6">
                     <h2 class="fw-bold mb-0">{{ $restaurants->name }}</h2>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <div class="col-md-6 d-flex justify-content-end align-items-center mt-sm-2 mt-xs-2">
                     <a href="{{ route('reservations.step.one', $restaurants->id) }}"
                         class="btn btn-primary me-3">Reserve
                         Now</a>
-                    <div class="rating-section">
-                        <p class="card-text">
+                    <div class="rating-section me-2 me-md-3">
+                        <p class="card-text mb-0"">
                             Rating:
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $restaurants->rating)
@@ -29,7 +29,7 @@
                             @endfor
                         </p>
                     </div>
-                    <div class="views-section ms-3">
+                    <div class="views-section ms-md-3">
                         <i class="fas fa-eye me-1"></i>
                         <span>{{ $restaurants->view }} views</span>
                     </div>
@@ -39,8 +39,15 @@
         </div>
 
         <div class="col-md-12 mt-2">
+            <h5 class="fw-bold mb-0">Opening Time</h5>
+            <p class="mb-4 mt-2 fs-6"> Restaurant Opens at <strong>{{ $formattedTimeOpening }} -
+                    {{ $formattedTimeClosing }}</strong></p>
+
+        </div>
+
+        <div class="col-md-12 mt-2">
             <h5 class="fw-bold mb-0">Description </h5>
-            <p class="mb-4">{{ $restaurants->description }}</p>
+            <p class="mb-4 mt-2">{{ $restaurants->description }}</p>
             <div class="mb-4">
                 <h5 class="fw-bold mb-3">Contact Us</h5>
                 <p>Phone: {{ $restaurants->phone_number }}</p>
@@ -50,14 +57,14 @@
             <p>{{ $restaurants->address }}</p>
         </div>
         <div class="col-md-12 row mt-5">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-2">
                 <h5 class="fw-bold mb-3">Menu</h5>
-                <div class="row row-cols-1 row-cols-md-3 g-3" style="height:200px;">
+                <div class="row row-cols-1 row-cols-md-3 g-3">
                     @foreach ($menus as $menu)
                         <div class="col">
                             <div class="card h-100">
                                 <div class="row g-0 align-items-center">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 p-2">
                                         <img src="{{ Storage::url($menu->image) }}"
                                             class="img-fluid rounded-start mx-auto d-block" alt="{{ $menu->name }}"
                                             style="max-height: 200px;">
@@ -70,7 +77,9 @@
                                                     <span class="badge bg-warning text-dark">Chef Recommendation</span>
                                                 @endif
                                             </div>
-                                            <p class="card-text">{{ $menu->description }}</p>
+                                            <p class="card-text">
+                                                {{ \Illuminate\Support\Str::limit($menu->description, 200, $end = '...') }}
+                                            </p>
                                             <p class="card-text"><small class="text-muted">Price =
                                                     {{ 'Rp ' . number_format($menu->price, 0, ',', '.') }}</small>
                                             </p>

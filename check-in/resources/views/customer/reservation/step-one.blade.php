@@ -41,7 +41,7 @@
                                             class="form-control" required>
                                         <span class="form-text">Please choose the time between
                                             {{ $formattedTimeOpening }}-{{ $formattedTimeClosing }}.</span>
-                                        @error('res_date')
+                                        @error('reservation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
