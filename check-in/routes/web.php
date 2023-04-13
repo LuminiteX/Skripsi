@@ -72,7 +72,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::delete('/cart/list/detail/delete/{reservation}/{cart_detail}',[CustomerCartController::class, 'deleteItem'])->name('cart.list.detail.delete');
     Route::put('/cart/list/detail/confirm/{reservation}',[CustomerCartController::class, 'confirmTransaction'])->name('cart.list.confirm');
     Route::put('/cart/list/cancel/{reservation}',[CustomerCartController::class, 'cancel'])->name('cart.cancel');
-    
+
 
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
@@ -86,7 +86,9 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.show.profile');
     Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
     Route::put('/profile/edit/save', [CustomerController::class, 'editSave'])->name('customer.profile.edit.save');
-    Route::get('/reservationlist', [CustomerReservationController::class, 'index'])->name('reservations.list');
+    Route::get('/reservation/list', [CustomerReservationController::class, 'index'])->name('reservations.list');
+    Route::get('/reservation/history', [CustomerReservationController::class, 'history'])->name('reservations.history');
+    Route::get('/reservation/detail/without-menu/{reservations}', [CustomerReservationController::class, 'reservationDetailWithoutMenu'])->name('reservation.detail.without.menu');
 });
 
 // Route::get('/testing', [WelcomeController::class, 'test']);

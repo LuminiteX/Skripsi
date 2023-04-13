@@ -2,11 +2,11 @@
     <div class="container bg-white text-body">
         <div class="row mb-3 mt-3">
             <div class="col-lg-10 text-left">
-                <h2>Reservation List</h2>
+                <h2>Reservation History</h2>
                 <hr class="border-dark" style="width: 50%">
             </div>
             <div class="col-md-2 align-self-center">
-                <a href="{{ route('reservations.history') }}" class="btn btn-primary">View History</a>
+                <a href="{{ route('reservations.list') }}" class="btn btn-primary" style="width: 113px">Back</a>
             </div>
         </div>
         @foreach ($reservations as $reservation)
@@ -29,12 +29,14 @@
                                 @else
                                 No
                             @endif </b>
-                            <b>Reservation Status: @if ($reservation->reservation_status == 1)
-                                Receipt not uploaded
-                                @elseif ($reservation->reservation_status == 2)
-                                Reservation being checked
+                            <b>Reservation Status: @if ($reservation->reservation_status == 4)
+                                Reservation finished
+                                @elseif ($reservation->reservation_status == 5)
+                                Reservation finished
+                                @elseif ($reservation->reservation_status == 6)
+                                Reservation rejected
                                 @else
-                                Reservation eligible
+                                Reservation canceled
                             @endif</b>
                         </div>
                     </div>
@@ -48,15 +50,15 @@
                             </div>
                         @else
                             @if ($reservation->cart_header)
-                            <div class="d-flex justify-content-center mt-5"></div>
-                            <div class="d-flex justify-content-center mt-5">
-                                <a href="{{route('reservation.detail.with.menu')}}" class="btn btn-lg btn-danger">View Reservation</a>
-                            </div>
+                                <div class="d-flex justify-content-center mt-5"></div>
+                                <div class="d-flex justify-content-center mt-5">
+                                    <a href="{{route('reservation.detail.with.menu')}}" class="btn btn-lg btn-danger">View Reservation</a>
+                                </div>
                             @else
-                            <div class="d-flex justify-content-center mt-5"></div>
-                            <div class="d-flex justify-content-center mt-5">
-                                <a href="{{route('reservation.detail.without.menu')}}" class="btn btn-lg btn-danger">View Reservation</a>
-                            </div>
+                                <div class="d-flex justify-content-center mt-5"></div>
+                                <div class="d-flex justify-content-center mt-5">
+                                    <a href="{{route('reservation.detail.without.menu', $reservation->id)}}" class="btn btn-lg btn-danger">View Reservation</a>
+                                </div>
                             @endif
                         @endif
 

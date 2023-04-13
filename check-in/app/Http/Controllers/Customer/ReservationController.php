@@ -186,4 +186,17 @@ class ReservationController extends Controller
 
         return view('customer.reservation.reservation-list', compact('user','reservations'));
     }
+
+    public function history(){
+        $user = auth()->user();
+        $reservations = Reservation::where('user_id', $user->id)
+                        ->whereIn('reservation_status', [4,5,6,7])
+                        ->paginate(5);
+
+        return view('customer.reservation.reservation-history', compact('user','reservations'));
+    }
+
+    public function reservationDetailWithoutMenu(Reservation $reservations){
+        return view('customer.reservation.reservation-detail-without-menu', compact('reservations'));
+    }
 }
