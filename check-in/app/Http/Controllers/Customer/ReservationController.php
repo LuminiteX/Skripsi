@@ -6,10 +6,9 @@ use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Table;
-use App\Models\ViewCounter;
+use App\Models\CartHeader;
 use App\Models\Restaurant;
-use App\Models\Menu;
-use App\Models\Comment;
+
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween2;
 use Carbon\Carbon;
@@ -18,103 +17,7 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    // public function index()
-    // {
-    //     $restaurants = Restaurant::where('restaurant_status', 1)
-    //         ->where('restaurant_opening_status', 1)
-    //         ->paginate(6);
 
-    //     return view('customer.reservation.index', compact('restaurants'));
-    // }
-
-    // public function search(Request $request)
-    // {
-    //     if ($request->search) {
-    //         $restaurants = Restaurant::where('name', 'LIKE', '%' . $request->search . '%')->where('restaurant_status', 1)
-    //         ->where('restaurant_opening_status', 1)
-    //         ->latest()->paginate(6)->withQueryString();
-    //         return view('customer.reservation.index', compact('restaurants'));
-    //     } else {
-    //         return redirect()->back()->with('message', 'The search is empty please fill in restaurant name to search the restaurant');
-    //     }
-    // }
-
-    // public function detail(Restaurant $restaurants){
-    //     $restaurants->increment('view');
-    //     ViewCounter::create([
-    //         'restaurant_id'=> $restaurants->id,
-    //     ]);
-
-    //     $menus = Menu::where('restaurant_id', $restaurants->id)->paginate(3);
-
-    //     $startDate3 = Carbon::now()->subMonth(12);
-    //     $endDate3 = Carbon::now()->addMonth(3);
-
-    //     $data3 = Reservation::where('restaurant_id', $restaurants->id)
-    //     ->whereIn('reservation_status', [3, 4, 5])
-    //     ->whereBetween('reservation_date', [$startDate3, $endDate3])
-    //     ->get()
-    //     ->groupBy(function ($viewCounter) {
-    //         return $viewCounter->reservation_date->format('Y-m');
-    //     })
-    //     ->sortKeys();
-
-    //     $chartData3 = [];
-
-
-    //     foreach ($data3 as $month => $count) {
-    //         $chartData3['categories'][] = date('F Y', strtotime($month));
-    //         $chartData3['data'][] = $count->count();
-    //     }
-
-    //     $comments = Comment::where('restaurant_id', $restaurants->id)->where('parent', 0)->orderBy('created_at', 'desc')->get();
-
-    //     // dd($restaurants);
-
-    //     return view('customer.reservation.restaurant', compact('restaurants','menus','chartData3','comments'));
-    // }
-
-    // public function send(Request $request, Restaurant $restaurant){
-    //     $request->validate([
-    //         'comment' => 'required',
-    //     ]);
-
-    //     $user = Auth::user();
-
-    //     Comment::create([
-    //         'restaurant_id'=>$restaurant->id,
-    //         'user_id' => $user->id,
-    //         'comment' =>$request->comment
-    //     ]);
-
-    //     return back();
-    // }
-
-    // public function reply(Request $request, Restaurant $restaurant){
-    //     $request->validate([
-    //         'comment' => 'required',
-    //     ]);
-    //     $user = Auth::user();
-    //     // dd($request->comment_id);
-    //     Comment::create([
-    //         'restaurant_id'=>$restaurant->id,
-    //         'user_id' => $user->id,
-    //         'comment' =>$request->comment,
-    //         'parent' => $request->comment_id
-    //     ]);
-
-    //     return back();
-    // }
-
-    // public function destroy(Comment $comments){
-
-    //     if($comments->parent == 0){
-    //         Comment::whereIn('parent',[$comments->id])->delete();
-    //     }
-    //     $comments->delete();
-
-    //     return back();
-    // }
 
     public function stepOne(Request $request, Restaurant $restaurant)
     {
@@ -199,6 +102,7 @@ class ReservationController extends Controller
 
     public function storeStepTwo(Request $request, Restaurant $restaurant)
     {
+        // dd("Hit without menu");
 
         $validated = $request->validate([
             'table_id' => ['required']
@@ -227,12 +131,12 @@ class ReservationController extends Controller
         $reservation['reservation_status'] = 2;
         $reservation->save();
 
-        return to_route('thankyou');
+        return to_route('thankyou', $restaurant->id);
     }
 
     public function storeStepTwoWithMenu(Request $request, Restaurant $restaurant)
     {
-
+        // dd("Hit with menu");
         $validated = $request->validate([
             'table_id' => ['required']
         ]);
@@ -257,10 +161,15 @@ class ReservationController extends Controller
         $reservation->fill($validated);
         $reservation['reservation_status'] = 0;
         $reservation->save();
-        $request->session()->forget('reservation');
 
+        // dd($reservation->id);
+        CartHeader::create([
+            'reservation_id' => $reservation->id,
+            'restaurant_id'=> $reservation->restaurant_id,
+            'cart_status' => 0,
+            'total' => 0,
+        ]);
 
-
-        return to_route('thankyou');
+        return to_route('menu.index', $restaurant->id);
     }
 }

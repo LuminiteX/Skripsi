@@ -26,8 +26,8 @@ use App\Http\Controllers\Customer\MenuController as CustomerMenuController;
 use App\Http\Controllers\Customer\ReservationController as CustomerReservationController;
 use App\Http\Controllers\Customer\RestaurantController as CustomerRestaurantController;
 use App\Http\Controllers\Customer\CommentController as CustomerCommentController;
+use App\Http\Controllers\Customer\CartController as CustomerCartController;
 use App\Http\Controllers\Customer\WelcomeController;
-use App\Http\Controllers\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,8 +56,11 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/step-one/store', [CustomerReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
     Route::get('/reservation/step-two', [CustomerReservationController::class, 'stepTwo'])->name('reservations.step.two');
     Route::post('/reservation/step-two/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
-    Route::post('/reservation/step-two/with-menu/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two.with.menu');
-    Route::get('/menu');
+    Route::post('/reservation/step-two/with-menu/{restaurant}', [CustomerReservationController::class, 'storeStepTwoWithMenu'])->name('reservations.store.step.two.with.menu');
+
+    Route::get('/menu/{restaurant}',[CustomerMenuController::class, 'index'])->name('menu.index');
+    Route::get('/menu/sort-by/{category}',[CustomerMenuController::class, 'sortByCategory'])->name('menu.sort.by');
+    Route::get('/menu/menuDetail/{menu}',[CustomerMenuController::class, 'menuDetail'])->name('menu.detail');
 
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
@@ -67,12 +70,13 @@ Route::middleware(['auth', 'customer'])->group(function () {
     // Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
     // Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
     // Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
+    Route::get('/cart/list',[CustomerCartController::class, 'index'])->name('cart.list');
     Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.show.profile');
     Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
     Route::put('/profile/edit/save', [CustomerController::class, 'editSave'])->name('customer.profile.edit.save');
 });
 
-Route::get('/testing', [WelcomeController::class, 'test']);
+// Route::get('/testing', [WelcomeController::class, 'test']);
 
 
 // Route::get('/dashboard', function () {
