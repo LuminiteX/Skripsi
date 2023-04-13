@@ -83,12 +83,15 @@
                                 <label for="categories"
                                     class="block text-sm font-medium text-gray-700">Categories</label>
                                 <div class="mt-1">
-                                    <select id="categories" name="categories[]"
-                                        class="form-multiselect block w-full mt-1" multiple>
+                                    <select id="categories" name="categories" class="form-multiselect block w-full mt-1"
+                                        multiple>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('categories')
+                                        <div class="text-sm text-red-400">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                             </div>
