@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Table;
 use App\Models\CartHeader;
 use App\Models\Restaurant;
+use App\Models\Category;
 
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween2;
@@ -170,6 +171,10 @@ class ReservationController extends Controller
             'total' => 0,
         ]);
 
-        return to_route('menu.index', $restaurant->id);
+        $menus = $restaurant->menus()->get();
+
+        $categories = Category::where('restaurant_id', $restaurant->id)->paginate(3);
+
+        return to_route('menu.index', ['restaurant' => $restaurant->id, 'reservation' => $reservation->id]);
     }
 }

@@ -27,6 +27,7 @@ use App\Http\Controllers\Customer\ReservationController as CustomerReservationCo
 use App\Http\Controllers\Customer\RestaurantController as CustomerRestaurantController;
 use App\Http\Controllers\Customer\CommentController as CustomerCommentController;
 use App\Http\Controllers\Customer\CartController as CustomerCartController;
+use App\Http\Controllers\Customer\CustomerController as CustomerController;
 use App\Http\Controllers\Customer\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,9 +59,20 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/reservation/step-two/{restaurant}', [CustomerReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
     Route::post('/reservation/step-two/with-menu/{restaurant}', [CustomerReservationController::class, 'storeStepTwoWithMenu'])->name('reservations.store.step.two.with.menu');
 
-    Route::get('/menu/{restaurant}',[CustomerMenuController::class, 'index'])->name('menu.index');
-    Route::get('/menu/sort-by/{category}',[CustomerMenuController::class, 'sortByCategory'])->name('menu.sort.by');
-    Route::get('/menu/menuDetail/{menu}',[CustomerMenuController::class, 'menuDetail'])->name('menu.detail');
+    Route::get('/menu/{restaurant}/{reservation}',[CustomerMenuController::class, 'index'])->name('menu.index');
+    Route::get('/menu/sort-by/{category}/{reservation}',[CustomerMenuController::class, 'sortByCategory'])->name('menu.sort.by');
+    Route::get('/menu/sort-by/menu-detail/{menu}/{reservation}',[CustomerMenuController::class, 'menuDetailFromCategory'])->name('menu.sort.by.menu.detail');
+    Route::get('/menu/menu-detail/{menu}/{reservation}',[CustomerMenuController::class, 'menuDetail'])->name('menu.detail');
+
+    Route::post('/cart/store/{restaurant}/{reservation}',[CustomerCartController::class, 'store'])->name('cart.store');
+    Route::post('/cart/from-category/store/{category}/{reservation}',[CustomerCartController::class, 'storeFromCategory'])->name('cart.store.from.category');
+    Route::get('/cart/list/detail/{reservation}',[CustomerCartController::class, 'detail'])->name('cart.list.detail');
+    Route::get('/cart/list/detail/edit/{menu}/{reservation}/{cart_detail}',[CustomerCartController::class, 'cartDetailUpdate'])->name('cart.list.detail.update');
+    Route::put('/cart/list/detail/edit/save/{reservation}/{cart_detail}',[CustomerCartController::class, 'saveUpdate'])->name('cart.list.detail.update.save');
+    Route::delete('/cart/list/detail/delete/{reservation}/{cart_detail}',[CustomerCartController::class, 'deleteItem'])->name('cart.list.detail.delete');
+    Route::put('/cart/list/detail/confirm/{reservation}',[CustomerCartController::class, 'confirmTransaction'])->name('cart.list.confirm');
+    Route::put('/cart/list/cancel/{reservation}',[CustomerCartController::class, 'cancel'])->name('cart.cancel');
+    
 
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');

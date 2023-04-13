@@ -33,11 +33,11 @@
 
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-6 mb-4 mb-md-0">
+            <div class="col-md-9 mb-4 mb-md-10 col-lg-6">
                 <img class="object-cover" src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg"
                     alt="img" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="card shadow">
                     <div class="card-body">
                         <h3 class="card-title text-primary mb-4">Make Reservation</h3>
@@ -53,8 +53,7 @@
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-step1" role="tabpanel"
                                 aria-labelledby="pills-step1-tab">
-                                <form method="POST"
-                                    action="{{ route('reservations.store.step.two', $restaurant->id) }}">
+                                <form id="myForm" method="POST">
                                     @csrf
                                     <div class="col-sm-6 pt-2">
                                         <label for="status"
@@ -78,13 +77,37 @@
                                     <div class="mt-4 p-2 d-flex justify-content-between">
                                         <a href="{{ route('reservations.step.one', $restaurant->id) }}"
                                             class="btn btn-danger rounded-pill px-4 py-2">Previous</a>
-                                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">Reserve
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2"
+                                            value="noMenu">Reserve
                                             Table Only</button>
-                                        <a href="{{ route('reservations.store.step.two.with.menu', $restaurant->id) }}"
+                                        <button type="submit" class="btn btn-warning rounded-pill px-4 py-2"
+                                            value="withMenu">Reserve With
+                                            Menu</button>
+                                        {{-- <a href="{{ route('reservations.store.step.two.with.menu', $restaurant->id) }}"
                                             class="btn btn-warning rounded-pill px-4 py-2">Reserve With
-                                            Menu</a>
+                                            Menu</a> --}}
                                     </div>
                                 </form>
+                                <script>
+                                    document.querySelector('#myForm').addEventListener('submit', function(event) {
+                                        // Prevent the form from submitting
+                                        event.preventDefault();
+
+                                        // Get the action value of the button that was clicked
+                                        const action = event.submitter.value;
+
+                                        // Set the form action based on the button clicked
+                                        if (action === 'noMenu') {
+                                            this.action = "{{ route('reservations.store.step.two', $restaurant->id) }}";
+                                        } else if (action === 'withMenu') {
+                                            this.action = "{{ route('reservations.store.step.two.with.menu', $restaurant->id) }}";
+                                        }
+
+                                        // Submit the form
+                                        this.submit();
+                                    });
+                                </script>
+
                             </div>
                         </div>
                     </div>

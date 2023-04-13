@@ -23,10 +23,15 @@
                     </div>
                     <div class="col mt-4">
                         <div class="d-flex justify-content-center mt-5">
-                            <a href="#" class="btn btn-lg btn-primary">Manage Cart Detail</a>
+                            <a href="{{ route('cart.list.detail', ['reservation' => $reservation->id]) }}"
+                                class="btn btn-lg btn-primary">Manage Cart Detail</a>
                         </div>
                         <div class="d-flex justify-content-center mt-5">
-                            <a href="#" class="btn btn-lg btn-danger">Cancel Reservation</a>
+                            <form action="{{ route('cart.cancel', $reservation->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-lg btn-danger">Cancel Reservation</button>
+                            </form>
                         </div>
                     </div>
                 </div>

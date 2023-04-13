@@ -15,7 +15,7 @@ class CartDetail extends Model
         'subtotal',
     ];
 
-    public function cartHeader()
+    public function cart_header()
     {
         return $this->belongsTo(CartHeader::class);
     }
