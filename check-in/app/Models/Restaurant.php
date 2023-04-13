@@ -42,9 +42,19 @@ class Restaurant extends Model
     {
         return $this->hasMany(Feedback::class);
     }
+
     public function viewCounters()
     {
         return $this->hasMany(ViewCounter::class);
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class);
+    }
+
+    public function category(){
+        return $this->hasMany(category::class);
     }
 
     public function tableLayout()

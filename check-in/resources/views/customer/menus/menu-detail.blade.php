@@ -1,8 +1,10 @@
 <x-customer-layout>
+
     <div class="container mt-0">
         <div class="row justify-content-center mt-0">
             <div class="col-12 col-xxl-8 mt-0">
-                <a href="{{ route('menu.index', $menu->restaurant_id) }}" class="btn btn-sm btn-primary mt-5 mb-5">Return
+                <a href="{{ route('menu.index', ['restaurant' => $reservation->restaurant->id, 'reservation' => $reservation->id]) }}"
+                    class="btn btn-sm btn-primary mt-5 mb-5">Return
                     Back
                     to
                     menu</a>
@@ -23,23 +25,30 @@
                                 <p>{{ $menu->description }}</p>
                                 <p>Category: {{ $categories->name }}</p>
                                 <p>Price: {{ 'Rp ' . number_format($menu->price, 0, ',', '.') }}</p>
-                                <div class="form-group row">
-                                    <label for="qty" class="col-md-3 col-form-label">Qty</label>
+                                {{-- {{ dd($reservation->id) }} --}}
+                                <form method="POST"
+                                    action="{{ route('cart.store', ['restaurant' => $reservation->restaurant->id, 'reservation' => $reservation->id]) }}">
+                                    @csrf
+                                    <div class="form-group row">
+                                        <input type="hidden" name="menu_id" value="{{ $menu->id }}">
+                                        <label for="qty" class="col-md-2 col-form-label">Qty</label>
+                                        <div class="col-lg-6 col-md-8">
+                                            <input type="number" class="form-control" id="qty" name="qty">
+                                        </div>
+                                        <div class="col-lg-4 col-md-8 mt-sm-2 mt-lg-0">
+                                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                        </div>
+                                        @error('qty')
+                                            <div class="text-sm text-danger">{{ $message }}</div>
+                                        @enderror
 
-                                    <div class="col-lg-4 col-md-8">
-                                        <input type="number" class="form-control" id="qty" name="qty">
-                                    </div>
-
-                                    <div
-                                        class="col-lg-4 col-md-8 mt-sm-2 mt-lg-0 justify-content-sm-center justify-content-md-none">
-                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </x-customer-layout>
