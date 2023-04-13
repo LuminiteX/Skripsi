@@ -73,7 +73,7 @@
                         <a class="nav-link" href="{{ route('restaurants.list') }}">Make Reservation</a>
                     </li>
                     <li class="nav-item mx-3 ml-2">
-                        <a class="nav-link" href="#">Reservation List</a>
+                        <a class="nav-link" href="{{ route('reservations.list') }}">Reservation List</a>
                     </li>
                     <li class="nav-item mx-3 ml-2">
                         <a class="nav-link" href="{{ route('cart.list') }}">Manage Cart</a>

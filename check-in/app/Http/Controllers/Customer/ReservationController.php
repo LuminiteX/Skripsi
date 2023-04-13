@@ -177,4 +177,13 @@ class ReservationController extends Controller
 
         return to_route('menu.index', ['restaurant' => $restaurant->id, 'reservation' => $reservation->id]);
     }
+
+    public function index(){
+        $user = auth()->user();
+        $reservations = Reservation::where('user_id', $user->id)
+                        ->whereIn('reservation_status', [1,2,3])
+                        ->paginate(5);
+
+        return view('customer.reservation.reservation-list', compact('user','reservations'));
+    }
 }

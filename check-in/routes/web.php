@@ -86,6 +86,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.show.profile');
     Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
     Route::put('/profile/edit/save', [CustomerController::class, 'editSave'])->name('customer.profile.edit.save');
+    Route::get('/reservationlist', [CustomerReservationController::class, 'index'])->name('reservations.list');
 });
 
 // Route::get('/testing', [WelcomeController::class, 'test']);
