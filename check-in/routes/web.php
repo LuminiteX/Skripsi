@@ -73,7 +73,9 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::put('/cart/list/detail/confirm/{reservation}',[CustomerCartController::class, 'confirmTransaction'])->name('cart.list.confirm');
     Route::put('/cart/list/cancel/{reservation}',[CustomerCartController::class, 'cancel'])->name('cart.cancel');
 
-
+    Route::get('/reservation/detail/with-menu/{reservations}',[CustomerReservationController::class, 'reservationDetailWithMenu'])->name('reservations.detail.with.menu');
+    Route::get('/reservation/detail/upload-receipt/{reservations}',[CustomerReservationController::class, 'reservationDetailUploadReceipt'])->name('reservations.detail.upload.receipt');
+    Route::put('/reservation/detail/with-menu/store/{reservation}',[CustomerReservationController::class, 'uploadProof'])->name('reservations.detail.with.menu.store');
     // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
     // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
     // Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');
@@ -87,8 +89,9 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
     Route::put('/profile/edit/save', [CustomerController::class, 'editSave'])->name('customer.profile.edit.save');
     Route::get('/reservation/list', [CustomerReservationController::class, 'index'])->name('reservations.list');
+    Route::put('/reservation/list/cancel/{reservation}',[CustomerReservationController::class, 'cancel'])->name('reservations.list.cancel');
     Route::get('/reservation/history', [CustomerReservationController::class, 'history'])->name('reservations.history');
-    Route::get('/reservation/detail/without-menu/{reservations}', [CustomerReservationController::class, 'reservationDetailWithoutMenu'])->name('reservation.detail.without.menu');
+    Route::get('/reservation/detail/without-menu/{reservations}', [CustomerReservationController::class, 'reservationDetailWithoutMenu'])->name('reservations.detail.without.menu');
 });
 
 // Route::get('/testing', [WelcomeController::class, 'test']);
@@ -135,6 +138,7 @@ Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(fun
     Route::resource('/tables', TableController::class);
     Route::resource('/table_layouts', TableLayoutController::class);
     Route::resource('/reservations', ReservationController::class);
+
 });
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {

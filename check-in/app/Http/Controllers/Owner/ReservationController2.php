@@ -17,7 +17,7 @@ class ReservationController2 extends Controller
             'reservation_status'=> 6,
         ]);
 
-        return to_route('owner.reservations.index');
+        return back();
     }
     public function notEligible(Reservation $reservation){
 
@@ -43,7 +43,7 @@ class ReservationController2 extends Controller
                 'reservation_status' => 4,
             ]);
 
-        return to_route('owner.reservations.index');
+        return back();
     }
 
     public function sortByStatus(){

@@ -19,6 +19,8 @@ class CartController extends Controller
                         ->where('reservation_status', 0)
                         ->paginate(5);
 
+        session()->forget('last_url_customer');
+
         return view('customer.cart.cart-list', compact('user','reservations'));
     }
 
@@ -39,6 +41,7 @@ class CartController extends Controller
         $reservations = Reservation::where('user_id', $user->id)
                         ->where('reservation_status', 0)
                         ->paginate(5);
+
 
         return view('customer.cart.cart-list', compact('user','reservations'));
 
@@ -135,7 +138,7 @@ class CartController extends Controller
                       ->where('category_menu.menu_id', $menu->id)
                       ->where('categories.restaurant_id', $menu->restaurant_id)
                       ->first();
-        
+
 
         return view('customer.cart.cart-edit',compact('menu','categories','reservation', 'cart_detail'));
     }
@@ -145,7 +148,7 @@ class CartController extends Controller
             'qty' => ['required', 'integer', 'min:1']
         ]);
 
-        
+
         $cart_detail = CartDetail::where('id', $cart_detail)->first();
         $cart_header = CartHeader::where('id', $cart_detail->cart_header_id)->first();
         // dd($cart_detail);
@@ -180,7 +183,7 @@ class CartController extends Controller
     }
 
     public function confirmTransaction(Reservation $reservation){
-        
+
         $cart_header = $reservation->cart_header;
 
         Reservation::where('id', $reservation->id)->update([
@@ -191,7 +194,7 @@ class CartController extends Controller
             'cart_status' => 1,
         ]);
 
-        return to_route('cart.list');
+        return to_route('reservations.list');
     }
 
 }

@@ -70,14 +70,15 @@
             <div class="col-md-8 text-left">
                 <h5 class="d-inline-block">* Please make sure to upload the receipt in the Reservation List page</h5>
             </div>
-
-            <div class="col-md-2 text-right">
-                <form action="{{ route('cart.list.confirm', $reservation->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="btn btn-success ml-auto w-100">Confirm Transaction</button>
-                </form>
-            </div>
+            @if (!count($cart_details) == 0)
+                <div class="col-md-2 text-right">
+                    <form action="{{ route('cart.list.confirm', $reservation->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-success ml-auto w-100">Confirm Transaction</button>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
 

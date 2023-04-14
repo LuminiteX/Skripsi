@@ -18,6 +18,8 @@ class RestaurantController extends Controller
 {
     public function index()
     {
+        session()->forget('last_url_customer');
+
         $restaurants = Restaurant::where('restaurant_status', 1)
             ->where('restaurant_opening_status', 1)
             ->paginate(6);

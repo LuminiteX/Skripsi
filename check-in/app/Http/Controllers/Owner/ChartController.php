@@ -14,6 +14,8 @@ class ChartController extends Controller
 {
     //
     public function index(){
+        session()->forget('last_url');
+
         $restaurant = Auth::user()->restaurant;
         $ReservationCounter = Reservation::where('restaurant_id', $restaurant->id)
                     ->whereIn('reservation_status', [3, 4, 5])

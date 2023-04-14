@@ -22,7 +22,9 @@ class CommentController extends Controller
     public function send(Request $request, Restaurant $restaurant){
         $request->validate([
             'comment' => 'required',
-        ]);
+        ],[
+            'comment.required'=> 'Please insert any comment if you want to submit a comment'
+    ]);
 
         $user = Auth::user();
 

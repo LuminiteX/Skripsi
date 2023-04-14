@@ -19,6 +19,8 @@ class MenuController extends Controller
      */
     public function index()
     {
+        session()->forget('last_url');
+
         $restaurant = Auth::user()->restaurant;
         $menus = Menu::where('restaurant_id', $restaurant->id)->get();
 
@@ -93,7 +95,13 @@ class MenuController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'categories' => 'required'
+        ],[
+            'name.required' => 'The menu name is required.',
+            'description.required' => 'The description field is required.',
+            'price.required' => 'The price is required',
+            'categories.required'=> 'please choose the categories',
         ]);
         $image = $menu->image;
         if ($request->hasFile('image')) {

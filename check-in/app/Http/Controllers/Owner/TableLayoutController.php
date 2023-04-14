@@ -18,6 +18,8 @@ class TableLayoutController extends Controller
      */
     public function index()
     {
+        session()->forget('last_url');
+
         $restaurant = Auth::user()->restaurant;
         $table_layouts = TableLayout::where('restaurant_id', $restaurant->id)
                                     ->orderBy('floor_number', 'asc')

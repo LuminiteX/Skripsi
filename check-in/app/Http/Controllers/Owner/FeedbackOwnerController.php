@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class FeedbackOwnerController extends Controller
 {
     public function index(){
+        session()->forget('last_url');
 
         $restaurant = Auth::user()->restaurant;
         $feedbacks = Feedback::where('restaurant_id', $restaurant->id)->paginate(5);

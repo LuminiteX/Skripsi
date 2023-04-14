@@ -4,41 +4,49 @@
             <h2>Cart List</h2>
             <hr class="border-dark" style="width: 25%">
         </div>
-        @foreach ($reservations as $reservation)
-            <div class="container d-flex align-items-center">
-                <div class="row text-white mt-2 rounded" style="background-color: rgba(0, 0, 0, 0.5)">
-                    <div class="col mt-2 mb-2">
-                        <img src="{{ Storage::url($reservation->restaurant->image) }}" class="img-fluid">
-                    </div>
-                    <div class="col mt-2 mb-2">
-                        <div class="row text-white">
-                            <h3>{{ $reservation->restaurant->name }}</h3>
-                            <p>{{ $reservation->restaurant->address }}</p>
-                            <hr class="border-dark">
-                            <p>Reservation Date : {{ $reservation->reservation_date }}</p>
-                            <p>Guest Number : {{ $reservation->guest_number }}</p>
-                            <p>Table : {{ $reservation->table->name }}</p>
-                            <p class="mt-3"> Created At : {{ $reservation->created_at }}</p>
+
+        @if (!count($reservations) == 0)
+            @foreach ($reservations as $reservation)
+                <div class="container d-flex align-items-center">
+                    <div class="row text-white mt-2 rounded" style="background-color: rgba(0, 0, 0, 0.5)">
+                        <div class="col mt-2 mb-2">
+                            <img src="{{ Storage::url($reservation->restaurant->image) }}" class="img-fluid">
                         </div>
-                    </div>
-                    <div class="col mt-4">
-                        <div class="d-flex justify-content-center mt-5">
-                            <a href="{{ route('cart.list.detail', ['reservation' => $reservation->id]) }}"
-                                class="btn btn-lg btn-primary">Manage Cart Detail</a>
+                        <div class="col mt-2 mb-2">
+                            <div class="row text-white">
+                                <h3>{{ $reservation->restaurant->name }}</h3>
+                                <p>{{ $reservation->restaurant->address }}</p>
+                                <hr class="border-dark">
+                                <p>Reservation Date : {{ $reservation->reservation_date }}</p>
+                                <p>Guest Number : {{ $reservation->guest_number }}</p>
+                                <p>Table : {{ $reservation->table->name }}</p>
+                                <p class="mt-3"> Created At : {{ $reservation->created_at }}</p>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-center mt-5">
-                            <form action="{{ route('cart.cancel', $reservation->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-lg btn-danger">Cancel Reservation</button>
-                            </form>
+                        <div class="col mt-4">
+                            <div class="d-flex justify-content-center mt-5">
+                                <a href="{{ route('cart.list.detail', ['reservation' => $reservation->id]) }}"
+                                    class="btn btn-lg btn-primary">Manage Cart Detail</a>
+                            </div>
+                            <div class="d-flex justify-content-center mt-5">
+                                <form action="{{ route('cart.cancel', $reservation->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-lg btn-danger">Cancel Reservation</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+            @endforeach
+            <div class="d-flex justify-content-center mt-3">
+                {{ $reservations->links('pagination::bootstrap-5') }}
             </div>
-        @endforeach
-        <div class="d-flex justify-content-center mt-3">
-            {{ $reservations->links('pagination::bootstrap-5') }}
-        </div>
+        @else
+            <h3 class="mb-0 text-md"> <i class="fas fa-info-circle mr-2" style="color:grey;"></i> No cart to be managed
+                yet
+            </h3>
+        @endif
+
     </div>
 </x-customer-layout>

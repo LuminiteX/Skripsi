@@ -28,7 +28,18 @@ class MenuStoreRequest extends FormRequest
             'description' => ['required'],
             'price' => ['required'],
             'image' => ['required', 'image'],
-            'categories'=>['required'],
+            'categories' => ['required'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'The menu name is required.',
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image must be a valid image file.',
+            'description.required' => 'The description field is required.',
+            'price.required' => 'The price is required',
+            'categories.required'=> 'please choose the categories',
         ];
     }
 }

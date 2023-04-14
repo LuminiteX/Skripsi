@@ -19,6 +19,8 @@ class TableController extends Controller
      */
     public function index()
     {
+        session()->forget('last_url');
+
         $restaurant = Auth::user()->restaurant;
         $tables = Table::where('restaurant_id', $restaurant->id)->get();
         return view('owner.tables.index', compact('tables'));

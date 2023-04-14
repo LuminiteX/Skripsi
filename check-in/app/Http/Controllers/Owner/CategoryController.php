@@ -18,6 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        session()->forget('last_url');
 
         $restaurant = Auth::user()->restaurant;
         $categories = Category::where('restaurant_id', [$restaurant->id])->get();
@@ -96,6 +97,7 @@ class CategoryController extends Controller
             'description' => 'required'
         ]);
         $image = $category->image;
+
         if ($request->hasFile('image')) {
             Storage::delete($category->image);
             $image = $request->file('image')->store('public/categories');

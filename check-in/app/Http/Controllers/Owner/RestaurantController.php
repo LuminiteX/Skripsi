@@ -14,6 +14,7 @@ class RestaurantController extends Controller
 {
     public function index()
     {
+        session()->forget('last_url');
 
         return view('owner.restaurant.create');
     }

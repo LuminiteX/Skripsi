@@ -167,8 +167,7 @@
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
                                                             <a href="{{ route('owner.reservations.reject', $reservation->id) }}"
-                                                                class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white"
-                                                                onsubmit="return confirm('Are you sure?');">Rejected</a>
+                                                                class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Rejected</a>
                                                         @elseif ($reservation->reservation_status == 2)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
@@ -177,8 +176,7 @@
                                                                 Status</a>
                                                             @if ($reservation->cart_header)
                                                                 <a href="{{ route('owner.reservations.reject', $reservation->id) }}"
-                                                                    class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white"
-                                                                    onsubmit="return confirm('Are you sure?');">Rejected</a>
+                                                                    class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Rejected</a>
                                                             @endif
                                                         @elseif ($reservation->reservation_status == 3)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"

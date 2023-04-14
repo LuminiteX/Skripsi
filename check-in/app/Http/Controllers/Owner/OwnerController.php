@@ -14,6 +14,7 @@ class OwnerController extends Controller
 {
     public function index()
     {
+        session()->forget('last_url');
         // Get the current user
         $user = auth()->user();
 

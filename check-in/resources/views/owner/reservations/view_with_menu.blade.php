@@ -135,8 +135,11 @@
 
                                 @if ($reservation->cart_header->image)
                                     <div>
-                                        <img class="w-2/4 h-3/5"
-                                            src="{{ Storage::url($reservation->cart_header->image) }}">
+                                        <a href="{{ Storage::url($reservation->cart_header->image) }}"
+                                            class="w-2/4 h-3/5" target="_blank">
+                                            <img class="w-2/4 h-3/5"
+                                                src="{{ Storage::url($reservation->cart_header->image) }}">
+                                        </a>
                                     </div>
                                 @else
                                     <div class="mt-1">

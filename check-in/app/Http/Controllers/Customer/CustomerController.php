@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller{
     public function profile(){
+        session()->forget('last_url_customer');
+
         $user = Auth::user();
         return view('customer.profile.index')->with('user', $user);
     }
@@ -31,7 +33,7 @@ class CustomerController extends Controller{
 
         ],[
             'phone_number.regex'=> 'Please follow the format of the phone number',
-            'address.min' => 'Please put more detailed information about the restaurant location at least 20 words',
+            'address.min' => 'Please put more detailed information about the customer location at least 20 words',
             'image.mimes' => 'The uploaded file must be in an image format',
         ]);
 

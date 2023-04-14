@@ -29,4 +29,14 @@ class TableLayoutRequest extends FormRequest
             'image' => ['required', 'image'],
         ];
     }
+    public function messages()
+    {
+        return [
+            'floor_number.required' => 'The floor_number name is required.',
+            'floor_name.required' => 'The floor_name required.',
+            'image.image' => 'The image must be a valid image file.',
+            'image.required' => 'The image is required.',
+            'floor_number.integer' => 'The floor number needs to be integer',
+        ];
+    }
 }

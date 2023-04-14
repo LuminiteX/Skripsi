@@ -103,7 +103,6 @@ class ReservationController extends Controller
 
     public function storeStepTwo(Request $request, Restaurant $restaurant)
     {
-        // dd("Hit without menu");
 
         $validated = $request->validate([
             'table_id' => ['required']
@@ -132,12 +131,11 @@ class ReservationController extends Controller
         $reservation['reservation_status'] = 2;
         $reservation->save();
 
-        return to_route('thankyou', $restaurant->id);
+        return to_route('reservations.list');
     }
 
     public function storeStepTwoWithMenu(Request $request, Restaurant $restaurant)
     {
-        // dd("Hit with menu");
         $validated = $request->validate([
             'table_id' => ['required']
         ]);
@@ -171,9 +169,6 @@ class ReservationController extends Controller
             'total' => 0,
         ]);
 
-        $menus = $restaurant->menus()->get();
-
-        $categories = Category::where('restaurant_id', $restaurant->id)->paginate(3);
 
         return to_route('menu.index', ['restaurant' => $restaurant->id, 'reservation' => $reservation->id]);
     }
@@ -184,7 +179,29 @@ class ReservationController extends Controller
                         ->whereIn('reservation_status', [1,2,3])
                         ->paginate(5);
 
+        $lastPage = session()->get('last_url_customer');
+        session()->forget('last_url_customer');
+
+        if ($lastPage && $lastPage !== $reservations->url(1)) {
+            return redirect($lastPage);
+        }
+
         return view('customer.reservation.reservation-list', compact('user','reservations'));
+    }
+
+    public function cancel(Reservation $reservation){
+        $reservation->update([
+            'reservation_status'=> 7,
+        ]);
+
+        return to_route('reservations.list');
+    }
+
+    public function reservationDetailWithMenu(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
+
+        // dd($reservations);
+        return view('customer.reservation.reservation-detail-with-menu', compact('reservations'));
     }
 
     public function history(){
@@ -197,6 +214,43 @@ class ReservationController extends Controller
     }
 
     public function reservationDetailWithoutMenu(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
+
         return view('customer.reservation.reservation-detail-without-menu', compact('reservations'));
     }
+
+    public function reservationDetailUploadReceipt(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
+
+        return view('customer.reservation.reservation-detail-upload-receipt', compact('reservations'));
+    }
+
+
+
+    public function uploadProof(Request $request, Reservation $reservation){
+
+        $validated = $request->validate([
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif']
+        ], [
+            'image.required' => 'Please upload an image',
+            'image.image' => 'The file must be an image',
+            'image.mimes' => 'The image must be a JPEG, PNG, JPG, or GIF',
+        ]);
+
+        $cart_header = $reservation->cart_header;
+        $image = $request->file('image')->store('public/receipt');
+
+        CartHeader::where('id', $cart_header->id)
+            ->update([
+                'image' => $image,
+            ]);
+
+        $reservation->update([
+            'reservation_status'=> 2,
+        ]);
+
+        return to_route('reservations.list');
+    }
+
+
 }
