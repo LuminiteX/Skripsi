@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cart_headers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reservation_id');
-            $table->decimal('total', 10, 2);
+            $table->decimal('total', 10, 2)->default(0);
             $table->string('image')->nullable();
             $table->integer('cart_status')->default(0);
             $table->timestamps();

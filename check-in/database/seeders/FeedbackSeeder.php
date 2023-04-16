@@ -25,7 +25,7 @@ class FeedbackSeeder extends Seeder
 
         foreach(range(1, 50) as $index) {
             $rating = $faker->randomFloat(1, 1, 4.5) * 2;
-            $rating = round($rating * 2) / 2; // round to nearest 0.5
+            $rating = round($rating) / 2; // round to nearest 0.5
             DB::table('feedback')->insert([
                 'reservation_id' => array_pop($reservation_ids),
                 'restaurant_id' => 1,

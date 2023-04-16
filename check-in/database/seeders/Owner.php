@@ -85,6 +85,50 @@ class Owner extends Seeder
                 'image' => 'public/picture/20230406_095519_ProfilePic.jpg',
                 'remember_token' => Str::random(10),
             ],
+            [
+                'name' => 'Owner2',
+                'email' => 'Owner2@gmail.com',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'phone_number' => '+6281320477886',
+                'address' => 'jalan testing data',
+                'is_special_user' => 1,
+                'has_restaurant' => 1,
+                'image' => 'public/picture/20230402_135238_Dinner.jpg',
+                'remember_token' => Str::random(10),
+            ],
+            [
+                'name' => 'Owner3',
+                'email' => 'Owner3@gmail.com',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'phone_number' => '+6281320477886',
+                'address' => 'jalan testing data',
+                'is_special_user' => 1,
+                'has_restaurant' => 1,
+                'image' => 'public/picture/20230402_135238_Dinner.jpg',
+                'remember_token' => Str::random(10),
+            ],
+            [
+                'name' => 'Owner4',
+                'email' => 'Owner4@gmail.com',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'phone_number' => '+6281320477886',
+                'address' => 'jalan testing data',
+                'is_special_user' => 1,
+                'has_restaurant' => 1,
+                'image' => 'public/picture/20230402_135238_Dinner.jpg',
+                'remember_token' => Str::random(10),
+            ],
+            [
+                'name' => 'Owner5',
+                'email' => 'Owner5@gmail.com',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'phone_number' => '+6281320477886',
+                'address' => 'jalan testing data',
+                'is_special_user' => 1,
+                'has_restaurant' => 1,
+                'image' => 'public/picture/20230402_135238_Dinner.jpg',
+                'remember_token' => Str::random(10),
+            ],
         ];
 
         foreach ($users as $userData) {

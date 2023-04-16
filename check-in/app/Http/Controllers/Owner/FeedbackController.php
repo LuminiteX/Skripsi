@@ -7,7 +7,7 @@ use App\Models\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FeedbackOwnerController extends Controller
+class FeedbackController extends Controller
 {
     public function index(){
         session()->forget('last_url');
