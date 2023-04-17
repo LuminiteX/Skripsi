@@ -210,6 +210,13 @@ class ReservationController extends Controller
                         ->whereIn('reservation_status', [4,5,6,7])
                         ->paginate(5);
 
+        $lastPage = session()->get('last_url_customer');
+        session()->forget('last_url_customer');
+
+        if ($lastPage && $lastPage !== $reservations->url(1)) {
+            return redirect($lastPage);
+        }
+
         return view('customer.reservation.reservation-history', compact('user','reservations'));
     }
 

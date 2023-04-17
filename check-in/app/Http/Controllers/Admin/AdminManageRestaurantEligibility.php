@@ -24,7 +24,7 @@ class AdminManageRestaurantEligibility extends Controller
                 'restaurant_status' => 0,
             ]);
 
-            return to_route('admin.manage.restaurant')->with('success', 'Restaurant status has been change to not eligible');
+            return to_route('admin.manage.restaurant')->with('danger', 'Restaurant status has been change to not eligible');
     }
 
     public function Eligible(Restaurant $restaurant){

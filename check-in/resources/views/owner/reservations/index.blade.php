@@ -182,7 +182,7 @@
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
                                                             <a href="{{ route('owner.reservations.finish', $reservation->id) }}"
-                                                                class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">Finish</a>
+                                                                class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-lg  text-white">Finish</a>
                                                         @elseif ($reservation->reservation_status == 4)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>

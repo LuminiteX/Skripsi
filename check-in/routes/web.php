@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Owner\OwnerController;
-use App\Http\Controllers\Owner\CategoryController;
-use App\Http\Controllers\Owner\MenuController;
-use App\Http\Controllers\Owner\ReservationController;
-use App\Http\Controllers\Owner\ReservationController2;
-use App\Http\Controllers\Owner\TableController;
-use App\Http\Controllers\Owner\RestaurantController;
-use App\Http\Controllers\Owner\TableLayoutController;
-use App\Http\Controllers\Owner\CommentController;
-use App\Http\Controllers\Owner\FeedbackOwnerController;
-use App\Http\Controllers\Owner\ChartController;
+use App\Http\Controllers\Owner\CategoryController as OwnerCategoryController;
+use App\Http\Controllers\Owner\MenuController as OwnerMenuController;
+use App\Http\Controllers\Owner\ReservationController as OwnerReservationController;
+use App\Http\Controllers\Owner\ReservationController2 as OwnerReservationController2;
+use App\Http\Controllers\Owner\TableController as OwnerTableController;
+use App\Http\Controllers\Owner\RestaurantController as OwnerRestaurantController;
+use App\Http\Controllers\Owner\TableLayoutController as OwnerTableLayoutController;
+use App\Http\Controllers\Owner\CommentController as OwnerCommentController;
+use App\Http\Controllers\Owner\FeedbackController as OwnerFeedbackController;
+use App\Http\Controllers\Owner\ChartController as OwnerChartController;
 
 
 use App\Http\Controllers\Admin\AdminController;
@@ -28,6 +28,7 @@ use App\Http\Controllers\Customer\RestaurantController as CustomerRestaurantCont
 use App\Http\Controllers\Customer\CommentController as CustomerCommentController;
 use App\Http\Controllers\Customer\CartController as CustomerCartController;
 use App\Http\Controllers\Customer\CustomerController as CustomerController;
+use App\Http\Controllers\Customer\FeedbackController as CustomerFeedbackController;
 use App\Http\Controllers\Customer\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,8 +61,8 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::post('/reservation/step-two/with-menu/{restaurant}', [CustomerReservationController::class, 'storeStepTwoWithMenu'])->name('reservations.store.step.two.with.menu');
 
     Route::get('/menu/{restaurant}/{reservation}',[CustomerMenuController::class, 'index'])->name('menu.index');
-    Route::get('/menu/sort-by/{category}/{reservation}',[CustomerMenuController::class, 'sortByCategory'])->name('menu.sort.by');
-    Route::get('/menu/sort-by/menu-detail/{menu}/{reservation}',[CustomerMenuController::class, 'menuDetailFromCategory'])->name('menu.sort.by.menu.detail');
+    Route::get('/menu/sort-by/{category}/{reservation}',[CustomerCategoryController::class, 'sortByCategory'])->name('menu.sort.by');
+    Route::get('/menu/sort-by/menu-detail/{menu}/{reservation}',[CustomerCategoryController::class, 'menuDetailFromCategory'])->name('menu.sort.by.menu.detail');
     Route::get('/menu/menu-detail/{menu}/{reservation}',[CustomerMenuController::class, 'menuDetail'])->name('menu.detail');
 
     Route::post('/cart/store/{restaurant}/{reservation}',[CustomerCartController::class, 'store'])->name('cart.store');
@@ -76,14 +77,6 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/reservation/detail/with-menu/{reservations}',[CustomerReservationController::class, 'reservationDetailWithMenu'])->name('reservations.detail.with.menu');
     Route::get('/reservation/detail/upload-receipt/{reservations}',[CustomerReservationController::class, 'reservationDetailUploadReceipt'])->name('reservations.detail.upload.receipt');
     Route::put('/reservation/detail/with-menu/store/{reservation}',[CustomerReservationController::class, 'uploadProof'])->name('reservations.detail.with.menu.store');
-    // Route::get('/categories', [FrontendCategoryController::class, 'index'])->name('categories.index');
-    // Route::get('/categories/{category}', [FrontendCategoryController::class, 'show'])->name('categories.show');
-    // Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');
-    // Route::get('/reservation/step-one', [FrontendReservationController::class, 'stepOne'])->name('reservations.step.one');
-    // Route::post('/reservation/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
-    // Route::get('/reservation/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
-    // Route::post('/reservation/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
-    // Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
     Route::get('/cart/list',[CustomerCartController::class, 'index'])->name('cart.list');
     Route::get('/profile', [CustomerController::class, 'profile'])->name('customer.show.profile');
     Route::get('/profile/edit', [CustomerController::class, 'edit'])->name('customer.profile.edit');
@@ -92,6 +85,8 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::put('/reservation/list/cancel/{reservation}',[CustomerReservationController::class, 'cancel'])->name('reservations.list.cancel');
     Route::get('/reservation/history', [CustomerReservationController::class, 'history'])->name('reservations.history');
     Route::get('/reservation/detail/without-menu/{reservations}', [CustomerReservationController::class, 'reservationDetailWithoutMenu'])->name('reservations.detail.without.menu');
+    Route::get('/reservation/feedback/{reservation}', [CustomerFeedbackController::class, 'index'])->name('reservations.feedback');
+    Route::post('/reservation/feedback/store/{reservation}', [CustomerFeedbackController::class, 'store'])->name('reservations.feedback.store');
 });
 
 // Route::get('/testing', [WelcomeController::class, 'test']);
@@ -105,39 +100,39 @@ Route::middleware(['auth', 'customer'])->group(function () {
 
 Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(function () {
     Route::get('/', [OwnerController::class, 'index'])->name('index');
-    Route::get('/chart', [ChartController::class, 'index'])->name('charts.index');
+    Route::get('/chart', [OwnerChartController::class, 'index'])->name('charts.index');
     Route::get('/profile', [OwnerController::class, 'profile'])->name('profile');
     Route::get('/profile/edit', [OwnerController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [OwnerController::class, 'editSave'])->name('profile.edit.save');
-    Route::get('/restaurant/create', [RestaurantController::class, 'index'])->name('restaurant.index');
-    Route::post('/restaurant/create', [RestaurantController::class, 'create'])->name('restaurant.create');
-    Route::get('/restaurant/profile', [RestaurantController::class, 'profile'])->name('restaurant.profile');
-    Route::get('/restaurant/profile/activate', [RestaurantController::class, 'activate'])->name('restaurant.profile.activate');
-    Route::get('/restaurant/profile/deactivate', [RestaurantController::class, 'deactivate'])->name('restaurant.profile.deactivate');
-    Route::get('/restaurant/profile/edit', [RestaurantController::class, 'edit'])->name('restaurant.profile.edit.show');
-    Route::put('/restaurant/profile/edit/{restaurant}', [RestaurantController::class, 'editSave'])->name('restaurant.profile.edit.save');
-    Route::get('/feedback', [FeedbackOwnerController::class, 'index'])->name('feedback');
-    Route::get('/feedback/rate/asc', [FeedbackOwnerController::class, 'rateAsc'])->name('feedback.rate.asc');
-    Route::get('/feedback/rate/desc', [FeedbackOwnerController::class, 'rateDesc'])->name('feedback.rate.desc');
-    Route::get('/feedback/date/asc', [FeedbackOwnerController::class, 'dateAsc'])->name('feedback.date.asc');
-    Route::get('/feedback/date/desc', [FeedbackOwnerController::class, 'dateDesc'])->name('feedback.date.desc');
-    Route::get('/comment', [CommentController::class, 'index'])->name('comments.index');
-    Route::post('/comment/send/{restaurant}', [CommentController::class, 'send'])->name('comments.send');
-    Route::delete('/comments/destroy/{comments}', [CommentController::class, 'destroy'])->name('comments.destroy');
-    Route::get('/comment/reply/show/{comments}', [CommentController::class, 'reply'])->name('comments.reply.show');
-    Route::post('/comment/reply/send/{restaurant}', [CommentController::class, 'sendReply'])->name('comments.reply.send');
-    Route::get('/reservation/reject/{reservation}', [ReservationController2::class, 'reject'])->name('reservations.reject');
-    Route::get('/reservation/sort_by_status', [ReservationController2::class, 'sortByStatus'])->name('reservations.sort_by_status');
-    Route::get('/reservation/sort_by_date_now', [ReservationController2::class, 'sortByDateNowUntilFuture'])->name('reservations.sort_by_date_now');
-    Route::get('/reservation/sort_by_guest_number', [ReservationController2::class, 'sortByGuestNumber'])->name('reservations.sort_by_guest_number');
-    Route::get('/reservation/not_eligible/{reservation}', [ReservationController2::class, 'notEligible'])->name('reservations.not_eligible');
-    Route::get('/reservation/finish/{reservation}', [ReservationController2::class, 'finish'])->name('reservations.finish');
+    Route::get('/restaurant/create', [OwnerRestaurantController::class, 'index'])->name('restaurant.index');
+    Route::post('/restaurant/create', [OwnerRestaurantController::class, 'create'])->name('restaurant.create');
+    Route::get('/restaurant/profile', [OwnerRestaurantController::class, 'profile'])->name('restaurant.profile');
+    Route::get('/restaurant/profile/activate', [OwnerRestaurantController::class, 'activate'])->name('restaurant.profile.activate');
+    Route::get('/restaurant/profile/deactivate', [OwnerRestaurantController::class, 'deactivate'])->name('restaurant.profile.deactivate');
+    Route::get('/restaurant/profile/edit', [OwnerRestaurantController::class, 'edit'])->name('restaurant.profile.edit.show');
+    Route::put('/restaurant/profile/edit/{restaurant}', [OwnerRestaurantController::class, 'editSave'])->name('restaurant.profile.edit.save');
+    Route::get('/feedback', [OwnerFeedbackController::class, 'index'])->name('feedback');
+    Route::get('/feedback/rate/asc', [OwnerFeedbackController::class, 'rateAsc'])->name('feedback.rate.asc');
+    Route::get('/feedback/rate/desc', [OwnerFeedbackController::class, 'rateDesc'])->name('feedback.rate.desc');
+    Route::get('/feedback/date/asc', [OwnerFeedbackController::class, 'dateAsc'])->name('feedback.date.asc');
+    Route::get('/feedback/date/desc', [OwnerFeedbackController::class, 'dateDesc'])->name('feedback.date.desc');
+    Route::get('/comment', [OwnerCommentController::class, 'index'])->name('comments.index');
+    Route::post('/comment/send/{restaurant}', [OwnerCommentController::class, 'send'])->name('comments.send');
+    Route::delete('/comments/destroy/{comments}', [OwnerCommentController::class, 'destroy'])->name('comments.destroy');
+    Route::get('/comment/reply/show/{comments}', [OwnerCommentController::class, 'reply'])->name('comments.reply.show');
+    Route::post('/comment/reply/send/{restaurant}', [OwnerCommentController::class, 'sendReply'])->name('comments.reply.send');
+    Route::get('/reservation/reject/{reservation}', [OwnerReservationController2::class, 'reject'])->name('reservations.reject');
+    Route::get('/reservation/sort_by_status', [OwnerReservationController2::class, 'sortByStatus'])->name('reservations.sort_by_status');
+    Route::get('/reservation/sort_by_date_now', [OwnerReservationController2::class, 'sortByDateNowUntilFuture'])->name('reservations.sort_by_date_now');
+    Route::get('/reservation/sort_by_guest_number', [OwnerReservationController2::class, 'sortByGuestNumber'])->name('reservations.sort_by_guest_number');
+    Route::get('/reservation/not_eligible/{reservation}', [OwnerReservationController2::class, 'notEligible'])->name('reservations.not_eligible');
+    Route::get('/reservation/finish/{reservation}', [OwnerReservationController2::class, 'finish'])->name('reservations.finish');
     // Route::get('/reservation/view/{reservation}',[ReservationController2::class, 'reservationView'])->name('reservation.view');
-    Route::resource('/categories', CategoryController::class);
-    Route::resource('/menus', MenuController::class);
-    Route::resource('/tables', TableController::class);
-    Route::resource('/table_layouts', TableLayoutController::class);
-    Route::resource('/reservations', ReservationController::class);
+    Route::resource('/categories', OwnerCategoryController::class);
+    Route::resource('/menus', OwnerMenuController::class);
+    Route::resource('/tables', OwnerTableController::class);
+    Route::resource('/table_layouts', OwnerTableLayoutController::class);
+    Route::resource('/reservations', OwnerReservationController::class);
 
 });
 
