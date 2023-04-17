@@ -17,6 +17,7 @@ class CartController extends Controller
         $user = auth()->user();
         $reservations = Reservation::where('user_id', $user->id)
                         ->where('reservation_status', 0)
+                        ->orderBy('created_at', 'desc')
                         ->paginate(5);
 
         session()->forget('last_url_customer');
@@ -190,9 +191,9 @@ class CartController extends Controller
             'reservation_status' => 1,
         ]);
 
-        CartHeader::where('id', $cart_header->id)->update([
-            'cart_status' => 1,
-        ]);
+        // CartHeader::where('id', $cart_header->id)->update([
+        //     'cart_status' => 1,
+        // ]);
 
         return to_route('reservations.list');
     }

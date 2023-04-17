@@ -165,7 +165,6 @@ class ReservationController extends Controller
         CartHeader::create([
             'reservation_id' => $reservation->id,
             'restaurant_id'=> $reservation->restaurant_id,
-            'cart_status' => 0,
             'total' => 0,
         ]);
 
@@ -177,6 +176,7 @@ class ReservationController extends Controller
         $user = auth()->user();
         $reservations = Reservation::where('user_id', $user->id)
                         ->whereIn('reservation_status', [1,2,3])
+                        ->orderBy('created_at', 'desc')
                         ->paginate(5);
 
         $lastPage = session()->get('last_url_customer');

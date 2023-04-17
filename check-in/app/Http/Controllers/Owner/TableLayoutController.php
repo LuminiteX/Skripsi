@@ -67,7 +67,7 @@ class TableLayoutController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

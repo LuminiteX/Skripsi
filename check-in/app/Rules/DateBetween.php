@@ -27,9 +27,10 @@ class DateBetween implements Rule
     public function passes($attribute, $value)
     {
         $pickupDate = Carbon::parse($value);
-        $lastDate = Carbon::now()->addMonth(3);
+        $lastDate = Carbon::now()->addMonth(3)->endOfDay();
+        $tomorrow = \Carbon\Carbon::tomorrow();
 
-        return $value >= now() && $value <= $lastDate;
+        return $pickupDate->gte($tomorrow) && $pickupDate->lte($lastDate);
     }
 
     /**

@@ -31,9 +31,9 @@
                                 x-transition:enter-end="opacity-100 transform scale-y-100"
                                 x-transition:leave="transition ease-in duration-300"
                                 x-transition:leave-end="opacity-0 transform scale-y-50">
-                                <li><a href="{{ route('owner.reservations.index') }}"
+                                <li><a href="{{ route('owner.reservations.sort_by_date_desc') }}"
                                         class="py-1 px-3 border-b block hover:bg-indigo-100">Reservation
-                                        date ascending order</a>
+                                        date descending order</a>
                                 </li>
                                 <li><a href="{{ route('owner.reservations.sort_by_status') }}"
                                         class="py-1 px-3 border-b block hover:bg-indigo-100">Sort by
@@ -166,8 +166,15 @@
                                                         @elseif ($reservation->reservation_status == 1)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
-                                                            <a href="{{ route('owner.reservations.reject', $reservation->id) }}"
-                                                                class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Rejected</a>
+                                                            <form
+                                                                class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                                method="POST"
+                                                                action="{{ route('owner.reservations.reject', $reservation->id) }}"
+                                                                onsubmit="return confirm('Are you sure you want to reject this reservation?');">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit">Rejected</button>
+                                                            </form>
                                                         @elseif ($reservation->reservation_status == 2)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
@@ -175,14 +182,21 @@
                                                                 class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Update
                                                                 Status</a>
                                                             @if ($reservation->cart_header)
-                                                                <a href="{{ route('owner.reservations.reject', $reservation->id) }}"
-                                                                    class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Rejected</a>
+                                                                <form
+                                                                    class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                                    method="POST"
+                                                                    action="{{ route('owner.reservations.reject', $reservation->id) }}"
+                                                                    onsubmit="return confirm('Are you sure you want to reject this reservation?');">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <button type="submit">Rejected</button>
+                                                                </form>
                                                             @endif
                                                         @elseif ($reservation->reservation_status == 3)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>
                                                             <a href="{{ route('owner.reservations.finish', $reservation->id) }}"
-                                                                class="px-4 py-2 bg-yellow-500 hover:bg-yellow-700 rounded-lg  text-white">Finish</a>
+                                                                class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">Finish</a>
                                                         @elseif ($reservation->reservation_status == 4)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>

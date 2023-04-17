@@ -101,7 +101,7 @@ class ReservationController extends Controller
      */
     public function update(ReservationStoreRequest $request, Reservation $reservation)
     {
-        // dd('hit');
+
 
 
         $restaurant = Auth::user()->restaurant;

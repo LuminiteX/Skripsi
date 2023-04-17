@@ -5,8 +5,9 @@
                 <h2>Reservation List</h2>
                 <hr class="border-dark" style="width: 50%">
             </div>
-            <div class="col-md-2 align-self-center">
-                <a href="{{ route('reservations.history') }}" class="btn btn-primary">View History</a>
+            <div class="col-md-2 d-flex justify-content-end mt-2" style="height:50%">
+                <a href="{{ route('reservations.history') }}" class="btn btn-primary">View
+                    History</a>
             </div>
         </div>
         @if (!count($reservations) == 0)
@@ -48,7 +49,8 @@
                                 </div>
                                 <div class="d-flex justify-content-center mt-5">
                                     <form action="{{ route('reservations.list.cancel', $reservation->id) }}"
-                                        method="POST">
+                                        method="POST"
+                                        onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" class="btn btn-lg btn-danger">Cancel Reservation</button>

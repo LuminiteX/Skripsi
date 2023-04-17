@@ -9,7 +9,9 @@ class CartHeader extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reservation_id', 'total', 'cart_status'];
+    // protected $fillable = ['reservation_id', 'total', 'cart_status'];
+
+    protected $fillable = ['reservation_id', 'total'];
 
     public function reservation()
     {

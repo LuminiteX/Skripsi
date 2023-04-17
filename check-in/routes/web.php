@@ -121,7 +121,8 @@ Route::middleware(['auth', 'owner'])->name('owner.')->prefix('owner')->group(fun
     Route::delete('/comments/destroy/{comments}', [OwnerCommentController::class, 'destroy'])->name('comments.destroy');
     Route::get('/comment/reply/show/{comments}', [OwnerCommentController::class, 'reply'])->name('comments.reply.show');
     Route::post('/comment/reply/send/{restaurant}', [OwnerCommentController::class, 'sendReply'])->name('comments.reply.send');
-    Route::get('/reservation/reject/{reservation}', [OwnerReservationController2::class, 'reject'])->name('reservations.reject');
+    Route::put('/reservation/reject/{reservation}', [OwnerReservationController2::class, 'reject'])->name('reservations.reject');
+    Route::get('/reservation/sort_by_date_desc', [OwnerReservationController2::class, 'sortByDateDesc'])->name('reservations.sort_by_date_desc');
     Route::get('/reservation/sort_by_status', [OwnerReservationController2::class, 'sortByStatus'])->name('reservations.sort_by_status');
     Route::get('/reservation/sort_by_date_now', [OwnerReservationController2::class, 'sortByDateNowUntilFuture'])->name('reservations.sort_by_date_now');
     Route::get('/reservation/sort_by_guest_number', [OwnerReservationController2::class, 'sortByGuestNumber'])->name('reservations.sort_by_guest_number');

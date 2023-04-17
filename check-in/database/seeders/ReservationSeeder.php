@@ -48,8 +48,8 @@ class ReservationSeeder extends Seeder
                 'user_id' => $user_id,
                 'table_id' => $table_id,
                 'guest_number' => $guest_number,
-                'reservation_date' => $reservation_date,
-                'reservation_status' => $reservation_status,
+                'reservation_date' => $reservation_date2,
+                'reservation_status' => $reservation_status2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

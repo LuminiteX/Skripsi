@@ -74,4 +74,13 @@ class ReservationController2 extends Controller
                     ->paginate(10);
         return view('owner.reservations.index', compact('reservations'));
     }
+
+    public function sortByDateDesc(){
+        $restaurant = Auth::user()->restaurant;
+        $reservations = Reservation::where('restaurant_id', $restaurant->id)
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+
+        return view('owner.reservations.index', compact('reservations'));
+    }
 }

@@ -29,7 +29,8 @@
                                     class="btn btn-lg btn-primary">Manage Cart Detail</a>
                             </div>
                             <div class="d-flex justify-content-center mt-5">
-                                <form action="{{ route('cart.cancel', $reservation->id) }}" method="POST">
+                                <form action="{{ route('cart.cancel', $reservation->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-lg btn-danger">Cancel Reservation</button>

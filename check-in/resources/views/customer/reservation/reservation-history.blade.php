@@ -45,7 +45,8 @@
                         <div class="col mt-4 justify-content-center align-items-center">
                             @if ($reservation->reservation_status == 4)
                                 <div class="d-flex justify-content-center mt-5">
-                                    <a href="#" class="btn btn-lg btn-primary" style="width: 199px">Give
+                                    <a href="{{ route('reservations.feedback', $reservation->id) }}"
+                                        class="btn btn-lg btn-primary" style="width: 199px">Give
                                         Feedback</a>
                                 </div>
                                 @if ($reservation->cart_header)

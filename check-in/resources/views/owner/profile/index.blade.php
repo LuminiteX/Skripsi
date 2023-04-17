@@ -15,7 +15,7 @@
                                 @if ($user->image)
                                     <div class="w-full h-80 px-4">
                                         <img class="object-cover w-full h-full" src="{{ Storage::url($user->image) }}"
-                                            alt="Restaurant image">
+                                            alt="User image">
                                     </div>
                                 @else
                                     <img class="max-h-64" src="{{ asset('storage/default/default-image.jpg') }}"
