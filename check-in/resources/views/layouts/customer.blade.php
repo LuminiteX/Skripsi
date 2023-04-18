@@ -46,18 +46,20 @@
 
     <link rel="icon" type="image/png" href="{{ asset('storage/logo/logo.png') }}">
 
+    @yield('style')
     <script src="https://kit.fontawesome.com/b63c8b9802.js" crossorigin="anonymous"></script>
-
     {{-- <script src="{{ asset('js/moment.min.js') }}"></script> --}}
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     @stack('scripts')
+
+
 </head>
 <header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
                 <img src="{{ asset('storage/logo/logo.png') }}" alt="" width="150" height="100">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
