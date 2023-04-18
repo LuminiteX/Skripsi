@@ -1,5 +1,5 @@
 <x-customer-layout>
-    <div class="container">
+    <div class="container" style="background-color: white">
         <div class="row">
             <div class="col-md-12" style="padding: 0;">
                 <img src="{{ Storage::url($restaurants->image) }}" class="img-fluid"
@@ -111,52 +111,50 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title mb-4">Comment Section</h2>
-                                <div class="mb-5">
+                                <div class="mb-1">
                                     @foreach ($comments as $comment)
-                                            <div class="w-96 mb-4">
-                                                <div class="d-flex mb-2">
-                                                        <img src="{{ Storage::url($comment->user->image) }}" alt="User"
-                                                            class="rounded-circle me-2 border" style="width: 50px; height: 50px;">
-                                                    <div class="d-flex align-items-center mb-1">
-                                                            <h5 class="mb-0 me-2">{{ $comment->user->name }}</h5>
-                                                            <small
-                                                                class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
-                                                    </div>
-                                                </div>
-                                                <p class="mb-0">{{ $comment->comment }}</p>
-                                                <div class="d-flex align-items-center mt-3">
-                                                    @if ($comment->user->id == auth()->user()->id)
-                                                        <form
-                                                            action="{{ route('customer.comments.reply.destroy', ['comments' => $comment->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger me-2">Delete</button>
-                                                        </form>
-                                                    @endif
-                                                    <button type="button" class="btn btn-primary me-2"
-                                                        onclick="toggleCommentForm({{ $comment->id }})">Reply</button>
-                                                </div>
-                                                <div class="d-none" id="comment-form-{{ $comment->id }}">
-                                                    <form
-                                                        action="{{ route('customer.comments.reply', $restaurants->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="comment_id"
-                                                            value="{{ $comment->id }}">
-                                                        <div class="d-flex align-items-end mb-3 mt-3">
-                                                            <div class="flex-grow-1 me-3">
-                                                                <textarea name="comment" class="form-control" placeholder="Leave a comment" style="height: 100px;"></textarea>
-                                                            </div>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
+                                        <div class="w-96 mb-4">
+                                            <div class="d-flex mb-2">
+                                                <img src="{{ Storage::url($comment->user->image) }}" alt="User"
+                                                    class="rounded-circle me-2 border"
+                                                    style="width: 50px; height: 50px;">
+                                                <div class="d-flex align-items-center mb-1">
+                                                    <h5 class="mb-0 me-2">{{ $comment->user->name }}</h5>
+                                                    <small
+                                                        class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                                                 </div>
                                             </div>
+                                            <p class="mb-0 d-flex" style="margin-left: 60px">{{ $comment->comment }}
+                                            </p>
+                                            <div class="d-flex align-items-center mt-3" style="margin-left: 60px">
+                                                @if ($comment->user->id == auth()->user()->id)
+                                                    <form
+                                                        action="{{ route('customer.comments.reply.destroy', ['comments' => $comment->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="btn btn-danger me-2">Delete</button>
+                                                    </form>
+                                                @endif
+                                                <button type="button" class="btn btn-primary me-2"
+                                                    onclick="toggleCommentForm({{ $comment->id }})">Reply</button>
+                                            </div>
+                                            <div class="d-none" id="comment-form-{{ $comment->id }}">
+                                                <form action="{{ route('customer.comments.reply', $restaurants->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="comment_id"
+                                                        value="{{ $comment->id }}">
+                                                    <div class="d-flex align-items-center mb-3 mt-3">
+                                                        <div class="flex-grow-1 me-3">
+                                                            <textarea name="comment" class="form-control" placeholder="Leave a comment" style="height: 100px;"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
-
                                         @foreach ($comment->child()->orderBy('created_at', 'desc')->get() as $child)
                                             <div class="d-flex mb-2 ms-5">
                                                 <img src="{{ Storage::url($child->user->image) }}" alt="User"
@@ -165,7 +163,8 @@
                                                 <div>
                                                     <div class="d-flex align-items-center mb-1">
                                                         <h5 class="mb-0 me-2">{{ $child->user->name }}</h5>
-                                                        <small class="text-muted">5 minutes ago</small>
+                                                        <small
+                                                            class="text-muted">{{ $child->created_at->diffForHumans() }}</small>
                                                     </div>
                                                     <p class="mb-0">{{ $child->comment }}</p>
                                                     @if ($child->user->id == auth()->user()->id)
@@ -186,10 +185,17 @@
                                 <form action="{{ route('customer.comments.send', $restaurants->id) }}"
                                     method="POST">
                                     @csrf
-                                    <div class="form-floating mb-3">
-                                        <textarea name="comment" class="form-control" placeholder="Leave a comment" style="height: 100px;"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-10 ml-2">
+                                            <div class="form-floating mb-3" style="padding:1%">
+                                                <textarea name="comment" class="form-control" placeholder="Leave a comment" style="height: 100px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mt-4 py-3 justify-content-center "
+                                            style="margin-top:50%">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                             </div>
                         </div>
