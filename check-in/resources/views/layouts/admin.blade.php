@@ -44,7 +44,7 @@
                     {{ __('Manage User') }}
                 </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.manage.restaurant')" :active="request()->routeIs('admin.manage.restaurant')">
-                    {{ __('Manage Restaurant') }}
+                    {{ __('Manage Restaurant Eligibility') }}
                 </x-admin-nav-link>
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
