@@ -25,10 +25,10 @@ class ReservationSeeder extends Seeder
             $restaurant_id = 1;
 
             // randomly assign a user id
-            $user_id = $faker->numberBetween(1, 4);
+            $user_id = $faker->numberBetween(2, 6);
 
             // randomly assign a table id
-            $table_id = $faker->numberBetween(2, 5);
+            $table_id = $faker->numberBetween(1, 5);
 
             // randomly assign a guest number
             $guest_number = $faker->numberBetween(1, 6);

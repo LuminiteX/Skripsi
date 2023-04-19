@@ -18,12 +18,12 @@ class FeedbackSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        $reservation_ids = range(1, 50);
+        $reservation_ids = range(1, 20);
         shuffle($reservation_ids);
-        $user_ids = range(1, 50);
+        $user_ids = range(2, 6);
         shuffle($user_ids);
 
-        foreach(range(1, 50) as $index) {
+        foreach(range(1, 20) as $index) {
             $rating = $faker->randomFloat(1, 1, 4.5) * 2;
             $rating = round($rating) / 2; // round to nearest 0.5
             DB::table('feedback')->insert([
