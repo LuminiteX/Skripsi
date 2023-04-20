@@ -1,0 +1,39 @@
+.star-rating {
+    display: inline-flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.star-rating i {
+    font-weight: normal;
+    color: gold !important;
+}
+
+.star-rating i.half {
+    position: relative;
+    display: inline-block;
+    width: 0;
+    overflow: visible;
+}
+
+.star-rating i.half::before {
+    content: "\E3DB";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+    font-weight: normal;
+    color: gold !important;
+}
+
+.star-rating i.half::after {
+    content: "\E3DA";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    overflow: hidden;
+    font-weight: normal;
+    color: gold !important;
+}
