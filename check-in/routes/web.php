@@ -29,7 +29,6 @@ use App\Http\Controllers\Customer\CommentController as CustomerCommentController
 use App\Http\Controllers\Customer\CartController as CustomerCartController;
 use App\Http\Controllers\Customer\CustomerController as CustomerController;
 use App\Http\Controllers\Customer\FeedbackController as CustomerFeedbackController;
-use App\Http\Controllers\Customer\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -39,15 +38,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route::get('generate', function (){
-    // part penting untuk membuat php artisan storage:link tampa command prompt !!!!!!!!!
-//     \Illuminate\Support\Facades\Artisan::call('storage:link');
-//     return view('customer.home');
-// });
-
 // Route::middleware(['auth', 'customer'])->name('customer.')->prefix('customer')->group(function () {
 Route::middleware(['auth', 'customer'])->group(function () {
-    Route::get('/home', [WelcomeController::class, 'index']);
+    Route::get('/home', [CustomerController::class, 'index']);
     Route::get('/restaurant_list', [CustomerRestaurantController::class, 'index'])->name('restaurants.list');
     Route::get('/search', [CustomerRestaurantController::class, 'search'])->name('restaurants.search');
     Route::get('/detail/{restaurants}', [CustomerRestaurantController::class, 'detail'])->name('restaurants.details');

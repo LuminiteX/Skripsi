@@ -54,7 +54,7 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReservationStoreRequest $request)
+    public function store()
     {
         //
     }

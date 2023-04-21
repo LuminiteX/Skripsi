@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller{
+
+    public function index()
+    {
+        session()->forget('last_url_customer');
+
+        return view('customer.home');
+    }
+
     public function profile(){
         session()->forget('last_url_customer');
 
