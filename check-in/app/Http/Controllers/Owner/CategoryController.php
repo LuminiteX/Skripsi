@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -120,7 +121,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         Storage::delete($category->image);
+        $menuIds = $category->menus()->pluck('id');
+
         $category->menus()->detach();
+        Menu::whereIn('id', $menuIds)->delete();
         $category->delete();
 
         return to_route('owner.categories.index')->with('danger', 'Category deleted successfully.');
