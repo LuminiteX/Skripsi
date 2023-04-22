@@ -8,15 +8,15 @@
         </div>
         <div class="col-md-12 mt-3">
             <div class="row align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <h2 class="fw-bold mb-0">{{ $restaurants->name }}</h2>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end align-items-center mt-sm-2 mt-xs-2">
+                <div class="col-md-8 d-flex justify-content-end align-items-center mt-sm-2 mt-xs-2">
                     <a href="{{ route('reservations.step.one', $restaurants->id) }}"
                         class="btn btn-primary me-3">Reserve
                         Now</a>
                     <div class="rating-section me-2 me-md-3">
-                        <p class="card-text mb-0"">
+                        <p class="card-text mb-0">
                             Rating:
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $restaurants->rating)

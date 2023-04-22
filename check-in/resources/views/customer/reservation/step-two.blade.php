@@ -33,9 +33,8 @@
 
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
-            <div class="col-md-9 mb-4 mb-md-10 col-lg-6">
-                <img class="object-cover" src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg"
-                    alt="img" />
+            <div class="col-md-9 col-xs-12 mb-4 mb-md-5 col-lg-6 p-2">
+                <img class="img-fluid object-cover" src="/storage/HomeImg/reservation_image.png" alt="img" />
             </div>
             <div class="col-md-12 col-lg-6">
                 <div class="card shadow">
@@ -55,12 +54,12 @@
                                 aria-labelledby="pills-step1-tab">
                                 <form id="myForm" method="POST">
                                     @csrf
-                                    <div class="col-sm-6 pt-2">
+                                    <div class="col-sm-12 pt-2">
                                         <label for="status"
                                             class="form-label font-weight-bold text-gray-700">Table</label>
                                         <div class="mb-3">
-                                            <select id="table_id" name="table_id" class="form-select form-control"
-                                                style="width: 400px;">
+                                            <select id="table_id" name="table_id"
+                                                class="form-select form-control w-100">
                                                 @foreach ($tables as $table)
                                                     <option value="{{ $table->id }}" @selected($table->id == $reservation->table_id)>
                                                         {{ $table->name }} (Location {{ $table->location->name }} For

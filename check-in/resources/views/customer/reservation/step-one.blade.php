@@ -2,8 +2,7 @@
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                <img class="img-fluid shadow rounded"
-                    src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg" alt="img">
+                <img class="img-fluid shadow rounded" src="/storage/HomeImg/reservation_image.png" alt="img">
             </div>
             <div class="col-md-6">
                 <div class="card shadow">
