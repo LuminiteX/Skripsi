@@ -17,7 +17,7 @@ class ReservationController2 extends Controller
             'reservation_status'=> 6,
         ]);
 
-        return back();
+        return back()->with('success', 'Reservation has been rejected');
     }
     public function notEligible(Reservation $reservation){
 
@@ -34,7 +34,7 @@ class ReservationController2 extends Controller
             'reservation_status'=> 1,
         ]);
 
-        return to_route('owner.reservations.index');
+        return to_route('owner.reservations.index')->with('success', 'Reservation has been changed into not eligible');
     }
 
     public function finish(Reservation $reservation){
@@ -43,7 +43,7 @@ class ReservationController2 extends Controller
                 'reservation_status' => 4,
             ]);
 
-        return back();
+        return back()->with('success', 'Reservation has been changed into finish');
     }
 
     public function sortByStatus(){
