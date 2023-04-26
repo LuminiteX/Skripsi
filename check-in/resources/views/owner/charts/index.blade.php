@@ -19,7 +19,7 @@
                     <div class="text-gray-700 font-bold text-xl mb-1 text-center flex items-center justify-center">
                         <i class="material-icons text-yellow-500 text-3xl mr-2">star</i>Rating
                     </div>
-                    <div class="text-gray-600 text-lg text-center">{{ $RatingCounter }}</div>
+                    <div class="text-gray-600 text-lg text-center">{{ $restaurant->rating }}</div>
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-3 flex items-center justify-center w-52 h-24">
