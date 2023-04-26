@@ -78,7 +78,7 @@ class ReservationController2 extends Controller
     public function sortByDateDesc(){
         $restaurant = Auth::user()->restaurant;
         $reservations = Reservation::where('restaurant_id', $restaurant->id)
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('reservation_date', 'desc')
                         ->paginate(10);
 
         return view('owner.reservations.index', compact('reservations'));
