@@ -12,6 +12,8 @@ class FeedbackController extends Controller
 {
     public function index(Reservation $reservation){
 
+        session()->put('last_url_customer', url()->previous());
+
         return view('customer.feedback.feedback', compact('reservation'));
     }
 

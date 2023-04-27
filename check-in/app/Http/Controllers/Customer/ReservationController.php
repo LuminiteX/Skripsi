@@ -8,6 +8,8 @@ use App\Models\Reservation;
 use App\Models\Table;
 use App\Models\CartHeader;
 use App\Models\Restaurant;
+use App\Models\Category;
+use App\Models\Menu;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween2;
 use Carbon\Carbon;
@@ -196,6 +198,7 @@ class ReservationController extends Controller
     }
 
     public function reservationDetailWithMenu(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
 
         // dd($reservations);
         return view('customer.reservation.reservation-detail-with-menu', compact('reservations'));
@@ -218,11 +221,13 @@ class ReservationController extends Controller
     }
 
     public function reservationDetailWithoutMenu(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
 
         return view('customer.reservation.reservation-detail-without-menu', compact('reservations'));
     }
 
     public function reservationDetailUploadReceipt(Reservation $reservations){
+        session()->put('last_url_customer', url()->previous());
 
         return view('customer.reservation.reservation-detail-upload-receipt', compact('reservations'));
     }
