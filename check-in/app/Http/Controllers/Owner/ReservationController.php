@@ -26,6 +26,15 @@ class ReservationController extends Controller
                     ->orderBy('reservation_date', 'asc')
                     ->paginate(10);
 
+
+
+        $lastPage = session()->get('last_url');
+        session()->forget('last_url');
+
+        if ($lastPage && $lastPage !== $reservations->url(1)) {
+            return redirect($lastPage);
+        }
+
         return view('owner.reservations.index', compact('reservations'));
     }
 
@@ -58,6 +67,9 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
+
+        session()->put('last_url', url()->previous());
+
         if($reservation->cart_header){
             return view('owner.reservations.view_with_menu', compact('reservation'));
         }
@@ -73,6 +85,8 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
+        session()->put('last_url', url()->previous());
+
         $currentRestaurantId = Auth::user()->restaurant->id;
         $tables = Table::where('restaurant_id', $currentRestaurantId)->where('status', TableStatus::Available)->get();
         return view('owner.reservations.edit', compact('reservation', 'tables'));
@@ -88,6 +102,8 @@ class ReservationController extends Controller
     public function update(ReservationStoreRequest $request, Reservation $reservation)
     {
 
+
+
         $restaurant = Auth::user()->restaurant;
 
         $table = Table::where('id', $request->table_id)
@@ -101,6 +117,8 @@ class ReservationController extends Controller
         $reservations = $table->reservations()->whereNotIn('reservation_status', [5, 6])->where('id', '!=', $reservation->id)->get();
 
         foreach ($reservations as $res) {
+
+
             if ($res->reservation_date->format('Y-m-d') == $request_date->format('Y-m-d')) {
                 $start = $request_date->copy()->subHours(2);
                 $end = $request_date->copy()->addHours(2);
