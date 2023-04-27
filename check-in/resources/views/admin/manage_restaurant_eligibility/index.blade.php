@@ -73,8 +73,7 @@
                                                     <form
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
-                                                        action="{{ route('admin.manage.restaurant.not_eligible', $restaurant->id) }}"
-                                                        onsubmit="return confirm('Are you sure you want change the status of restaurant {{ $restaurant->name }} into not eligible?');">
+                                                        action="{{ route('admin.manage.restaurant.not_eligible', $restaurant->id) }}">
                                                         @csrf
                                                         @method('Put')
                                                         <button type="submit">Not eligible</button>
@@ -82,8 +81,7 @@
                                                     <form
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white"
                                                         method="POST"
-                                                        action="{{ route('admin.manage.restaurant.eligible', $restaurant->id) }}"
-                                                        onsubmit="return confirm('Are you sure you want change the status of restaurant {{ $restaurant->name }} into eligible?');">
+                                                        action="{{ route('admin.manage.restaurant.eligible', $restaurant->id) }}">
                                                         @csrf
                                                         @method('Put')
                                                         <button type="submit">Eligible</button>
