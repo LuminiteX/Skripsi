@@ -38,14 +38,7 @@ class CartController extends Controller
             'reservation_status'=> 7,
         ]);
 
-        $user = auth()->user();
-        $reservations = Reservation::where('user_id', $user->id)
-                        ->where('reservation_status', 0)
-                        ->paginate(5);
-
-
-        return view('customer.cart.cart-list', compact('user','reservations'));
-
+        return back();
     }
 
     public function store(Request $request, Restaurant $restaurant, $reservation){

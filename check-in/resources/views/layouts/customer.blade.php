@@ -46,11 +46,11 @@
 
     <link rel="icon" type="image/png" href="{{ asset('storage/logo/logo.png') }}">
 
-    @yield('style')
     <script src="https://kit.fontawesome.com/b63c8b9802.js" crossorigin="anonymous"></script>
     {{-- <script src="{{ asset('js/moment.min.js') }}"></script> --}}
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    @yield('style')
     @stack('scripts')
 
 

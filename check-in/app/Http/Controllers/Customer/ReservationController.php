@@ -74,10 +74,6 @@ class ReservationController extends Controller
         $reservation = $request->session()->get('reservation');
         $restaurant = Restaurant::where('id', [$reservation->restaurant_id])->first();
 
-        // $res_table_ids = Reservation::orderBy('res_date')->get()->filter(function ($value) use ($reservation) {
-        //     return $value->res_date->format('Y-m-d') == $reservation->res_date->format('Y-m-d');
-        // })->pluck('table_id');
-
         //testing newest validation this time it is between after 1 hour and before 1 hour of the reservation time in reservation table
         $res_table_ids = Reservation::orderBy('reservation_date')
             ->get()
@@ -198,7 +194,12 @@ class ReservationController extends Controller
     }
 
     public function reservationDetailWithMenu(Reservation $reservations){
-        session()->put('last_url_customer', url()->previous());
+        $currentUrl = url()->current();
+        $previousUrl = url()->previous();
+
+        if ($currentUrl !== $previousUrl) {
+            session()->put('last_url_customer', $previousUrl);
+        }
 
         // dd($reservations);
         return view('customer.reservation.reservation-detail-with-menu', compact('reservations'));
@@ -221,13 +222,23 @@ class ReservationController extends Controller
     }
 
     public function reservationDetailWithoutMenu(Reservation $reservations){
-        session()->put('last_url_customer', url()->previous());
+        $currentUrl = url()->current();
+        $previousUrl = url()->previous();
+
+        if ($currentUrl !== $previousUrl) {
+            session()->put('last_url_customer', $previousUrl);
+        }
 
         return view('customer.reservation.reservation-detail-without-menu', compact('reservations'));
     }
 
     public function reservationDetailUploadReceipt(Reservation $reservations){
-        session()->put('last_url_customer', url()->previous());
+        $currentUrl = url()->current();
+        $previousUrl = url()->previous();
+
+        if ($currentUrl !== $previousUrl) {
+            session()->put('last_url_customer', $previousUrl);
+        }
 
         return view('customer.reservation.reservation-detail-upload-receipt', compact('reservations'));
     }

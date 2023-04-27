@@ -7,10 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
 use App\Models\Reservation;
 use App\Models\Table;
-use App\Models\CartHeader;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
@@ -67,8 +65,13 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
+        $currentUrl = url()->current();
+        $previousUrl = url()->previous();
 
-        session()->put('last_url', url()->previous());
+        if ($currentUrl !== $previousUrl) {
+            session()->put('last_url', $previousUrl);
+        }
+
 
         if($reservation->cart_header){
             return view('owner.reservations.view_with_menu', compact('reservation'));
@@ -85,7 +88,12 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        session()->put('last_url', url()->previous());
+        $currentUrl = url()->current();
+        $previousUrl = url()->previous();
+
+        if ($currentUrl !== $previousUrl) {
+            session()->put('last_url', $previousUrl);
+        }
 
         $currentRestaurantId = Auth::user()->restaurant->id;
         $tables = Table::where('restaurant_id', $currentRestaurantId)->where('status', TableStatus::Available)->get();
