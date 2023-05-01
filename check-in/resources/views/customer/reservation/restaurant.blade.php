@@ -47,7 +47,7 @@
 
         <div class="col-md-12 mt-2">
             <h5 class="fw-bold mb-0">Description </h5>
-            <p class="mb-4 mt-2">{{ $restaurants->description }}</p>
+            <p class="mb-4 mt-2">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
             <div class="mb-4">
                 <h5 class="fw-bold mb-3">Contact Us</h5>
                 <p>Phone: {{ $restaurants->phone_number }}</p>

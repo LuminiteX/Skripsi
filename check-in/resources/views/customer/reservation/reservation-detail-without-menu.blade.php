@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-12">
                     <h2 class="mb-4"><strong>Restaurant Description:</strong></h2>
-                    <p class="mb-4">{{ $reservations->restaurant->description }}</p>
+                    <p class="mb-4">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
                 </div>
                 <div class="col-md-12">
                     <h2 class="fw-bold mb-4">Contact Number</h2>
