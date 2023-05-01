@@ -38,7 +38,7 @@ class CartController extends Controller
             'reservation_status'=> 7,
         ]);
 
-        return back();
+        return to_route('cart.list');
     }
 
     public function store(Request $request, Restaurant $restaurant, $reservation){

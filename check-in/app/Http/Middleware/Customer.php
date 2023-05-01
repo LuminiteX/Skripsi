@@ -16,7 +16,7 @@ class Customer
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) {
+        if (!auth()->check()|| auth()->user()->is_special_user == 1 || auth()->user()->is_special_user == 2) {
             abort(403);
         }
 

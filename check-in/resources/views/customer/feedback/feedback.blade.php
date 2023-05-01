@@ -76,7 +76,8 @@
                     <h1>Please give a rating to this restaurant</h1>
                 </div>
                 <div class="col-md-1 d-flex justify-content-end">
-                    <a href="/home"><button type="button" class="btn btn-secondary">Back</button></a>
+                    <a href="{{ route('reservations.history') }}"><button type="button"
+                            class="btn btn-secondary">Back</button></a>
                 </div>
             </div>
         </div>

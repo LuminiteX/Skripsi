@@ -1,5 +1,5 @@
 <x-customer-layout>
-    <div class="container ">
+    <div class="container" style="background-color:white">
         <div class="row mb-3 mt-3">
             <a href="{{ route('reservations.list') }}" class="btn btn-primary btn-lg mt-5 mb-1"
                 style="width: 183px">Back</a>
@@ -21,9 +21,18 @@
                     <h2 class="mb-4"><strong>Guest Number:</strong> {{ $reservations->guest_number }}</h2>
                     <h2 class="mb-4"><strong>Table Number:</strong> {{ $reservations->table->name }}</h2>
                 </div>
-                <div class="col-md-6">
-                    <h2 class="mb-4"><strong>Restaurant Address</strong></h2>
-                    <h3 class="mb-4">{{ $reservations->restaurant->address }}</h3>
+                <div class="col-md-12">
+                    <h2 class="mb-4"><strong>Restaurant Description:</strong></h2>
+                    <p class="mb-4">{{ $reservations->restaurant->description }}</p>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="fw-bold mb-4">Contact Number</h2>
+                    <p>Phone: {{ $reservations->restaurant->phone_number }}</p>
+                    <p class="mb-4">Email: {{ $reservations->restaurant->user->email }}</p>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="mb-4"><strong>Restaurant Address:</strong></h2>
+                    <p class="mb-4">{{ $reservations->restaurant->address }}</p>
                 </div>
             </div>
         </div>
