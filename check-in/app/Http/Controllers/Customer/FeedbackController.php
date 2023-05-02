@@ -11,14 +11,12 @@ use Illuminate\Http\Request;
 class FeedbackController extends Controller
 {
     public function index(Reservation $reservation){
-
         $currentUrl = url()->current();
         $previousUrl = url()->previous();
 
         if ($currentUrl !== $previousUrl) {
             session()->put('last_url_customer', $previousUrl);
         }
-
         return view('customer.feedback.feedback', compact('reservation'));
     }
 

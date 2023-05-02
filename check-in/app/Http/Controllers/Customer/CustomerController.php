@@ -38,7 +38,6 @@ class CustomerController extends Controller{
             'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', Rule::unique('users')->ignore($user->id)],
             'address' => ['required', 'string', 'min:20'],
             'image' => ['mimes:jpeg,png,jpg,gif,svg'],
-
         ],[
             'phone_number.regex'=> 'Please follow the format of the phone number',
             'address.min' => 'Please put more detailed information about the customer location at least 20 words',
