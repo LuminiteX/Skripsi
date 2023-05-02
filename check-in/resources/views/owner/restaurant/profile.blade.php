@@ -30,6 +30,12 @@
                                     {{ $restaurant->name }}
                                 </p>
                                 <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
+                                    Restaurant Rating
+                                </h2>
+                                <p class="text-gray-600 mb-2">
+                                    {{ $restaurant->rating }}
+                                </p>
+                                <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
                                     Restaurant Description
                                 </h2>
                                 <p class="text-gray-600 mb-2">

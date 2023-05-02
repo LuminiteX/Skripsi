@@ -24,6 +24,9 @@ class ChartController extends Controller
         $startDate = Carbon::now()->subMonth(12);
         $endDate = Carbon::now()->addMonth(3);
 
+        $RatingCounter = Feedback::where('restaurant_id', $restaurant->id)
+                    ->count();
+
 
         $data = ViewCounter::where(function($query) use ($restaurant, $startDate, $endDate) {
             $query->where('restaurant_id', [$restaurant->id])
@@ -86,6 +89,6 @@ class ChartController extends Controller
 
         //  dd($chartData3);
 
-        return view('owner.charts.index',compact('restaurant','ReservationCounter','chartData','chartData2','chartData3'));
+        return view('owner.charts.index',compact('restaurant','ReservationCounter','RatingCounter','chartData','chartData2','chartData3'));
     }
 }

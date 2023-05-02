@@ -36,6 +36,9 @@
                                 <label for="description" class="block text-sm font-medium text-gray-700">
                                     Restaurant Description
                                 </label>
+                                <p class="text-gray-500 text-xs">
+                                    please include bank account number for customer payment
+                                </p>
                                 <div class="mt-1">
                                     <textarea id="description" name="description" rows="4" cols="50"
                                         class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ $restaurant->description }}</textarea>

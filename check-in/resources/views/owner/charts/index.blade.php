@@ -17,9 +17,9 @@
             <div class="bg-white rounded-lg shadow-lg p-3 flex items-center justify-center w-52 h-24">
                 <div>
                     <div class="text-gray-700 font-bold text-xl mb-1 text-center flex items-center justify-center">
-                        <i class="material-icons text-yellow-500 text-3xl mr-2">star</i>Rating
+                        <i class="material-icons text-yellow-500 text-3xl mr-2">star</i>Feedback
                     </div>
-                    <div class="text-gray-600 text-lg text-center">{{ $restaurant->rating }}</div>
+                    <div class="text-gray-600 text-lg text-center">{{ $RatingCounter }}</div>
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg p-3 flex items-center justify-center w-52 h-24">
@@ -43,7 +43,7 @@
         </div>
         <div class="bg-white rounded-lg shadow-lg p-3 mb-4">
             <h2 class="text-gray-700 font-bold text-2xl mb-3">
-                Rating
+                Feedback
             </h2>
             <div class="chart-container">
                 <!-- Your chart goes here -->
@@ -97,7 +97,7 @@
                     type: 'line' // changed to line chart
                 },
                 title: {
-                    text: 'The amount of rating being given to <?php echo $restaurant->name; ?>'
+                    text: 'The amount of feedback being given to <?php echo $restaurant->name; ?>'
                 },
                 xAxis: {
                     categories: chartData2.categories,
@@ -106,7 +106,7 @@
                 yAxis: {
                     min: 0,
                     title: {
-                        text: 'Rating'
+                        text: 'Feedback'
                     }
                 },
                 plotOptions: {
@@ -116,7 +116,7 @@
                     }
                 },
                 series: [{
-                    name: 'Rating Count',
+                    name: 'Feedback Count',
                     data: chartData2.data
 
                 }]
