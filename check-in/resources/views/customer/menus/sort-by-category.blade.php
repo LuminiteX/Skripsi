@@ -14,8 +14,13 @@
                         <img src="{{ Storage::url($menu->image) }}" alt="Image"
                             class="card-img-top h-50 object-fit-cover">
                         <div class="card-body">
+                            @if ($menu->chef_recommendation)
+                                <span class="badge bg-warning text-dark mb-2">Chef Recommendation</span>
+                            @endif
                             <h5 class="card-title">{{ $menu->name }}</h5>
-                            <p class="card-text">{{ $menu->description }}</p>
+                            <p class="card-text">
+                                {{ \Illuminate\Support\Str::limit($menu->description, 200, $end = '...') }}</p>
+
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <span

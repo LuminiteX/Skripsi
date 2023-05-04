@@ -6,7 +6,7 @@
     </x-slot>
 
     @if (auth()->user()->has_restaurant == 1)
-        <div class="py-12">
+        <div class="py-10">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="m-2 p-2 bg-slate-100 rounded">
                     <div class="space-y-8 divide-y divide-gray-200 mt-10 mx-1">
@@ -40,6 +40,12 @@
                                 </h2>
                                 <p class="text-gray-600 mb-2">
                                     {!! nl2br(e($restaurant->description)) !!}
+                                </p>
+                                <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
+                                    Restaurant Bank Account
+                                </h2>
+                                <p class="text-gray-600 mb-2">
+                                    {!! nl2br(e($restaurant->bank_account)) !!}
                                 </p>
                                 <h2 class="text-xl font-bold mb-2 border-b-2 border-gray-200 pb-2">
                                     Restaurant Phone Number

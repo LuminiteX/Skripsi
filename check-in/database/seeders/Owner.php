@@ -18,6 +18,7 @@ class Owner extends Seeder
     {
 
         $users = [
+
             [
                 'name' => 'Owner',
                 'email' => 'Owner@gmail.com',

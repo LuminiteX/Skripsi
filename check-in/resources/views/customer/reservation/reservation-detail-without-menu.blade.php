@@ -23,16 +23,16 @@
                 </div>
                 <div class="col-md-12">
                     <h2 class="mb-4"><strong>Restaurant Description:</strong></h2>
-                    <p class="mb-4">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
+                    <p class="mb-4 fs-4">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="mb-4 "><strong>Restaurant Address:</strong></h2>
+                    <p class="mb-4 fs-4">{{ $reservations->restaurant->address }}</p>
                 </div>
                 <div class="col-md-12">
                     <h2 class="fw-bold mb-4">Contact Number</h2>
-                    <p>Phone: {{ $reservations->restaurant->phone_number }}</p>
-                    <p class="mb-4">Email: {{ $reservations->restaurant->user->email }}</p>
-                </div>
-                <div class="col-md-12">
-                    <h2 class="mb-4"><strong>Restaurant Address:</strong></h2>
-                    <p class="mb-4">{{ $reservations->restaurant->address }}</p>
+                    <p class="fs-4">Phone: {{ $reservations->restaurant->phone_number }}</p>
+                    <p class="mb-4 fs-4">Email: {{ $reservations->restaurant->user->email }}</p>
                 </div>
             </div>
         </div>

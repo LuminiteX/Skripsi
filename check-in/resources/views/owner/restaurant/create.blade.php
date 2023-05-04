@@ -42,6 +42,18 @@
                                 @enderror
                             </div>
                             <div class="sm:col-span-6 pt-2">
+                                <label for="bank_account" class="block text-sm font-medium text-gray-700">
+                                    Bank Account
+                                </label>
+                                <div class="mt-1">
+                                    <textarea id="bank_account" name="bank_account" rows="4" cols="50"
+                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('bank_account') }}</textarea>
+                                </div>
+                                @error('bank_account')
+                                    <div class="text-sm text-red-400">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="sm:col-span-6 pt-2">
                                 <label for="phone_number" class="block text-sm font-medium text-gray-700">
                                     Restaurant Phone Number
                                 </label>

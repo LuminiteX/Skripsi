@@ -8,8 +8,6 @@ use App\Models\Reservation;
 use App\Models\Table;
 use App\Models\CartHeader;
 use App\Models\Restaurant;
-use App\Models\Category;
-use App\Models\Menu;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween2;
 use Carbon\Carbon;
@@ -201,7 +199,6 @@ class ReservationController extends Controller
             session()->put('last_url_customer', $previousUrl);
         }
 
-        // dd($reservations);
         return view('customer.reservation.reservation-detail-with-menu', compact('reservations'));
     }
 
@@ -247,6 +244,7 @@ class ReservationController extends Controller
 
     public function uploadProof(Request $request, Reservation $reservation){
 
+        session()->forget('last_url_customer');
         $validated = $request->validate([
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif']
         ], [

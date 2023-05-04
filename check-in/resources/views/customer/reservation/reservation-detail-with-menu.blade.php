@@ -23,17 +23,20 @@
                 </div>
                 <div class="col-md-12">
                     <h2 class="mb-4"><strong>Restaurant Description:</strong></h2>
-
-                    <p class="mb-4">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
+                    <p class="mb-4 fs-4">{!! nl2br(e($reservations->restaurant->description)) !!}</p>
+                </div>
+                <div class="col-md-12">
+                    <h2 class="mb-4 "><strong>Restaurant Address:</strong></h2>
+                    <p class="mb-4 fs-4">{{ $reservations->restaurant->address }}</p>
                 </div>
                 <div class="col-md-12">
                     <h2 class="fw-bold mb-4">Contact Number</h2>
-                    <p>Phone: {{ $reservations->restaurant->phone_number }}</p>
-                    <p class="mb-4">Email: {{ $reservations->restaurant->user->email }}</p>
+                    <p class="fs-4">Phone: {{ $reservations->restaurant->phone_number }}</p>
+                    <p class="mb-4 fs-4">Email: {{ $reservations->restaurant->user->email }}</p>
                 </div>
                 <div class="col-md-12">
-                    <h2 class="mb-4"><strong>Restaurant Address:</strong></h2>
-                    <p class="mb-4">{{ $reservations->restaurant->address }}</p>
+                    <h2 class="mb-2"><strong>Please choose the payment here (choose 1 only): </strong></h2>
+                    <p class="mb-3 fs-4 font-bold">{!! nl2br(e($reservations->restaurant->bank_account)) !!}</p>
                 </div>
             </div>
         </div>
@@ -80,6 +83,10 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12">
+                <h2 class="mb-4"><strong>If there is nothing wrong you can pay here:</strong></h2>
+                <p class="mb-4">{!! nl2br(e($reservations->restaurant->bank_account)) !!}</p>
             </div>
         </div>
         <div class="container mt-5 mb-5">

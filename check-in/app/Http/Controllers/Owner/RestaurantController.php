@@ -32,6 +32,7 @@ class RestaurantController extends Controller
             'restaurant_name' => ['required', 'max:255'],
             'description' => ['required', 'min:20', 'max:255'],
             'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', 'unique:restaurants'],
+            'bank_account' => ['required', 'max:255'],
             'opening_time' => ['required', 'date_format:H:i', 'before_or_equal:closing_time'],
             'closing_time' => ['required', 'date_format:H:i'],
             'address' => ['required', 'min:15', 'max:255'],
@@ -39,6 +40,7 @@ class RestaurantController extends Controller
         ], [
             'opening_time.before_or_equal' => 'The opening time must be before or equal to the closing time.',
             'description.min' => 'Please put more detailed information about the restaurant description',
+            'bank_account.max' => 'Please reduce the bank_account because this section only hold 255 character',
             'phone_number.regex'=> 'Please follow the format of the phone number',
             'address.min' => 'Please put more detailed information about the restaurant location',
             'image.mimes' => 'The uploaded file must be in an image format'
@@ -60,6 +62,7 @@ class RestaurantController extends Controller
             'user_id' => $user_id,
             'name' => $request->restaurant_name,
             'description' => $request->description,
+            'bank_account'=> $request->bank_account,
             'phone_number' => $request->phone_number,
             'opening_time' => $request->opening_time,
             'closing_time' => $request->closing_time,
@@ -126,6 +129,7 @@ class RestaurantController extends Controller
         $request->validate([
             'restaurant_name' => ['required', 'max:255'],
             'description' => ['required', 'min:20', 'max:255'],
+            'bank_account' => ['required', 'max:255'],
             'phone_number' => ['required', 'regex:/^\+?\d{7,15}$/', Rule::unique('restaurants')->ignore($restaurant->id)],
             'opening_time' => ['required', 'date_format:H:i', 'before_or_equal:closing_time'],
             'closing_time' => ['required', 'date_format:H:i'],
@@ -134,6 +138,7 @@ class RestaurantController extends Controller
         ], [
             'opening_time.before_or_equal' => 'The opening time must be before or equal to the closing time.',
             'description.min' => 'Please put more detailed information about the restaurant description at least 20 words',
+            'bank_account.max' => 'Please reduce the bank_account because this section only hold 255 character',
             'phone_number.regex'=> 'Please follow the format of the phone number',
             'address.min' => 'Please put more detailed information about the restaurant location at least 20 words',
             'image.mimes' => 'The uploaded file must be in an image format'
@@ -162,6 +167,7 @@ class RestaurantController extends Controller
         ->update([
             'name'=> $request->restaurant_name,
             'description'=> $request->description,
+            'bank_account'=> $request->bank_account,
             'phone_number'=> $request->phone_number,
             'opening_time'=> $request->opening_time,
             'closing_time'=> $request->closing_time,

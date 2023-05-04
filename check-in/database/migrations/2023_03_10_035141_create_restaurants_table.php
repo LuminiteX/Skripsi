@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->text('description');
+            $table->string('bank_account');
             $table->string('phone_number');
             $table->time('opening_time');
             $table->time('closing_time');

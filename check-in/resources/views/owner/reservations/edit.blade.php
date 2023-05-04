@@ -18,12 +18,12 @@
                             @csrf
                             @method('PUT')
                             <div class="sm:col-span-6">
-                                <label for="name" class="block text-sm font-medium text-gray-700"> First Name
+                                <label for="name" class="block text-sm font-medium text-gray-700"> Name
                                 </label>
                                 <div class="mt-1">
                                     <input type="text" id="name" name="name"
                                         value="{{ $reservation->user->name }}"
-                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-3"
                                         readonly />
                                 </div>
                                 @error('name')
@@ -35,7 +35,7 @@
                                 <div class="mt-1">
                                     <input type="email" id="email" name="email"
                                         value="{{ $reservation->user->email }}"
-                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-3"
                                         readonly />
                                 </div>
                                 @error('email')
@@ -48,7 +48,7 @@
                                 <div class="mt-1">
                                     <input type="text" id="phone_number" name="phone_number"
                                         value="{{ $reservation->user->phone_number }}"
-                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                        class="block w-full appearance-none bg-gray-200 border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-3"
                                         readonly />
                                 </div>
                                 @error('phone_number')
@@ -62,7 +62,7 @@
                                 <div class="mt-1">
                                     <input type="datetime-local" id="reservation_date" name="reservation_date"
                                         value="{{ $reservation->reservation_date->format('Y-m-d\TH:i:s') }}"
-                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-3" />
                                 </div>
                                 @error('reservation_date')
                                     <div class="text-sm text-red-400">{{ $message }}</div>

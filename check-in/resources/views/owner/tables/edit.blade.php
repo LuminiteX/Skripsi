@@ -13,7 +13,7 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-full mt-10">
-                    <div class="text-center font-bold text-xl">Create Table</div>
+                    <div class="text-center font-bold text-xl">Edit Table</div>
                     <form method="POST" action="{{ route('owner.tables.update', $table->id) }}">
                         @csrf
                         @method('PUT')
@@ -69,7 +69,7 @@
                         </div>
                         <div class="flex mt-6 p-4 justify-center items-center">
                             <button type="submit"
-                                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Store</button>
+                                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Update</button>
                         </div>
                     </form>
                 </div>

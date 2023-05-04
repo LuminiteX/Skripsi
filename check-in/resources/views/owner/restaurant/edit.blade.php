@@ -36,14 +36,27 @@
                                 <label for="description" class="block text-sm font-medium text-gray-700">
                                     Restaurant Description
                                 </label>
-                                <p class="text-gray-500 text-xs">
-                                    please include bank account number for customer payment
-                                </p>
                                 <div class="mt-1">
                                     <textarea id="description" name="description" rows="4" cols="50"
                                         class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ $restaurant->description }}</textarea>
                                 </div>
                                 @error('description')
+                                    <div class="text-sm text-red-400">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="sm:col-span-6 pt-2">
+                                <label for="bank_account" class="block text-sm font-medium text-gray-700">
+                                    Bank Account
+                                </label>
+                                <p class="text-gray-500 text-xs">
+                                    bank account can be more than one and please input the bank account like BCA :
+                                    115165485956
+                                </p>
+                                <div class="mt-1">
+                                    <textarea id="bank_account" name="bank_account" rows="4" cols="50"
+                                        class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ $restaurant->bank_account }}</textarea>
+                                </div>
+                                @error('bank_account')
                                     <div class="text-sm text-red-400">{{ $message }}</div>
                                 @enderror
                             </div>
