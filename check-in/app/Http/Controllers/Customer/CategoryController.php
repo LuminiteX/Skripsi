@@ -14,7 +14,7 @@ class CategoryController extends Controller
         $menus = $category->menus()->get();
         $restaurant = $category->restaurant()->first();
         // dd($restaurant);
-        return view('customer.menus.sort-by-category', compact('menus','restaurant','reservation','category'));
+        return view('customer.category.sort-by-category', compact('menus','restaurant','reservation','category'));
     }
 
     public function menuDetailFromCategory(Menu $menu, Reservation $reservation) {
@@ -24,6 +24,6 @@ class CategoryController extends Controller
                       ->where('categories.restaurant_id', $menu->restaurant_id)
                       ->first();
 
-        return view('customer.menus.menu-detail-from-category',compact('menu','categories','reservation'));
+        return view('customer.category.menu-detail-from-category',compact('menu','categories','reservation'));
     }
 }
