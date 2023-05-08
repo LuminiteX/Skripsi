@@ -67,10 +67,10 @@
                                     <div class="col-md-4 p-2">
                                         <img src="{{ Storage::url($menu->image) }}"
                                             class="img-fluid rounded-start mx-auto d-block" alt="{{ $menu->name }}"
-                                            style="max-height: 200px;">
+                                            style="min-height:150px;max-height: 150px;object-fit:contain;">
                                     </div>
                                     <div class="col-md-8">
-                                        <div class="card-body" style="height: 200px; overflow-y: auto;">
+                                        <div class="card-body" style="height: 150px; overflow-y: auto;">
                                             <h5 class="card-title">{{ $menu->name }}</h5>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 @if ($menu->chef_recommendation)

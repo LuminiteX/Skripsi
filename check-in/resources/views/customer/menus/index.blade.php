@@ -44,7 +44,7 @@
                             <div class="col-md-4 p-2 align-items-center">
                                 <img src="{{ Storage::url($category->image) }}"
                                     class="img-fluid rounded-start mx-auto d-block" alt="{{ $category->name }}"
-                                    style="max-height: 200px;">
+                                    style="max-height: 150px; min-height:150px;object-fit: contain;">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body" style="height: 150px; overflow-y: auto;">
