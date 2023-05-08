@@ -26,7 +26,8 @@
         <div class="row mt-4">
             @endif
             <div class="col-md-4 mb-4">
-                <div class="card">
+                <div class="card"
+                    style="padding: .5em .5em .5em; border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
                     <img src="{{ Storage::url($restaurant->image) }}" class="card-img-top" alt="{{ $restaurant->name }}"
                         style="max-height: 150px;">
                     <div class="card-body">

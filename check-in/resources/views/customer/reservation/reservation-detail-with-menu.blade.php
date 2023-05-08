@@ -30,12 +30,12 @@
                     <p class="mb-4 fs-4">{{ $reservations->restaurant->address }}</p>
                 </div>
                 <div class="col-md-12">
-                    <h2 class="fw-bold mb-4">Contact Number</h2>
+                    <h2 class="fw-bold mb-4">Contact Number:</h2>
                     <p class="fs-4">Phone: {{ $reservations->restaurant->phone_number }}</p>
                     <p class="mb-4 fs-4">Email: {{ $reservations->restaurant->user->email }}</p>
                 </div>
                 <div class="col-md-12">
-                    <h2 class="mb-2"><strong>Please choose the payment here (choose 1 only): </strong></h2>
+                    <h2 class="mb-4"><strong>Please choose the payment here (choose 1 only): </strong></h2>
                     <p class="mb-3 fs-4 font-bold">{!! nl2br(e($reservations->restaurant->bank_account)) !!}</p>
                 </div>
             </div>

@@ -30,7 +30,7 @@
                     <p class="mb-4 fs-4">{{ $reservations->restaurant->address }}</p>
                 </div>
                 <div class="col-md-12">
-                    <h2 class="fw-bold mb-4">Contact Number</h2>
+                    <h2 class="fw-bold mb-4">Contact Number:</h2>
                     <p class="fs-4">Phone: {{ $reservations->restaurant->phone_number }}</p>
                     <p class="mb-4 fs-4">Email: {{ $reservations->restaurant->user->email }}</p>
                 </div>

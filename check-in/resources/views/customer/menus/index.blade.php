@@ -35,7 +35,7 @@
         </div>
     </div> --}}
     <div class="col-md-12 mb-5 ">
-        <h5 class="fw-bold mb-3 px-5">Category</h5>
+        <h5 class="fw-bold mb-3 mt-3 px-5">Category</h5>
         <div class="row row-cols-1 row-cols-md-3 g-3 px-5">
             @foreach ($categories as $category)
                 <div class="col">

@@ -24,7 +24,7 @@ class RestaurantController extends Controller
             ->where('restaurant_opening_status', 1)
             ->paginate(6);
 
-        return view('customer.restaurant.index', compact('restaurants'));
+        return view('customer.restaurant.restaurant-list', compact('restaurants'));
     }
 
     public function search(Request $request)
@@ -33,7 +33,7 @@ class RestaurantController extends Controller
             $restaurants = Restaurant::where('name', 'LIKE', '%' . $request->search . '%')->where('restaurant_status', 1)
             ->where('restaurant_opening_status', 1)
             ->latest()->paginate(6)->withQueryString();
-            return view('customer.restaurant.index', compact('restaurants'));
+            return view('customer.restaurant.restaurant-list', compact('restaurants'));
         } else {
             return redirect()->back()->with('message', 'The search is empty please fill in restaurant name to search the restaurant');
         }
@@ -78,7 +78,7 @@ class RestaurantController extends Controller
 
         // dd($restaurants);
 
-        return view('customer.restaurant.restaurant_detail', compact('restaurants','menus','chartData3','comments','formattedTimeOpening','formattedTimeClosing'));
+        return view('customer.restaurant.restaurant-detail', compact('restaurants','menus','chartData3','comments','formattedTimeOpening','formattedTimeClosing'));
     }
 
 }
