@@ -17,7 +17,7 @@ class ReservationController2 extends Controller
             'reservation_status'=> 6,
         ]);
 
-        return back()->with('success', 'Reservation has been rejected');
+        return back()->with('danger', 'Reservation has been changed into rejected');
     }
     public function notEligible(Reservation $reservation){
 
@@ -34,7 +34,14 @@ class ReservationController2 extends Controller
             'reservation_status'=> 1,
         ]);
 
-        return to_route('owner.reservations.index')->with('success', 'Reservation has been changed into not eligible');
+        // session()->forget('last_url');
+        // return to_route('owner.reservations.index')->with('success', 'Reservation is not eligible, reverting to the previous status, and need to upload the proof of the transaction again');
+
+        session()->flash('success', 'Reservation is not eligible, reverting to the previous status, and need to upload the proof of the transaction again');
+        $lastPage = session()->get('last_url');
+        session()->forget('last_url');
+
+        return redirect($lastPage);
     }
 
     public function finish(Reservation $reservation){

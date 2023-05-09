@@ -114,12 +114,16 @@
                                 <div class="mb-1">
                                     @foreach ($comments as $comment)
                                         <div class="w-96 mb-4">
-                                            <div class="d-flex mb-2">
+                                            <div class="d-flex mb-0">
                                                 <img src="{{ Storage::url($comment->user->image) }}" alt="User"
                                                     class="rounded-circle me-2 border"
                                                     style="width: 50px; height: 50px;">
-                                                <div class="d-flex align-items-center mb-1">
+                                                <div class="d-flex align-items-center mb-0">
                                                     <h5 class="mb-0 me-2">{{ $comment->user->name }}</h5>
+                                                    @if ($comment->user_id == $restaurants->user_id)
+                                                        <span class="badge text-dark me-2"
+                                                            style="background-color: #d1e7dd;">Restaurant Owner</span>
+                                                    @endif
                                                     <small
                                                         class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
                                                 </div>
@@ -127,7 +131,7 @@
                                             <p class="mb-0 d-flex" style="margin-left: 60px">{{ $comment->comment }}
                                             </p>
                                             <div class="d-flex align-items-center mt-3" style="margin-left: 60px">
-                                                @if ($comment->user->id == auth()->user()->id)
+                                                @if ($comment->user_id == auth()->user()->id)
                                                     <form
                                                         action="{{ route('customer.comments.reply.destroy', ['comments' => $comment->id]) }}"
                                                         method="POST">
@@ -155,26 +159,31 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        @foreach ($comment->child()->orderBy('created_at', 'desc')->get() as $child)
-                                            <div class="d-flex mb-2 ms-5">
+                                        @foreach ($comment->child()->orderBy('created_at', 'asc')->get() as $child)
+                                            <div class="d-flex mb-3 ms-5">
                                                 <img src="{{ Storage::url($child->user->image) }}" alt="User"
                                                     class="rounded-circle me-2 border"
                                                     style="width: 50px; height: 50px;">
                                                 <div>
                                                     <div class="d-flex align-items-center mb-1">
                                                         <h5 class="mb-0 me-2">{{ $child->user->name }}</h5>
+                                                        @if ($child->user_id == $restaurants->user_id)
+                                                            <span class="badge text-dark me-2"
+                                                                style="background-color: #d1e7dd;">Restaurant
+                                                                Owner</span>
+                                                        @endif
                                                         <small
                                                             class="text-muted">{{ $child->created_at->diffForHumans() }}</small>
                                                     </div>
                                                     <p class="mb-0">{{ $child->comment }}</p>
-                                                    @if ($child->user->id == auth()->user()->id)
+                                                    @if ($child->user_id == auth()->user()->id)
                                                         <form
                                                             action="{{ route('customer.comments.reply.destroy', ['comments' => $child->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-danger mt-2">Delete</button>
+                                                                class="btn btn-danger mt-2 mb-2">Delete</button>
                                                         </form>
                                                     @endif
                                                 </div>

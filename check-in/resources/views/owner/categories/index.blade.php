@@ -49,7 +49,7 @@
                                                         class="w-16 h-16 rounded">
                                                 </td>
                                                 <td
-                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ $category->description }}
                                                 </td>
                                                 <td

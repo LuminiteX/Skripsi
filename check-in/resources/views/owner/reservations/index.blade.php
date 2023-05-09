@@ -153,16 +153,25 @@
                                                         Finished
                                                     @elseif ($reservation->reservation_status == 5)
                                                         Finished
-                                                    @else
+                                                    @elseif ($reservation->reservation_status == 6)
                                                         Rejected
+                                                    @else
+                                                        Canceled
                                                     @endif
 
                                                 </td>
                                                 <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                                     <div class="flex space-x-2">
                                                         @if ($reservation->reservation_status == 0)
-                                                            <a href="{{ route('owner.reservations.reject', $reservation->id) }}"
-                                                                class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Rejected</a>
+                                                            <form
+                                                                class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                                method="POST"
+                                                                action="{{ route('owner.reservations.reject', $reservation->id) }}"
+                                                                onsubmit="return confirm('Are you sure you want to reject this reservation?');">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit">Rejected</button>
+                                                            </form>
                                                         @elseif ($reservation->reservation_status == 1)
                                                             <a href="{{ route('owner.reservations.show', $reservation->id) }}"
                                                                 class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg  text-white">View</a>

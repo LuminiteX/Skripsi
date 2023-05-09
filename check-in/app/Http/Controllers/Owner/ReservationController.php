@@ -109,9 +109,6 @@ class ReservationController extends Controller
      */
     public function update(ReservationStoreRequest $request, Reservation $reservation)
     {
-
-
-
         $restaurant = Auth::user()->restaurant;
 
         $table = Table::where('id', $request->table_id)
@@ -144,7 +141,14 @@ class ReservationController extends Controller
             ->update([
                 'reservation_status' => 3,
             ]);
-        return to_route('owner.reservations.index')->with('success', 'Reservation updated successfully.');
+
+            // return to_route('owner.reservations.index')->with('success', 'Reservation updated successfully.');
+
+        session()->flash('success', 'Reservation has been changed into eligible');
+        $lastPage = session()->get('last_url');
+        session()->forget('last_url');
+
+        return redirect($lastPage);
     }
 
     /**
