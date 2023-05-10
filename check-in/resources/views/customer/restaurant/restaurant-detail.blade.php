@@ -62,8 +62,9 @@
                 <div class="row row-cols-1 row-cols-md-3 g-3">
                     @foreach ($menus as $menu)
                         <div class="col">
-                            <div class="card h-100">
-                                <div class="row g-0 align-items-center">
+                            <div class="card h-100" style="border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                                <div class="row g-0 align-items-center"
+                                    style="padding: .5em .5em .5em; border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
                                     <div class="col-md-4 p-2">
                                         <img src="{{ Storage::url($menu->image) }}"
                                             class="img-fluid rounded-start mx-auto d-block" alt="{{ $menu->name }}"

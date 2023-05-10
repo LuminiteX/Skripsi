@@ -39,8 +39,9 @@
         <div class="row row-cols-1 row-cols-md-3 g-3 px-5">
             @foreach ($categories as $category)
                 <div class="col">
-                    <div class="card h-100">
-                        <div class="row g-0">
+                    <div class="card h-100" style="border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                        <div class="row g-0 align-items-center"
+                            style="padding: .5em .5em .5em; border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
                             <div class="col-md-4 p-2 align-items-center">
                                 <img src="{{ Storage::url($category->image) }}"
                                     class="img-fluid rounded-start mx-auto d-block" alt="{{ $category->name }}"
