@@ -25,7 +25,7 @@ class AdminManageUserController extends Controller
         }
         $user->delete();
 
-        return to_route('admin.manage.user')->with('danger', 'Category deleted successfully.');
+        return to_route('admin.manage.user')->with('danger', 'User has been deleted successfully.');
     }
 
 }

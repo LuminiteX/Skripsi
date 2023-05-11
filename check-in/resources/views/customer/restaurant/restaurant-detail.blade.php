@@ -27,6 +27,7 @@
                                     <i class="far fa-star text-warning" style="color: gold;"></i>
                                 @endif
                             @endfor
+                            ({{ $restaurants->feedback->count() }})
                         </p>
                     </div>
                     <div class="views-section ms-md-3">
