@@ -40,7 +40,7 @@ class ReservationController extends Controller
     {
         $user = Auth::user();
         $restaurant = Restaurant::where('id', [$request->restaurant_id])->first();
-        // dd($restaurant);
+
         $validated = $request->validate([
             'guest_number' => ['required'],
             'reservation_date' => ['required', 'date', new DateBetween, new TimeBetween2($restaurant->opening_time, $restaurant->closing_time)],
@@ -48,8 +48,6 @@ class ReservationController extends Controller
 
         $validated['user_id'] = $user->id;
         $validated['restaurant_id'] = $restaurant->id;
-
-        // dd($validated);
 
         if (empty($request->session()->get('reservation'))) {
             $reservation = new Reservation();
@@ -62,7 +60,6 @@ class ReservationController extends Controller
             $request->session()->put('reservation', $reservation);
         }
 
-        // dd(session('reservation'));
 
         return to_route('reservations.step.two');
     }
@@ -89,8 +86,6 @@ class ReservationController extends Controller
             ->where('guest_number', '>=', $reservation->guest_number)
             ->where('restaurant_id', $reservation->restaurant_id)
             ->whereNotIn('id', $res_table_ids)->get();
-
-            // dd($tables);
 
         return view('customer.reservation.step-two', compact('reservation', 'tables','restaurant'));
     }
@@ -206,6 +201,7 @@ class ReservationController extends Controller
         $user = auth()->user();
         $reservations = Reservation::where('user_id', $user->id)
                         ->whereIn('reservation_status', [4,5,6,7])
+                        ->orderBy('created_at', 'desc')
                         ->paginate(5);
 
         $lastPage = session()->get('last_url_customer');

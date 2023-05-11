@@ -20,7 +20,7 @@ class FeedbackSeeder extends Seeder
         $faker = Faker::create();
         $reservation_ids = range(1, 20);
         shuffle($reservation_ids);
-        $user_ids = range(2, 6);
+        $user_ids = range(1, 6);
         shuffle($user_ids);
 
         foreach(range(1, 20) as $index) {

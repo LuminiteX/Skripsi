@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function sortByCategory(Category $category, Reservation $reservation){
         $menus = $category->menus()->get();
         $restaurant = $category->restaurant()->first();
-        // dd($restaurant);
+
         return view('customer.category.sort-by-category', compact('menus','restaurant','reservation','category'));
     }
 

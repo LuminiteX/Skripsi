@@ -39,7 +39,6 @@ class FeedbackController extends Controller
         $averageRating = Feedback::where('restaurant_id', $reservation->restaurant_id)
         ->avg('rating');
         $averageRating = round($averageRating * 2) / 2;
-        // dd($averageRating);
 
         $restaurant = Restaurant::findOrFail($reservation->restaurant_id);
         $restaurant->update([

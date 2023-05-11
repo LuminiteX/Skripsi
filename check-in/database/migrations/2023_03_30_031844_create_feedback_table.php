@@ -21,6 +21,10 @@ return new class extends Migration
             $table->decimal('rating', 3, 1);
             $table->text('comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('reservation_id')->references('id')->on('reservations');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
