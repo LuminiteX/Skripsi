@@ -1,4 +1,8 @@
 <x-customer-layout>
+    @if (session('message'))
+        <div class="alert alert-success mt-2">{{ session('message') }}</div>
+    @endif
+
     <div class="container bg-white text-body">
         <div class="row mb-3 mt-3">
             <div class="col-lg-10 text-left">

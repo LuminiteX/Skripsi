@@ -48,7 +48,11 @@ class FeedbackController extends Controller
         $reservation->reservation_status = 5;
         $reservation->save();
 
-        return to_route('reservations.history');
+        session()->flash('message', 'The feedback for restaurant ' .$reservation->restaurant->name. ' is successful thank you for your input and support');
+        $lastPage = session()->get('last_url_customer');
+        session()->forget('last_url_customer');
+
+        return redirect($lastPage);
 
     }
 }

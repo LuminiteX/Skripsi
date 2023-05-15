@@ -1,4 +1,9 @@
 <x-customer-layout>
+
+    @if (session('message'))
+        <div class="alert alert-success mt-2">{{ session('message') }}</div>
+    @endif
+
     <div class="container bg-white text-body">
         <div class="row mb-3 mt-3">
             <div class="col-lg-10 text-left">
@@ -15,7 +20,8 @@
                     <div class="row text-white mt-3"
                         style="background-color: rgba(0, 0, 0, 0.4); padding: .5em .5em .5em; border-radius: 2em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
                         <div class="col mt-2 mb-2">
-                            <img src="{{ Storage::url($reservation->restaurant->image) }}" class="img-fluid" style="max-height: 270px; object-fit: cover">
+                            <img src="{{ Storage::url($reservation->restaurant->image) }}" class="img-fluid"
+                                style="max-height: 270px; object-fit: cover">
                         </div>
                         <div class="col mt-2 mb-2">
                             <div class="row text-white">

@@ -239,8 +239,6 @@ class ReservationController extends Controller
 
 
     public function uploadProof(Request $request, Reservation $reservation){
-
-        session()->forget('last_url_customer');
         $validated = $request->validate([
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif']
         ], [
@@ -261,7 +259,11 @@ class ReservationController extends Controller
             'reservation_status'=> 2,
         ]);
 
-        return to_route('reservations.list');
+        session()->flash('message', 'The upload transaction for the reservation in restaurant ' .$reservation->restaurant->name. ' is successfull status has been change');
+        $lastPage = session()->get('last_url_customer');
+        session()->forget('last_url_customer');
+
+        return redirect($lastPage);
     }
 
 
