@@ -10,8 +10,8 @@
                     <div class="carousel-item{{ $loop->first ? ' active' : '' }}">
                         <img src="{{ Storage::url($item->floor_image) }}" class="d-block w-100 bg-dark"
                             style="height:600px;object-fit: contain;" alt="{{ $item->floor_name }}">
-                        <div
-                            class="carousel-caption"style="background-color: rgba(0, 0, 0, 0.5); position: absolute; bottom: 0; left: 0; right: 0;">
+                        <div class="carousel-caption"
+                            style="background-color: rgba(0, 0, 0, 0.5); position: absolute; bottom: 0; left: 0; right: 0;">
                             <h5>Floor number {{ $item->floor_number }}</h5>
                             <p>{{ $item->floor_name }}</p>
                         </div>

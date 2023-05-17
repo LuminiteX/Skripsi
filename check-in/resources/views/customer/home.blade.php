@@ -4,7 +4,7 @@
             <img src="storage/HomeImg/HomeBanner.jpg" alt="Top Picture" class="img-fluid"
                 style="max-height: 300px; object-fit: cover; width:100%; min-height: 220px">
 
-            <div class="card-img-overlay text-center mt-md-5 mt-xs-0">
+            <div class="card-img-overlay text-center pt-md-5 mt-xs-0" style="background-color: rgba(0, 0, 0, 0.5);">
                 <h3 class="card-title mt-md-4 mt-xs-0">Welcome to Check-In!</h3>
                 <p class="card-text mt-md-4 mt-xs-0 mb-md-4 mb-xs-0">Check-In is a web based application that aims to
                     help you
