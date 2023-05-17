@@ -32,8 +32,8 @@
                                             <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                                             <label for="qty" class="col-md-2 col-form-label">Qty</label>
                                             <div class="col-lg-6 col-md-8">
-                                                <input type="number" class="form-control" id="qty"
-                                                    name="qty">
+                                                <input type="number" class="form-control" id="qty" name="qty"
+                                                    placeholder="1" value=1>
                                             </div>
                                             <div class="col-lg-4 col-md-8 mt-sm-2 mt-lg-0">
                                                 <button type="submit" class="btn btn-primary">Add to Cart</button>

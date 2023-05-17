@@ -71,6 +71,7 @@ class ReservationController extends Controller
 
         //testing newest validation this time it is between after 1 hour and before 1 hour of the reservation time in reservation table
         $res_table_ids = Reservation::orderBy('reservation_date')
+            ->whereNotIn('reservation_status', [5, 6, 7])
             ->get()
             ->filter(function ($value) use ($reservation) {
                 $start_time = $reservation->reservation_date->subHour(2);
@@ -105,6 +106,7 @@ class ReservationController extends Controller
         //testing newest validation this time it is between after 2 hour and before 2 hour of the reservation time in reservation table
         $res_table_ids = Reservation::orderBy('reservation_date')
             ->get()
+            ->whereNotIn('reservation_status', [5, 6, 7])
             ->filter(function ($value) use ($reservation) {
                 $start_time = $reservation->reservation_date->subHour(2);
                 $end_time = $reservation->reservation_date->addHour(2);
