@@ -43,6 +43,9 @@
                                         @error('reservation_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
+                                        @if (session('message'))
+                                            <div class="text-danger">{{ session('message') }}</div>
+                                        @endif
                                     </div>
                                     <div class="d-grid gap-2">
                                         <button type="submit" class="btn btn-primary">Next</button>

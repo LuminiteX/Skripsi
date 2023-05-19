@@ -119,7 +119,7 @@ class ReservationController extends Controller
             return back()->with('warning', 'Please choose the table base on guests.');
         }
         $request_date = Carbon::parse($request->reservation_date);
-        $reservations = $table->reservations()->whereNotIn('reservation_status', [5, 6])->where('id', '!=', $reservation->id)->get();
+        $reservations = $table->reservations()->whereNotIn('reservation_status', [5, 6, 7])->where('id', '!=', $reservation->id)->get();
 
         foreach ($reservations as $res) {
 

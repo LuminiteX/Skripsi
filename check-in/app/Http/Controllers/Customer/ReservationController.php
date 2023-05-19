@@ -49,6 +49,28 @@ class ReservationController extends Controller
         $validated['user_id'] = $user->id;
         $validated['restaurant_id'] = $restaurant->id;
 
+        $res_table_ids = Reservation::orderBy('reservation_date')
+        ->whereNotIn('reservation_status', [5, 6, 7])
+        ->get()
+        ->filter(function ($value) use ($request) {
+            $reservationDate = Carbon::parse($request->reservation_date);
+            $start_time = $reservationDate->subHour(2);
+            $end_time = $reservationDate->addHour(2);
+
+            return $value->reservation_date->format('Y-m-d') == $reservationDate->format('Y-m-d')
+                && $value->reservation_date->between($start_time, $end_time);
+        })->pluck('table_id');
+
+
+        $tables = Table::where('status', TableStatus::Available)
+            ->where('guest_number', '>=', $request->guest_number)
+            ->where('restaurant_id', $request->restaurant_id)
+            ->whereNotIn('id', $res_table_ids)->get();
+
+        if($tables->isEmpty()){
+            return back()->with('message', 'No reservations found for this date or for this many guest number please change the guest number or the reservation date.');
+        }
+
         if (empty($request->session()->get('reservation'))) {
             $reservation = new Reservation();
             $reservation->fill($validated);
