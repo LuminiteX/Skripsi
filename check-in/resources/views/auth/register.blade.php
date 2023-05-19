@@ -55,36 +55,21 @@
 
             <div class="mt-4">
 
-                <x-label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    :value="__('Address')" />
+                <x-label for="address" class="block mb-2 text-sm font-medium text-gray-900" :value="__('Address')" />
                 <textarea id="address" rows="4" name="address"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Write Address...">{{ old('address') }}</textarea>
 
             </div>
             <div class="mt-1">
-                <x-label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    :value="__('User Profile Picture')" />
+                <x-label for="image" class="block mb-2 text-sm font-medium text-gray-900" :value="__('User Profile Picture')" />
                 <input type="file" id="image" name="image"
                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
             </div>
             <div class="mt-4">
-                <x-label for="is_special_user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                <x-label for="is_special_user" class="block mb-2 text-sm font-medium text-gray-900"
                     :value="__('Please Choose Role')" />
                 <div class="flex items-center md:flex-row">
-                    {{-- @foreach (['0', '1'] as $key => $value)
-                        <input type="radio" name="is_special_user" id="is_special_user_{{ strtolower($value) }}"
-                            value="{{ $value }}" @if ($key === 0) class="ml-40" @endif
-                            @if ($key === 1) class="ml-24" @endif>
-                        <label for="is_special_user_{{ strtolower($value) }}">
-                            @if ($value == 0)
-                                {{ __('Customer') }}
-                            @endif
-                            @if ($value == 1)
-                                {{ __('Restaurant Owner') }}
-                            @endif
-                        </label>
-                    @endforeach --}}
                     <select name="is_special_user" id="is_special_user"
                         class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline focus:outline-none">
                         @foreach (['0' => 'Customer', '1' => 'Restaurant Owner'] as $value => $label)
