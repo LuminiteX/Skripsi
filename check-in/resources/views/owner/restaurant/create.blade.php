@@ -9,12 +9,13 @@
         <div class="py-12">
             <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
                 <div class="m-2 p-2 bg-slate-100 rounded">
-                    <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 mx-52">
+                    <div class="space-y-8 divide-y divide-gray-200 mt-10 sm:w-3/4 sm:mx-10 md:w-1/2 md:mx-52">
                         <h1 class="text-center font-bold text-2xl">Register Restaurant</h1>
                         <form method="POST" action="{{ route('owner.restaurant.create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="sm:col-span-6">
-                                <label for="restaurant_name" class="block text-sm font-medium text-gray-700">Restaurant
+                                <label for="restaurant_name"
+                                    class="block text-sm font-medium text-gray-700 mt-4">Restaurant
                                     Name
                                 </label>
                                 <div class="mt-1">
@@ -30,9 +31,6 @@
                                 <label for="description" class="block text-sm font-medium text-gray-700">
                                     Restaurant Description
                                 </label>
-                                <p class="text-gray-500 text-xs">
-                                    please include bank account number for customer payment
-                                </p>
                                 <div class="mt-1">
                                     <textarea id="description" name="description" rows="4" cols="50"
                                         class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description') }}</textarea>
@@ -45,6 +43,10 @@
                                 <label for="bank_account" class="block text-sm font-medium text-gray-700">
                                     Bank Account
                                 </label>
+                                <p class="text-gray-500 text-xs">
+                                    bank account can be more than one and please input the bank account like BCA :
+                                    115165485956
+                                </p>
                                 <div class="mt-1">
                                     <textarea id="bank_account" name="bank_account" rows="4" cols="50"
                                         class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('bank_account') }}</textarea>

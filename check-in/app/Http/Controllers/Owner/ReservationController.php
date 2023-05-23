@@ -77,7 +77,7 @@ class ReservationController extends Controller
             return view('owner.reservations.view_with_menu', compact('reservation'));
         }
 
-        return view('owner.reservations.view', compact('reservation'));
+        return view('owner.reservations.view_without_menu', compact('reservation'));
     }
 
     /**

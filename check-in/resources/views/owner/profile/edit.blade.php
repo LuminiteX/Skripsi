@@ -13,7 +13,7 @@
                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Owner Profile</a>
                 </div>
                 <div class="m-2 p-2 bg-slate-100 rounded">
-                    <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10 mx-52">
+                    <div class="space-y-8 divide-y divide-gray-200 sm:mx-10 md:w-1/2 md:mx-52">
                         <h1 class="text-center font-bold text-2xl">Edit Owner</h1>
                         <form method="POST" action="{{ route('owner.profile.edit.save') }}"
                             enctype="multipart/form-data">
@@ -79,5 +79,4 @@
             </div>
         </div>
     @endif
-
 </x-owner-layout>

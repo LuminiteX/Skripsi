@@ -97,7 +97,7 @@
                                 @enderror
                             </div>
                             <div class="flex p-1 align-items-center">
-                                <div class="flex mt-6 p-3 w-full space-x-48 justify-center">
+                                <div class="flex mt-6 p-3 w-full md:space-x-48 sm:space-x-40 justify-center">
                                     @if ($reservation->cart_header)
                                         <a href="{{ route('owner.reservations.not_eligible', $reservation->id) }}"
                                             class="px-4 py-2 mr-6 bg-red-500 hover:bg-red-700 rounded-lg text-white">Not

@@ -20,19 +20,21 @@
                             Rating:
                             @for ($i = 1; $i <= 5; $i++)
                                 @if ($i <= $restaurants->rating)
-                                    <i class="fas fa-star text-warning" style="color: gold;"></i>
+                                    <i class="fas fa-star text-warning fa-xs fa-sm" style="color: gold;"></i>
                                 @elseif($i == ceil($restaurants->rating))
-                                    <i class="fas fa-star-half-alt text-warning" style="color: gold;"></i>
+                                    <i class="fas fa-star-half-alt text-warning fa-xs fa-sm" style="color: gold;"></i>
                                 @else
-                                    <i class="far fa-star text-warning" style="color: gold;"></i>
+                                    <i class="far fa-star text-warning fa-xs fa-sm" style="color: gold;"></i>
                                 @endif
                             @endfor
                             ({{ $restaurants->feedback->count() }})
                         </p>
                     </div>
-                    <div class="views-section ms-md-3">
-                        <i class="fas fa-eye me-1"></i>
-                        <span>{{ $restaurants->view }} views</span>
+                    <div class="views-section ms-md-3 ms-sm-2">
+                        <i class="fas fa-eye me-1 fa-xs fa-sm"></i>
+                        <span class="{{ Request::is('sm') ? 'fs-sm' : 'fs-md' }}"
+                            style="{{ Request::is('sm') ? 'font-size: 0.8rem;' : '' }}">{{ $restaurants->view }}
+                            views</span>
                     </div>
                 </div>
             </div>
@@ -113,7 +115,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title mb-4">Comment Section</h2>
-                                <div class="mb-1">
+                                <div class="mb-1"
+                                    style="overflow-x: auto; white-space: normal; scrollbar-width: thin; scrollbar-color: #ccc #f5f5f5;">
                                     @foreach ($comments as $comment)
                                         <div class="w-96 mb-4">
                                             <div class="d-flex mb-0">
@@ -147,7 +150,8 @@
                                                     onclick="toggleCommentForm({{ $comment->id }})">Reply</button>
                                             </div>
                                             <div class="d-none" id="comment-form-{{ $comment->id }}">
-                                                <form action="{{ route('customer.comments.reply', $restaurants->id) }}"
+                                                <form
+                                                    action="{{ route('customer.comments.reply', $restaurants->id) }}"
                                                     method="POST">
                                                     @csrf
                                                     <input type="hidden" name="comment_id"
@@ -162,22 +166,27 @@
                                             </div>
                                         </div>
                                         @foreach ($comment->child()->orderBy('created_at', 'asc')->get() as $child)
-                                            <div class="d-flex mb-3 ms-5">
+                                            <div class="d-flex mb-3 {{ Request::is('sm') ? 'ms-1' : 'ms-5' }}">
                                                 <img src="{{ Storage::url($child->user->image) }}" alt="User"
                                                     class="rounded-circle me-2 border"
                                                     style="width: 50px; height: 50px;">
                                                 <div>
                                                     <div class="d-flex align-items-center mb-1">
-                                                        <h5 class="mb-0 me-2">{{ $child->user->name }}</h5>
+                                                        <h5 class="mb-0 me-2 {{ Request::is('sm') ? 'fs-sm' : '' }}">
+                                                            {{ $child->user->name }}</h5>
                                                         @if ($child->user_id == $restaurants->user_id)
-                                                            <span class="badge text-dark me-2"
+                                                            <span
+                                                                class="badge text-dark me-2 {{ Request::is('sm') ? 'fs-sm' : '' }}"
                                                                 style="background-color: #d1e7dd;">Restaurant
                                                                 Owner</span>
                                                         @endif
                                                         <small
-                                                            class="text-muted">{{ $child->created_at->diffForHumans() }}</small>
+                                                            class="text-muted {{ Request::is('sm') ? 'fs-sm' : '' }}">
+                                                            {{ $child->created_at->diffForHumans() }}
+                                                        </small>
                                                     </div>
-                                                    <p class="mb-0">{{ $child->comment }}</p>
+                                                    <p class="mb-0 {{ Request::is('sm') ? 'fs-sm' : '' }}">
+                                                        {{ $child->comment }}</p>
                                                     @if ($child->user_id == auth()->user()->id)
                                                         <form
                                                             action="{{ route('customer.comments.reply.destroy', ['comments' => $child->id]) }}"
@@ -185,7 +194,7 @@
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-danger mt-2 mb-2">Delete</button>
+                                                                class="btn btn-danger mt-2 mb-2 {{ Request::is('sm') ? 'fs-sm' : '' }}">Delete</button>
                                                         </form>
                                                     @endif
                                                 </div>

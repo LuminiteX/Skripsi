@@ -15,8 +15,8 @@
                 </div>
                 <div class="m-2 p-2 bg-slate-100 rounded">
                     <div class="space-y-8 divide-y divide-gray-200 w-full max-w-lg mx-auto">
-                        <div class="px-6 py-8 bg-white shadow rounded-lg">
-                            <h2 class="text-lg font-bold mb-4 text-gray-800 border-b">Reservation Detail</h2>
+                        <div class="px-6 py-8 bg-white shadow rounded-lg overflow-x-auto">
+                            <h2 class="text-lg font-bold mb-4 text-gray-800 border-b sm:mr-4">Reservation Detail</h2>
 
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">

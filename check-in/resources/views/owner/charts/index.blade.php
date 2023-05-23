@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     @if (auth()->user()->has_restaurant == 1)
-        <div class="flex justify-center items-center space-x-4">
+        <div class="flex flex-wrap justify-center items-center space-x-4">
             <div class="bg-white rounded-lg shadow-lg p-3 flex items-center justify-center w-52 h-24">
                 <div>
                     <div class="text-gray-700 font-bold text-xl mb-1 text-center flex items-center justify-center">
@@ -46,7 +46,7 @@
                 Feedback
             </h2>
             <div class="chart-container">
-                <!-- Your chart goes here -->
+
                 <div id="chart2"></div>
             </div>
         </div>
@@ -55,9 +55,7 @@
                 Reservation
             </h2>
             <div class="chart-container">
-                <!-- Your chart goes here -->
                 <div id="chart3">
-
                 </div>
             </div>
         </div>

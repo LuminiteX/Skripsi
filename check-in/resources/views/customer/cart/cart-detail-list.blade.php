@@ -14,7 +14,7 @@
         </div>
 
         <div class="row mt-3 mb-5">
-            <div class="col-md-12">
+            <div class="col-md-12" style="overflow:scroll;">
                 <table class="table">
                     <thead>
                         <tr>
@@ -81,5 +81,4 @@
             @endif
         </div>
     </div>
-
 </x-customer-layout>

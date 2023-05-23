@@ -19,24 +19,25 @@
                 <div class="container d-flex align-items-center">
                     <div class="row text-white mt-3"
                         style="background-color: rgba(0, 0, 0, 0.4); padding: .5em .5em .5em; border-radius: 2em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
-                        <div class="col mt-2 mb-2">
+                        <div class="col-sm-12 col-md-4 pt-3 pb-3">
                             <img src="{{ Storage::url($reservation->restaurant->image) }}" class="img-fluid"
-                                style="max-height: 270px; object-fit: cover">
+                                style="width: 100%; height: 100%; object-fit: cover">
                         </div>
-                        <div class="col mt-2 mb-2">
+                        <div class="col-sm-12 col-md-4 mt-2 mb-2">
                             <div class="row text-white">
                                 <h3>{{ $reservation->restaurant->name }}</h3>
                                 <p>{{ $reservation->restaurant->address }}</p>
                                 <hr class="border-dark">
-                                <p>Reservation Date : {{ $reservation->reservation_date }}</p>
-                                <p>Guest Number : {{ $reservation->guest_number }}</p>
-                                <p>Table : {{ $reservation->table->name }}</p>
-                                <p> Created At : {{ $reservation->created_at }}</p>
+                                <p>Reservation Date: {{ $reservation->reservation_date }}</p>
+                                <p>Guest Number: {{ $reservation->guest_number }}</p>
+                                <p>Table: {{ $reservation->table->name }}</p>
+                                <p>Created At: {{ $reservation->created_at }}</p>
                                 <b>Reservation with menu: @if ($reservation->cart_header)
                                         Yes
                                     @else
                                         No
-                                    @endif </b>
+                                    @endif
+                                </b>
                                 <b>Reservation Status: @if ($reservation->reservation_status == 1)
                                         Receipt not uploaded
                                     @elseif ($reservation->reservation_status == 2)
@@ -47,7 +48,7 @@
                                 </b>
                             </div>
                         </div>
-                        <div class="col mt-4 justify-content-center align-items-center">
+                        <div class="col-sm-12 col-md-4 mt-4 justify-content-center align-items-center">
                             @if ($reservation->reservation_status == 1)
                                 <div class="d-flex justify-content-center mt-5">
                                     <a href="{{ route('reservations.detail.upload.receipt', $reservation->id) }}"
@@ -77,7 +78,6 @@
                                     </div>
                                 @endif
                             @endif
-
                         </div>
                     </div>
                 </div>

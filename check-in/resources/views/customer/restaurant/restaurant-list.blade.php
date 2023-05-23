@@ -27,10 +27,10 @@
             @endif
             <div class="col-md-4 mb-4">
                 <div class="card"
-                    style="padding: .5em .5em .5em; border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2);">
+                    style="padding: .5em .5em .5em; border-radius: 1em; box-shadow: 0 5px 10px rgba(0,0,0,.2); min-height:450px; max-height:450px;">
                     <img src="{{ Storage::url($restaurant->image) }}" class="card-img-top" alt="{{ $restaurant->name }}"
-                        style="max-height: 150px;">
-                    <div class="card-body">
+                        style="min-height: 150px;max-height: 150px;">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $restaurant->name }}</h5>
                         <p class="card-text">Restaurant Address: {{ $restaurant->address }}</p>
                         <p class="card-text">
@@ -46,8 +46,12 @@
                             @endfor
                         </p>
                         <p class="card-text">Views: {{ $restaurant->view }}</p>
-                        <a href="{{ route('restaurants.details', $restaurant->id) }}" class="btn btn-primary">View
-                            Restaurant</a>
+                        <div class="mt-auto">
+                            <div class="button-container d-flex justify-content-center">
+                                <a href="{{ route('restaurants.details', $restaurant->id) }}"
+                                    class="btn btn-primary">View Restaurant</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

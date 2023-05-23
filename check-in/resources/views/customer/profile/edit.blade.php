@@ -4,14 +4,14 @@
             <h2>Edit Profile</h2>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 @if ($user->image)
                     <img src="{{ Storage::url($user->image) }}" alt="Uploaded Image" class="img-fluid">
                 @else
                     <p>No image uploaded yet.</p>
                 @endif
             </div>
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <form method="POST" action="{{ route('customer.profile.edit.save') }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
