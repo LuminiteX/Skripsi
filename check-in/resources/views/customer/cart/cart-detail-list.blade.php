@@ -14,7 +14,7 @@
         </div>
 
         <div class="row mt-3 mb-5">
-            <div class="col-md-12" style="overflow:scroll;">
+            <div class="col-md-12" style="overflow:auto;">
                 <table class="table">
                     <thead>
                         <tr>

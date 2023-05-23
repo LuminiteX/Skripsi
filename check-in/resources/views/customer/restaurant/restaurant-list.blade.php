@@ -32,7 +32,8 @@
                         style="min-height: 150px;max-height: 150px;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ $restaurant->name }}</h5>
-                        <p class="card-text">Restaurant Address: {{ $restaurant->address }}</p>
+                        <p class="card-text">Restaurant Address:
+                            {{ \Illuminate\Support\Str::limit($restaurant->address, $limit = 100, $end = '...') }}</p>
                         <p class="card-text">
                             Rating:
                             @for ($i = 1; $i <= 5; $i++)
