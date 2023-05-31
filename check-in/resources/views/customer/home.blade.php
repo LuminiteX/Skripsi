@@ -23,7 +23,7 @@
                         beforehand. We noticed that the reservation process and handling is a bit of a hassle for both
                         restaurant owners as well as customers. With the COVID-19 pandemic happening recently, we have
                         also seen the need for a way to reserve and order menu without physical interaction. Because of
-                        that, our team decided to make Check-In so that both restaurnat owners and customers would have
+                        that, our team decided to make Check-In so that both restaurant owners and customers would have
                         an easier time in making and managing reservations.</h5>
                 </div>
                 <div class="col-md-6 col-xs-12 mb-5 p-2">
@@ -37,7 +37,7 @@
                     <h5 class="mt-5">About Us</h5>
                     <h1>WHY CHOOSE US?</h1>
                     <h5>Our application has a lot of features to help you in making reservations online. Here's the
-                        three main reasons on why you should choose Check-In.</h5>
+                        three main reasons on why you should choose Check-In:</h5>
                     <div class="row mt-4">
                         <div class="col-sm-1 text-info">
                             <h5>1.</h5>
